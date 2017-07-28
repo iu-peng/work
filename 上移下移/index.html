@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上移下移</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<section class="wrap">
+	<div class="wrap-left">
+		<ul class="list">
+			<li>
+				<span>0</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>1</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>2</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>3</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>4</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</section>
+<script src="./js/utils.js"></script>
+<script>
+	var list = $('.list')[0]
+	var lis = $('li',list)
+	var ups = $('.up',list)
+	var downs = $('.down',list)
+
+	for(var i=0;i<lis.length;i++){
+		lis[i].style.top = 62*i+'px';
+	}
+
+	var left = $('.wrap-left')[0]
+	left.style.left = (document.documentElement.clientWidth - left.offsetWidth)/2+'px'
+	left.style.top = (document.documentElement.clientHeight - left.offsetHeight)/2+'px'
+	window.onresize = function cent(){
+		left.style.left = (document.documentElement.clientWidth - left.offsetWidth)/2+'px'
+		left.style.top = (document.documentElement.clientHeight - left.offsetHeight)/2+'px'
+	}
+	var onOff = false;
+	//下移
+	for( var i=0; i<downs.length; i++ ){
+		downs[i].onclick = function(){
+			if(onOff) return;
+			onOff = true;
+			var fLi = this.parentNode.parentNode;//本元素
+			var flLi = this.parentNode.parentNode.nextElementSibling;//下一个元素
+
+			if(flLi){//判断下一个是否存在
+				var flLiTop = this.parentNode.parentNode.nextElementSibling.offsetTop;//下一个top值
+				var fLiTop = this.parentNode.parentNode.offsetTop;//本元素top值
+
+				mTween(fLi,{top:flLiTop},300)
+				mTween(flLi,{top:fLiTop},300,'linear',function(){
+					list.insertBefore(flLi,fLi);//变为结构位置
+					onOff = false;
+				})
+			}else{//下移最后一个
+				/*mTween(fLi,{top:0},300,'linear',function(){
+					list.insertBefore(fLi,fLi.parentNode.firstElementChild);//变为结构位置
+					for(var i=0;i<lis.length;i++){
+						lis[i].style.top = 62*i+'px';
+					}
+				})*/
+				mTween(fLi,{top:0},300,'linear',function(){
+					list.insertBefore(fLi,fLi.parentNode.firstElementChild);//变为结构位置
+					onOff = false;
+				})
+				for( var i=0; i<lis.length-1; i++ ){
+					mTween(lis[i],{top:lis[i].offsetTop + 62},300)
+				}
+			}
+		}
+	}
+
+	
+	//上移
+	for( var i=0; i<ups.length; i++ ){
+		ups[i].onclick = function(){
+			if(onOff) return;
+			onOff = true;
+			var fLi = this.parentNode.parentNode;//本元素
+			var fpLi = this.parentNode.parentNode.previousElementSibling;//上一个元素
+
+			if(fpLi){//判断上一个是否存在
+				var fpLiTop = this.parentNode.parentNode.previousElementSibling.offsetTop;//上一个top值
+				var fLiTop = this.parentNode.parentNode.offsetTop;//本元素top值
+
+				mTween(fLi,{top:fpLiTop},300)
+				mTween(fpLi,{top:fLiTop},300,'linear',function(){
+					list.insertBefore(fLi,fpLi);//变为结构位置
+					onOff = false;
+				})
+			}else{//上移第一个
+
+				var endLiTop = fLi.parentNode.lastElementChild.offsetTop;
+
+				/*mTween(fLi,{top:endLiTop},300,'linear',function(){
+					list.appendChild(fLi);//变为结构位置
+					for(var i=0;i<lis.length;i++){
+						lis[i].style.top = 62*i+'px';
+					}
+				})*/
+				
+				mTween(fLi,{top:endLiTop},300,'linear',function(){
+					list.appendChild(fLi);
+					onOff = false;
+				})
+				for( var i=1; i<lis.length; i++ ){
+					mTween(lis[i],{top:lis[i].offsetTop-62},300)
+				}
+			}
+		
+			
+		}
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>清除表情小游戏</title>
+	<style>
+		body { background:#8282ef; margin:0; }
+		.top { height:60px; width:690px; margin:0 auto; background:url(./images/logo.png) no-repeat center; }
+		.bt { width:690px; margin:0 auto; }
+		.bt p { height:40px; line-height:40px; color:#fff; font-size:23px; text-align:center; }
+		.bt p:nth-child(2){ font-size:20px;}
+		.box { width:678px; height:402px; margin:0 auto; border:6px solid #e6cdf3; background:#341f41; position:relative; -overflow:hidden;  }
+		.num { position:absolute; width:80px; height:180px; left:20px; top:20px; }
+		.num div { width:80px; height:80px; border-radius:40px; border:2px solid #ada2b1; margin-bottom:20px;}
+		.num span,.num b { display:block; margin:0 auto; color:#fff; text-align:center; line-height:25px; }
+		.num span { padding-top:15px;}
+		div.get { background:rgba(110,11,134,0.6); }
+		div.lose { background:rgba(74,75,155,0.6); }
+		button { width:150px; height:40px; background:-webkit-linear-gradient(45deg,#7ebafd,#e75cff); color:#fff; font-size:18px; border:3px solid #fff; border-radius:20px; padding:0; position:absolute; bottom:25px; left:260px; outline:none; }
+		.imgbox { position:absolute; left:0; top:0; width:678px; height:402px; overflow:hidden; }
+		img { position:absolute; left:100px; top:-45px; }
+	</style>
+</head>
+<body>
+	<div class="top"></div>
+	<div class="bt">
+		<p>你的鼠标有多快</p>
+		<p>游戏说明：“点击游戏”，随机掉下表情点中它，千万别让它掉下去！！</p>
+	</div>
+	<div class="box">
+		<div class="imgbox">
+			<img src="./images/img-1.png" />
+		</div>
+		<div class="num">
+			<div class="get">
+				<span>0分</span>
+				<b>得分</b>
+			</div>
+			<div class="lose">
+				<span>0分</span>
+				<b>失分</b>
+			</div>
+		</div>
+		<button>开始游戏</button>
+	</div>
+	<script src="./utils.js"></script>
+	<script>
+		var begin = $('button')[0]
+		var box = $('.box')[0]
+		var grade = $('.num')[0]
+		var get = $('.get span')[0]
+		var lose = $('.lose span')[0]
+		//开始按钮点击事件
+		begin.onclick = function(){
+			lose.innerHTML = loseNum+'分';
+			get.innerHTML = getNum + '分';
+			mTween(this,{bottom:0,opacity:0},200);
+			mTween(grade,{left:-120},200,'linear',flowImg);
+			//setTimeout(flowImg,300);
+		}
+		var img = $('img')[0]
+		var imgbox = $('.imgbox')[0]
+		//图片地址数组
+		
+		var imgarr = ['./images/img-1.png','./images/img-2.png','./images/img-4.png','./images/img-5.png','./images/img-6.png',]
+
+		
+		//图片下落
+		
+		var getNum = 0;
+		var loseNum = 0;
+		function flowImg(){
+			//图片加载完成后把它定位到top
+			img.style.top = -img.offsetHeight +'px';
+			//图片随机地址
+			img.src = imgarr[Math.random()*(imgarr.length)|0]
+			img.onload = function(){
+				
+				//图片随机位置
+				img.style.left = Math.random()*(imgbox.clientWidth - img.offsetWidth) +'px';
+				//下落图片
+				mTween(img,{top:402},2000-getNum*100,'linear',function(){
+					//只有时间到了才能执行该函数，时间没到不会执行，如被点击后清除了定时器
+					shake(box,'marginLeft',20,3,function(){
+						//失分
+						loseNum++;
+						lose.innerHTML = loseNum+'分';
+						if(loseNum>=2){
+							mTween(begin,{bottom:25,opacity:1},300);
+							mTween(grade,{left:20},300,'linear');
+							getNum = 0;
+							loseNum = 0;
+							return;
+						}
+						flowImg();
+					})
+				})
+			}
+		}
+		
+
+		//图片点击
+		
+		img.onmousedown = function(){
+			clearInterval(img.timer)//停止下落
+			img.timer = null;//清除定时器，否则进不到下次函数中
+			shake(img,'marginLeft',20,3,function(){
+				//得分
+				getNum++;
+				get.innerHTML = getNum + '分';
+				//抖动完后再次执行下落函数
+				flowImg();
+			});
+			
+		}
+	</script>
+</body>
+</html>
