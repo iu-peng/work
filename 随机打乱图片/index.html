@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>随即打乱图片</title>
+	<style>
+		body { margin:0; background:-webkit-linear-gradient(0deg,#6a54a0,#5e66ad);}
+		ul,li { margin:0; padding:0; list-style:none; }
+		.clearfix:after { content:""; height:0; clear:both; overflow:hidden; visibility:hidden; display:block; }
+		.box { width:1000px; height:563px; padding-top:137px; background:url(./images/bg.png) no-repeat; margin:0 auto; }
+		button { width:148px; height:38px; padding:0; border:1px solid #fff; border-radius:19px; font-size:18px; float:left; outline:none; }
+		button:nth-child(1) { margin-left:314px; margin-right:60px; }
+		button.active { background:#332d52; color:#fff; }
+		.bot { padding:60px 114px 0 104px; }
+		li { width:150px; height:165px; float:left; margin:0 60px 60px 0; }
+		li:nth-child(4n){ margin-right:0; }
+		.num { width:150px; height:150px; border-radius:10px; background:-webkit-linear-gradient(-45deg,#fc8ba7,#bd88ea); text-align:center; line-height:150px; font-size:40px; color:#fff; box-shadow:5px 5px 20px 1px rgba(0,0,0,0.3); }
+		.color { width:110px; height:30px; background:#fff; border-radius:15px; text-align:center; line-height:30px; margin:-15px auto; box-shadow:5px 5px 20px 1px rgba(0,0,0,0.3); }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="top clearfix">
+			<button class="active order">从小到大</button>
+			<button class="noorder">打乱顺序</button>
+		</div>
+		<div class="bot">
+			<ul class="list">
+				<!-- <li>
+					<div class="num">one</div>
+					<div class="color">1-粉红</div>
+				</li>
+				<li>
+					<div class="num">two</div>
+					<div class="color">1-粉红</div>
+				</li> -->
+			</ul>
+		</div>
+	</div>	
+	<script src="./utils.js"></script>
+	<script>
+	var date = [
+		{
+			id:1,
+			beginColor:'#fc8ba7',
+			overColor:'#bd88ea',
+			content:'One',
+			font:'1-粉红'
+		},
+		{
+			id:2,
+			beginColor:'#ce639f',
+			overColor:'#fbd490',
+			content:'Two',
+			font:'2-粉黄'
+		},
+		{
+			id:3,
+			beginColor:'#fde55a',
+			overColor:'#9ecf63',
+			content:'Three',
+			font:'3-黄绿'
+		},
+		{
+			id:4,
+			beginColor:'#98ce66',
+			overColor:'#51c6d8',
+			content:'Four',
+			font:'4-嫩绿'
+		},
+		{
+			id:5,
+			beginColor:'#4ec4dc',
+			overColor:'#596ac4',
+			content:'Five',
+			font:'5-湖蓝'
+		},
+		{
+			id:6,
+			beginColor:'#548ced',
+			overColor:'#8f61ff',
+			content:'Six',
+			font:'6-蓝紫'
+		},
+		{
+			id:7,
+			beginColor:'#9261ff',
+			overColor:'#df93f1',
+			content:'Seven',
+			font:'7-粉紫'
+		},
+		{
+			id:8,
+			beginColor:'#e194ef',
+			overColor:'#fa8baa',
+			content:'Eight',
+			font:'8-紫红'
+		}
+	]
+	var list = $('.list')[0]
+	
+	var noOrder = $('.noorder')[0]
+	var order = $('.order')[0]
+
+	inHtml();
+	function inHtml(){//生成结构
+		var str = '';
+		for(var i=0;i<date.length;i++){
+			str += `<li>
+						<div class="num">${date[i].content}</div>
+						<div class="color">${date[i].font}</div>
+					</li>`
+		}
+		list.innerHTML = str;
+		var nums = $('.num');
+		for(var i=0;i<nums.length;i++){//改变渐变
+			nums[i].style.background = `-webkit-linear-gradient(-45deg,${date[i].beginColor},${date[i].overColor})`
+		}
+	}
+	//打乱顺序
+	noOrder.onclick = function(){
+		date.sort(function(a,b){
+			return Math.random()-0.5;
+		})
+		inHtml();
+
+	}
+	//从大到小排序
+	order.onclick = function(){
+		date = quickSort(date);
+		inHtml();
+	}
+	function quickSort(arr){
+		if(arr.length<=1){
+			return arr;
+		}
+		var left = [];
+		var right = [];
+		var pivotobj = arr.shift()
+		var pivot = pivotobj.id
+		for(var i=0;i<arr.length;i++){
+			if(arr[i].id<pivot){
+				left.push(arr[i])
+			}else{
+				right.push(arr[i])
+			}
+		}
+		return quickSort(left).concat(pivotobj,quickSort(right))
+	}
+	</script>
+</body>
+</html>
