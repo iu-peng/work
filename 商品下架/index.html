@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商品下架</title>
+	<style>
+		.fl { float:left; }
+		.fr { float:right; }
+		li { list-style:none; }
+		ul { padding:0; margin:0; }
+		p { margin:0;}
+		.clearfix:after { content:""; height:0; clear:both; display:block; overflow:hidden; visibility:hidden; }
+		body { background:#c03751; font-family:"微软雅黑";  }
+		.box { margin:0 auto; width:990px; }
+		.top { height:100px; background:url(./images/logo.png) no-repeat center; }
+		.mid li { width:240px; height:400px; background:#fff; float:left; margin-right:10px; position: relative; overflow:hidden;}
+		.mid li:nth-child(4) { margin-right:0; }
+		.time { height:40px; background:#000; padding-left:20px;}
+		.time input { background:none; padding:0; border:0; outline:none; color:#c84e65; margin-top:8px; height:24px; }
+		.time input:nth-child(1){ width:150px; border-bottom:1px solid #c84e65; text-indent:10px;}
+		.time input:nth-child(2){ border:1px solid #c84e65; border-radius:5px; width:53px; margin-left:10px; }
+		.losetime { height:80px; padding-left:15px; }
+		.losetime b { float:left; width:55px; height:80px; line-height:80px; font-size:20px;  }
+		.losetime p { float:left; margin:0; margin-top:24px;}
+		.losetime span { float:left; width:19px; height:28px; background:#e15671; border-radius:2px; color:#fff; margin-right:3px; text-align:center; line-height:28px; font-size:18px;}
+		.losetime p span:nth-child(3),.losetime span:nth-child(6) { width:5px; background:none; color:#e15671; }
+		.pic img { display:block; margin:0 auto;  }
+		.pic { height:180px; }
+		.infor p { height:35px; text-align:center; font-size:15px; font-weight:bold; }
+		.infor i { font-style:normal; font-size:13px; color:#afafaf; }
+		.infor b {  font-size:15px; color:#e15671; }
+		.opat { position:absolute; left:0; bottom:-400px; width:240px; height:400px; background:rgba(0,0,0,0.5);  /*display:none;  transform:scale(1.5,1.5);*/ transition:0.9s; }
+		.opat img { display:block; margin:134px auto;}
+		.bot { margin-top:10px;}
+		.b-top { height:40px; background:#000; color:#fff; padding-left:10px; }
+		.b-top p { width:50%; line-height:40px; }
+		.bot li { height:60px; background:#fff; display:flex; justify-content:space-between; padding:10px; }
+		.bot li img { width:40px; height:55px; border:1px solid #bfbfbf; padding:2px 10px;}
+		.bot li span {  line-height:55px; }
+		.bot li span:nth-child(even) { color:#e15671; }
+		.bot li:nth-child(even) { background:#f6f5f6; }
+	</style>
+</head>
+<body>
+
+	<div class="box">
+		<div class="top"></div>
+		<div class="mid" id="mid">
+			<ul class="clearfix list">
+				<li>
+					<div class="opat">
+						<img src="./images/sold-out.png" alt="">
+					</div>
+					<div class="time">
+						<input type="text" value="2017 7 16 20:06:00" class="fl" />
+						<input type="button" value="确定" class="fl" />
+					</div>
+					<div class="losetime">
+						<b>剩余</b>
+						<p>
+							<span>0</span>
+							<span>0</span>
+							<span>:</span>
+							<span>0</span>
+							<span>0</span>
+							<span>:</span>
+							<span>0</span>
+							<span>0</span>
+						</p>
+					</div>
+					<div class="pic">
+						<img src="./images/goods_1.png" alt="">
+					</div>
+					<div class="infor">
+						<p>Apple iPhone 7 Plus 64g </p>
+						<p><i>抢购价：</i><b>¥5799</b></p>
+					</div>
+				</li>
+				<li>
+					<div class="opat">
+						<img src="./images/sold-out.png" alt="">
+					</div>
+					<div class="time">
+						<input type="text" value="2017 7 16 20:06:00" class="fl" />
+						<input type="button" value="确定" class="fl" />
+					</div>
+					<div class="losetime">
+						<b>剩余</b>
+						<p>
+							<span>0</span>
+							<span>0</span>
+							<span>:</span>
+							<span>0</span>
+							<span>0</span>
+							<span>:</span>
+							<span>0</span>
+							<span>0</span>
+						</p>
+					</div>
+					<div class="pic">
+						<img src="./images/goods_2.png" alt="">
+					</div>
+					<div class="infor">
+						<p>27 英寸配备 Retina 5K显示屏</p>
+						<p><i>抢购价：</i><b>¥15999</b></p>
+					</div>
+				</li>
+				<li>
+					<div class="opat">
+						<img src="./images/sold-out.png" alt="">
+					</div>
+					<div class="time">
+						<input type="text" value="2017 7 16 20:06:00" class="fl" />
+						<input type="button" value="确定" class="fl" />
+					</div>
+					<div class="losetime">
+						<b>剩余</b>
+						<p>
+							<span>0</span>
+							<span>0</span>
+							<span>:</span>
+							<span>0</span>
+							<span>0</span>
+							<span>:</span>
+							<span>0</span>
+							<span>0</span>
+						</p>
+					</div>
+					<div class="pic">
+						<img src="./images/goods_3.png" alt="">
+					</div>
+					<div class="infor">
+						<p>iPad mini 4</p>
+						<p><i>抢购价：</i><b>¥1799</b></p>
+					</div>
+				</li>
+				<li>
+					<div class="opat">
+						<img src="./images/sold-out.png" alt="">
+					</div>
+					<div class="time">
+						<input type="text" value="2017 7 16 20:06:00" class="fl" />
+						<input type="button" value="确定" class="fl" />
+					</div>
+					<div class="losetime">
+						<b>剩余</b>
+						<p>
+							<span>0</span>
+							<span>0</span>
+							<span>:</span>
+							<span>0</span>
+							<span>0</span>
+							<span>:</span>
+							<span>0</span>
+							<span>0</span>
+						</p>
+					</div>
+					<div class="pic">
+						<img src="./images/goods_4.png" alt="">
+					</div>
+					<div class="infor">
+						<p>Apple iPhone 7 Plus 64g </p>
+						<p><i>抢购价：</i><b>¥5799</b></p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="bot">
+			<div class="b-top">
+				<p class="fl">商品</p>
+				<p class="fl">价格</p>
+			</div>
+			<ul>
+				<!-- <li>
+					<span>Apple iPhone 7 Plus 64g </span>
+					<span>￥5799</span>
+					<img src="./images/goods_1.png" alt="">
+				</li>
+				<li>
+					<span>Apple iPhone 7 Plus 64g </span>
+					<span>￥5799</span>
+					<img src="./images/goods_1.png" alt="">
+				</li>
+				<li>
+					<span>Apple iPhone 7 Plus 64g </span>
+					<span>￥5799</span>
+					<img src="./images/goods_1.png" alt="">
+				</li>
+				<li>
+					<span>Apple iPhone 7 Plus 64g </span>
+					<span>￥5799</span>
+					<img src="./images/goods_1.png" alt="">
+				</li> -->
+			</ul>
+		</div>
+	</div>
+	<script src="./utils.js"></script>
+	<script>
+	//var txt = $('.time input')[0]
+	var timebar = $('.time');
+	var opat = $('.opat');
+	var losetime = $('.losetime');
+	var lis = $('.list li');
+	var list = $('.bot ul')[0];
+
+	for( var i=0; i<losetime.length; i++){
+		//begin(i);
+		hh(i)
+	}
+	function hh(n){
+		var btn = timebar[n].getElementsByTagName('input')[1];
+		btn.onclick = function(){
+			begin(n);
+			
+		}
+	}
+	//var timeNum = null;
+	function begin(n){
+		clearInterval(losetime[n].timer)
+		var spans = losetime[n].getElementsByTagName('span');
+		var txt = timebar[n].getElementsByTagName('input')[0];
+		losetime[n].timer = setInterval(function(){
+			var now = new Date();
+			var future = new Date(txt.value);
+
+			if(future<now){
+				return;
+			}
+
+			var dValue = (future.getTime()-now.getTime())/1000;//总时间秒数
+			var h = parseInt(dValue%86400/3600);//小时
+			var m = parseInt(dValue%86400%3600/60);
+			var s = parseInt(dValue%60);
+			var timeNum = addzero(h)+':'+addzero(m)+':'+addzero(s);
+			//倒计时
+			for(var i=0; i<spans.length; i++){
+				spans[i].innerHTML = timeNum.charAt(i)
+			}
+			//到时间后
+			if(parseInt(timeNum.split(':').join(''))==0){
+				clearInterval(losetime[n].timer)//清除定时器
+				//opat[n].style.bottom = '0px'
+				shake(lis[n],'left',20,5,function(){
+					mTween(opat[n],'bottom',-40,500,'backIn',function(){
+						then(n);
+					})
+				})
+			}
+		},10)
+	}
+	function addzero(i){//补零
+		return i<10? '0'+i:i
+	}
+
+	var arr = [
+		{
+			name:'Apple iPhone 7 Plus 64g',
+			money:'￥5799',
+			img:'goods_1'
+		},
+		{
+			name:'Apple iPhone 7 Plus 65g',
+			money:'￥5799',
+			img:'goods_2'
+		},
+		{
+			name:'Apple iPhone 7 Plus 66g',
+			money:'￥5799',
+			img:'goods_3'
+		},
+		{
+			name:'Apple iPhone 7 Plus 67g',
+			money:'￥5799',
+			img:'goods_4'
+		}
+	]
+//
+	function then(n){
+		var str = '';
+		//for(var n=0;n<arr.length;n++){
+			str = `<li>
+						<span>${arr[n].name}</span>
+						<span>${arr[n].money}</span>
+						<img src="./images/${arr[n].img}.png" />
+					</li>`
+		//}
+		console.log(n)
+		list.innerHTML += str;
+	}
+	</script>
+</body>
+</html>
