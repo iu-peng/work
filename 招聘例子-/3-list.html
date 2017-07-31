@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		    html,body{
+		    	width: 100%;
+		    	height: 100%;
+		    	margin: 0;
+		    }
+		    body{
+		    	-background: url(img/zpbg.png) no-repeat center center;
+		    	background-size: cover;
+		    	display: flex;
+		    }
+		    ul,li{
+		    	margin: 0;
+		    	padding: 0;
+		    	list-style: none;
+		    }
+		    p{
+		    	margin: 0;
+		    }
+		    a{
+		    	text-decoration: none;
+		    	color:#b6bdcf;
+		    }
+		    #content{
+		    	width: 700px;
+		    	height: 460px;
+		    	border-radius: 10px;
+		    	border: 1px solid #30343f;
+		    	margin: auto;
+		    	-background: url(img/logo.png) no-repeat 25px 25px #252934;
+		    	box-sizing: border-box;
+		    	padding: 84px 0px 0px 25px;
+		    }
+		    #leftList{
+		    	float: left;
+		    	width: 60px;
+		    	padding-right: 12px;
+		    	height: 100%;
+		    	background: url(img/leftListBg.png) no-repeat right top;
+		    }
+		    #leftList li{
+		    	text-align: right;
+		    	height: 68px;
+		    	padding-top: 12px;
+		    	color: #6a7686;
+		    	font: 10px/18px "微软雅黑";
+		    }
+		    #leftList li span{
+		    	font-size: 12px;
+		    	display: block;
+					cursor: pointer;
+		    }
+		    #leftList .active span{
+		    	color: #ff2c4f;
+		    }
+		    #right{
+		    	width: 600px;
+		    	height: 100%;
+		    	float: left;
+		    }
+		    #rightList li{
+		    	height: 82px;
+		    	width: 100%;
+		    	box-sizing: border-box;
+		    	padding: 20px 25px 20px 30px;
+		    	position: relative;
+					cursor: pointer;
+		    }
+		    #rightList li:hover{
+		    	background-color: #1e212a;
+		    }
+		    #rightList li:hover .num{
+		    	color: #ff2c4f;
+		    }
+		    #rightList li:hover:before{
+		    	content: "";
+		    	width: 2px;
+		    	height: 54px;
+		    	position: absolute;
+		    	background-color: #ff2c4f;
+		    	left: -3px;
+		    	top: 10px;
+		    }
+		    #rightList li:after{
+		    	content: "";
+		    	width: 543px;
+		    	height: 1px;
+		    	position: absolute;
+		    	bottom: 0px;
+		    	right: 25px;
+		    	background:url(img/lineBg.png) repeat-x;
+		    }
+		    #rightList .num{
+		    	font-size: 30px;
+		    	font-family: arial;
+		    	color:#6a7686;
+		    	float: left;
+		    	width: 36px;
+		    	height: 40px;
+		    	border-right: 1px solid #303642;
+		    }
+		    #rightList .list{
+		    	float: left;
+		    	width: 500px;
+		    	margin-left: 6px;
+		    	font-size: 14px;
+		    	color: #b6bdcf;
+		    	font-family: "微软雅黑";
+		    }
+		    #rightList .list span{
+		    	float: left;
+		    }
+		    
+		    .list>a:nth-of-type(1){
+		    	height: 26px;
+		    	float: none;
+		    	font-size: 14px;
+		    }
+		    .job{
+		    	margin-right: 15px;
+		    }
+		    #rightList .list time{
+		    	float: right;
+		    	color: #606a7a;
+		    }
+		    .list .text{
+		    	float: left;
+		    	width: 430px;
+		    	overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+		    }
+		    .list a{
+		    	float: right;
+		    	font-size: 12px;
+		    }
+		    nav{
+		    	font-size: 0px;
+		    	text-align: center;
+		    }
+		    nav a{
+		    	font: 12px/46px "微软雅黑";
+		    	display: inline-block;
+		    	vertical-align: middle;
+		    	width: 24px;
+		    }
+		    nav a.active{
+		    	color: #eb2a4b;
+		    }
+		</style>
+	</head>
+	<body>
+		<div id="content">
+			<ul id="leftList">
+				<!-- <li><span>社会招聘</span>society</li>
+				<li class="active"><span>校园招聘</span>campus</li> -->
+			</ul>
+			<div id="right">
+				<ul id="rightList">
+					<!-- <li>
+						<span class="num">01</span>
+						<div class="list">
+							<a href=""><span class="job">职位需求：前端开发工程师</span><span>需求人数：2名</span><time>2014-04-10</time></a>
+							<p><span class="text">岗位要求：布拉布拉布拉一大段话布拉布拉布拉一大段话布拉布拉布拉一大段话</span><a href="javascript:;">查看详情>></a></p>
+						</div>
+					</li> -->
+				</ul>
+				<nav id="nav">
+					<span id="pagesBox">
+						<!-- <a class="active" href="javascript:;">1</a>
+						<a href="javascript:;">2</a>
+						<a href="javascript:;">3</a>
+						<a href="javascript:;">4</a> -->
+					</span>
+				</nav>
+			</div>
+		</div>
+		<script src="js/data.js"></script>
+		<script>
+			/*
+				1. 根据数据，渲染出第一页的内容，默认是社会招聘
+				2. 根据总数据，生成页数，一页是4条数据
+				3. 翻页，翻页到第三页，刷新页面，展示第三页的数据
+				4. 点击左边招聘类型，渲染不同类型数据
+						社会招聘
+						校园招聘
+
+				5. 点击翻页，改变hash值；点击招聘类型，改变search值
+			*/
+
+			// 1. 找到右边的数据，拿到社会招聘数据 world
+			var datas = data.world;
+
+			// 2. 把数据渲染，用Html展示数据
+
+			var rightList = document.getElementById("rightList");
+
+			//7. 把渲染右边的结构，封装一个函数，在一开始的时候要渲染第一个的内容，在点击分页的时候，渲染对应页数的内容
+
+			createRightHtml(0)
+
+			// 函数需要一个参数
+			/*
+				index 传进来的是下标,下标是从0开始
+				0——> 第一页  1代表第二页。。。。
+			*/
+			function createRightHtml(index){	
+				var start = index*4;
+				var end = start + 4;
+				var rightHtml = datas.slice(start,end).map(function (item){
+					return `<li>
+							<span class="num">${item.num}</span>
+							<div class="list">
+								<a href=""><span style="margin-right:10px;">招聘类型：${item.job}</span><span class="job">职位需求：前端开发工程师</span><span>需求人数：${item.pNum}名</span><time>${item.data}</time></a>
+								<p><span class="text">${item.ask}</span><a href="javascript:;">查看详情>></a></p>
+							</div>
+						</li>`
+				});
+
+				rightList.innerHTML = rightHtml.join("");
+			}
+
+
+			
+
+			//3. 计算页数，生成页数的结构
+			// 一页展示4条
+			var pageNum = Math.ceil(datas.length/4);
+
+			var pagesBox = document.getElementById("pagesBox");
+			var pageHtml = '';
+			for( var i = 0; i < pageNum; i++ ){
+				pageHtml += `<a class="${i===0?"active":''}" href="javascript:;">${i+1}</a>`		
+			}
+
+			pagesBox.innerHTML = pageHtml;
+
+			// 4. 生成左边的结构  招聘类型
+
+			var leftList = document.getElementById("leftList");
+
+			var leftHtml = data.list.map(function (item,index){
+				return `<li><span>${item.text}</span>${item.eng}</li>`
+			})
+			leftList.innerHTML = leftHtml.join("");
+			// 5. 默认第一个添加样式
+			var leftLi = leftList.children;
+			leftLi[0].className = "active";
+
+			// 6. 开始写交互
+			//-------翻页-------------
+
+			// 点击翻页，要渲染对应数据的结构
+			/*
+				第1页  0 4      0*4    0*4 +4
+				第2页  4 8      1*4    1*4 +4
+				第3页  8 12     2*4    2*4 +4
+
+				start = index*4
+				end = start + 4
+				index 是下标
+
+				拿下标：
+					1. 那a的innerHTML
+					2. 循环时候添加自定义的属性存下标
+			*/
+
+			var pageA = pagesBox.children;
+			var prevPage = 0;
+			for( var i = 0; i < pageA.length; i++ ){
+				pageA[i].index = i;
+				pageA[i].onclick = function (){
+					createRightHtml(this.index);
+					pageA[prevPage].className  = ''
+					this.className = 'active';
+					prevPage = this.index;
+				};
+			}
+
+
+
+
+		</script>
+	</body>
+</html>
