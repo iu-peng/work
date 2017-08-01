@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商品放大镜</title>
+	<style>
+		body { background:#262c3a; }
+		.box { width:900px; height:500px; background:url(./images/bg.png) no-repeat; margin:0px auto; padding-top:138px;position:relative; }
+		.left { width:335px; height:188px; background:url(./images/1.jpg) no-repeat; background-size:335px 188px; position:absolute; left:148px; top:155px;}
+		.leftBlank { width:50px; height:50px; background:rgba(0,0,0,0); position:absolute; -display:none; cursor:pointer; -border-radius:25px; -display:none; }
+		.right { width:200px; height:200px; -border-radius:100px; position:absolute; right:122px; top:155px; border:3px solid #4d65c5; overflow:hidden; display:none; }
+		.rigImg { width:1340px; height:752px; background:url(./images/1.jpg) no-repeat; background-size:1340px 752px; position:absolute; left:0; top:0; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="left">
+			<div class="leftBlank"></div>
+		</div>
+		<div class="right">
+			<div class="rigImg"></div>
+		</div>
+	</div>
+	<script src="./utils.js"></script>
+	<script>
+		var left = $('.left')[0];
+		var right = $('.right')[0];
+		var leftBlank = $('.leftBlank')[0];
+		var rigImg = $('.rigImg')[0];
+
+		left.onmouseover = function(){
+			leftBlank.style.background = 'rgba(0,0,0,0.4';
+			right.style.display = 'block';
+		}
+		left.onmouseout = function(){
+			leftBlank.style.background = 'rgba(0,0,0,0';
+			right.style.display = 'none';
+		}
+		//最大移动范围
+		var lr = left.getBoundingClientRect().right - left.getBoundingClientRect().left - leftBlank.clientWidth;
+		var tb = left.getBoundingClientRect().bottom - left.getBoundingClientRect().top - leftBlank.clientHeight;
+		
+		left.onmousemove = function(ev){
+			//移动距离
+			//leftBlank.style.display = 'block';
+			var l = ev.clientX - left.getBoundingClientRect().left - leftBlank.clientWidth/2;
+			var t = ev.clientY - left.getBoundingClientRect().top - leftBlank.clientHeight/2;
+			
+			
+			if(l<0){
+				l=0;
+			}
+			if(t<0){
+				t=0;
+			}
+			if(l>lr){
+				l=lr;
+			}
+			if(t>tb){
+				t=tb;
+			}
+
+			leftBlank.style.left = l + 'px';
+			leftBlank.style.top = t + 'px';
+
+			rigImg.style.left = -l*4 + 'px'
+			rigImg.style.top = -t*4 + 'px'
+		}
+		
+	</script>
+</body>
+</html>
