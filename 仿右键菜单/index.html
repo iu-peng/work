@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>仿右键菜单</title>
+	<style>
+		body { background:-webkit-linear-gradient(0deg,#f97f69 50%,#b9409f 100%);}
+		#onRight { width:180px; height:200px; border:1px dotted #fff; border-radius:10px; padding:0; margin:0; background:-webkit-linear-gradient(45deg,#20b2aa,rgba(244,191,100,0.5)); position:absolute; display:none; overflow:hidden; }
+		#onRight li {  line-height:49px;  font-size:20px; list-style:none; }
+		#onRight a { display:block; width:180px; height:49px; text-decoration:none; color:#fff; border-bottom:1px dotted rgba(255,255,255,0); }
+		#onRight a:hover { background:rgba(220,90,110,0.5); border-bottom:1px dotted rgba(255,255,255,0.5)}
+		#onRight s { float:left; width:20px; height:20px; margin:15px 0 0 40px; background:url(./li-bg.png) no-repeat; }
+		#onRight span { float:right; width:100px; -height:49px; text-align:left; }
+
+		#onRight li:nth-child(2) s{ background-position:0 -20px;}
+		#onRight li:nth-child(3) s{ background-position:0 -40px;}
+		#onRight li:nth-child(4) s{ background-position:0 -60px;}
+		#onRight li:nth-child(4) a{ border-bottom:none; }
+	</style>
+</head>
+<body>
+	<ul id="onRight">
+		<li><a href="javascript:;"><s></s><span>下载</span></a></li>
+		<li><a href="javascript:;"><s></s><span>删除</span></a></li>
+		<li><a href="javascript:;"><s></s><span>重命名</span></a></li>
+		<li><a href="javascript:;"><s></s><span>移动到</span></a></li>
+	</ul>
+	<script>
+	var onRight = document.getElementById('onRight');
+	var onRightA = document.getElementsByTagName('a');
+
+	document.oncontextmenu = function(ev){
+		onRight.style.display = 'block';
+		//最大宽度
+		var lr = document.documentElement.clientWidth - onRight.offsetWidth;
+		var tb = document.documentElement.clientHeight - onRight.offsetHeight;
+
+		var l = ev.clientX;
+		var t = ev.clientY;
+		//过界处理
+		if(l>lr){
+			l=lr;
+		}
+		if(t>tb){
+			t=tb;
+		}
+		onRight.style.left = l + 'px';
+		onRight.style.top = t + 'px';
+		return false;
+	}
+	/*for( var i=0; i<onRightA.length; i++ ){
+		onRightA[i].onclick = function(ev){
+			//ev.stopPropagation();
+		}
+	}*/
+	//点击document隐藏菜单
+	document.onclick = function(){
+		onRight.style.display = 'none';
+	}
+	</script>
+</body>
+</html>
