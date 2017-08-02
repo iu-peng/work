@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>仿select</title>
+	<style>
+		body { background:url(./images/bg.png); font-family:"微软雅黑"; }
+		ul { padding:0; margin:0; margin-top:7px; display:none;}
+		li { list-style:none; height:35px; padding-left:25px; font-size:20px;  color:#000; border-radius:20px; line-height:35px; margin-bottom:5px; cursor:pointer; }
+
+		li:hover,li.active{ background:#ff574f; color:#fff; }
+		.box { width:340px; -height:36px; padding:5px; background:#fff; border-radius:23px; margin:150px auto;}
+		.top { height:36px;}
+		span { float:left; width:268px; height:34px; border:1px solid #e0e1fe; background:#d9d9e2 url(./images/search.png) no-repeat 9px 6px; border-radius:23px; line-height:34px; text-indent:40px; color:#4d277b; font-size:17px; font-weight:bold; cursor:pointer; }
+		span.active { border-color:#fd635e; background-color:#fff; }
+		button { float:left; width:60px; height:36px; background:#fd635e; color:#fff; font-size:19px; border:none; padding:0; border-radius:18px; margin-left:5px;}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="top">
+			<span></span>
+			<button>GO</button>
+		</div>
+		<ul id="list">
+			<li>第七个读者</li>
+			<li>心理罪 画像</li>
+			<li>心理罪 教化场</li>
+			<li>心里罪 城市之光</li>
+			<li>地球往事</li>
+			<li>末日之光</li>
+		</ul>
+	</div>
+	<script src="./utils.js"></script>
+	<script>
+	var span = $('span')[0]
+	var box = $('.box')[0]
+	var list = $('#list')
+	var lis = $('li',list)
+	
+	span.onclick = function(ev){
+		list.style.display = 'block';
+		this.className = 'active';
+		box.style.backgroundColor = '#e0e1fe';
+		ev.stopPropagation();//取消冒泡
+	}
+	var n = null;
+	for( var i=0; i<lis.length; i++ ){
+		lis[i].index = i;
+		lis[i].onclick = function(){
+			span.innerHTML = this.innerHTML;
+			if(n!==null) lis[n].className = '';
+			this.className = 'active';
+			n = this.index;
+
+			clear();
+		}
+	}
+	document.onclick = clear;
+	function clear(){
+		list.style.display = 'none';
+		span.className = '';
+		box.style.backgroundColor = '';
+	}
+	</script>
+</body>
+</html>
