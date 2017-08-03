@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选框文件夹</title>
+	<style>
+		.chex { position:absolute; background:rgba(0,0,255,0.3); }
+		.test { height:30px; margin:10px; border:1px solid #07d9f9; }
+	</style>
+</head>
+<body>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<script>
+	var divs = document.querySelectorAll('.test')
+	var newDiv = document.createElement('div')
+	document.body.appendChild(newDiv);
+	document.onmousedown = function(ev){
+		for(var i=0; i<divs.length; i++){
+			divs[i].style.background = '';
+		}
+
+		var downX = ev.clientX;
+		var downY = ev.clientY;
+
+		//newDiv.style.left = downX + 'px';
+		//newDiv.style.top = downY + 'px';
+
+		document.onmousemove = function(ev){
+			newDiv.className = 'chex';
+			//选框的宽度
+			newDiv.style.width = Math.abs(ev.clientX - downX) + 'px';
+			newDiv.style.height = Math.abs(ev.clientY - downY) + 'px';
+			//选框的left和top值
+			newDiv.style.left = Math.min(downX,ev.clientX) + 'px';
+			newDiv.style.top = Math.min(downY,ev.clientY) + 'px';
+
+			for(var i=0; i<divs.length; i++){
+				if(getBound(newDiv,divs[i])){
+					divs[i].style.background = 'red';
+				}else{
+					divs[i].style.background = '';
+				}
+			}
+			
+		}
+		//清除事件
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			newDiv.className = '';
+		}
+	}
+
+	function getBound(moveObj,getObj){
+		var bound2 = moveObj.getBoundingClientRect();//移动元素
+		var bound1 = getObj.getBoundingClientRect();//待碰撞元素
+
+		if(bound2.right>bound1.left && bound2.left<bound1.right && bound2.bottom>bound1.top && bound2.top<bound1.bottom ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	</script>
+</body>
+</html>

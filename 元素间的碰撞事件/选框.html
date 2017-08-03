@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选框</title>
+	<style>
+		.chex {  background:rgba(0,0,255,0.3); position:absolute; }
+		#box { height:30px; border:1px solid blue; }
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script>
+	document.onmousedown = function(ev){
+		var newDiv = document.createElement('div')
+		newDiv.className = 'chex';
+		document.body.appendChild(newDiv);
+
+		var downX = ev.clientX;
+		var downY = ev.clientY;
+
+		//newDiv.style.left = downX + 'px';
+		//newDiv.style.top = downY + 'px';
+
+		document.onmousemove = function(ev){
+			//选框的宽度
+			newDiv.style.width = Math.abs(ev.clientX - downX) + 'px';
+			newDiv.style.height = Math.abs(ev.clientY - downY) + 'px';
+			//选框的left和top值
+			newDiv.style.left = Math.min(downX,ev.clientX) + 'px';
+			newDiv.style.top = Math.min(downY,ev.clientY) + 'px';
+		}
+		//清除事件
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			newDiv.remove();
+		}
+	}
+	</script>
+</body>
+</html>

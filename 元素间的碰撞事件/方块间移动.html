@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选框碰撞</title>
+	<style>
+		.test { height:100px; width:100px;  background:red; float:left; margin:20px; }
+		#box2 { height:100px; width:100px; background:rgba(150,21,250,0.3); position:absolute; left:500px; top:200px;}
+	</style>
+</head>
+<body>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div class="test"></div>
+	<div id="box2"></div>
+	<script>
+	var tests = document.querySelectorAll('.test');
+	
+	box2.onmousedown = function(ev){
+		var neiX = ev.clientX - box2.offsetLeft;
+		var neiY = ev.clientY - box2.offsetTop;
+		document.onmousemove = function(ev){
+			var l = ev.clientX - neiX;
+			var t = ev.clientY - neiY;
+
+			box2.style.left = l + 'px';
+			box2.style.top = t + 'px';
+
+			
+			var arr = [];
+			var min = 9999999999999999;
+			var changediv = null;
+			//和选框碰撞的放入数组中
+			for( var i=0; i<tests.length; i++ ){
+				tests[i].style.background = 'red';
+				if( getBound(box2,tests[i])){
+					arr.push(tests[i])
+				}
+			}
+
+			for( var i=0; i<arr.length; i++ ){
+
+				var divX = arr[i].offsetLeft + arr[i].offsetWidth/2;
+				var divY = arr[i].offsetTop + arr[i].offsetHeight/2;
+
+				var box2X = l + box2.offsetWidth/2;
+				var box2Y = t + box2.offsetHeight/2;
+
+				var difX = box2X - divX;
+				var difY = box2Y - divY;
+
+				var xiebian = difX*difX + difY*difY;
+				if(xiebian < min ){
+					min = xiebian;
+					changediv = arr[i];
+				}
+			}
+			if( changediv ){
+				changediv.style.background = 'blue';
+			}
+		}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		}
+	}
+
+	function getBound(moveObj,getObj){
+		var bound2 = moveObj.getBoundingClientRect();//移动元素
+		var bound1 = getObj.getBoundingClientRect();//待碰撞元素
+
+		if(bound2.right>bound1.left && bound2.left<bound1.right && bound2.bottom>bound1.top && bound2.top<bound1.bottom ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	</script>
+</body>
+</html>

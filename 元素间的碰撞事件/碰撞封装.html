@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选框碰撞</title>
+	<style>
+		div { height:100px; border:1px solid blue; width:100px; position:absolute; left:500px; top:200px; background:red; }
+		#box2 { background:green; left:300px; top:200px; }
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<div id="box2"></div>
+	<script>
+	box2.onmousedown = function(ev){
+		var neiX = ev.clientX - box2.offsetLeft;
+		var neiY = ev.clientY - box2.offsetTop;
+		document.onmousemove = function(ev){
+			box2.style.left = ev.clientX - neiX + 'px';
+			box2.style.top = ev.clientY - neiY + 'px';
+
+			if( getBound(box2,box) ){
+				box.style.background = 'orange';
+			}else{
+				box.style.background = 'red';
+			}
+		}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		}
+	}
+
+	function getBound(moveObj,getObj){
+		var bound2 = moveObj.getBoundingClientRect();//移动元素
+		var bound1 = getObj.getBoundingClientRect();//待碰撞元素
+
+		if(bound2.right>bound1.left && bound2.left<bound1.right && bound2.bottom>bound1.top && bound2.top<bound1.bottom ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	</script>
+</body>
+</html>
