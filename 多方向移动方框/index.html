@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移动方框</title>
+	<style>
+		#box { width:100px; height:100px; background:orange; position:absolute; left:0; top:0; }
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+
+<script>
+	var box = document.getElementById('box');
+	var timer = null;
+
+	var obj = {}
+
+	document.onkeydown = function(ev){
+			
+		obj[ev.keyCode] = true;
+		//run(ev);
+
+	}
+	document.onkeyup = function(ev){
+
+		obj[ev.keyCode] = false;
+	}
+	//function run(ev){
+		timer = setInterval(function(){
+			/*if(ev.keyCode){
+				return;
+			}*/
+			if(obj[39] || obj[68]){
+				box.style.left = box.offsetLeft + 3 + 'px';
+			}
+			if(obj[37] || obj[65]){
+				box.style.left = box.offsetLeft - 3 + 'px';
+			}
+			if(obj[38] || obj[87]){
+				box.style.top = box.offsetTop - 3 + 'px';
+			}
+			if(obj[40] || obj[83]){
+				box.style.top = box.offsetTop + 3 + 'px';
+			}
+
+		},30)
+	//}
+</script>
+</body>
+</html>
