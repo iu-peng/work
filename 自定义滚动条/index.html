@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义滚动条</title>
+	<style>
+		body { -background:#212121; }
+		#side { width:16px; height:600px; background:rgba(0,0,0,0.8); border-radius:10px; margin:20px auto; border:2px solid #000; position:relative; }
+		#bar { position:absolute; left:0; top:0;  width:16px; height:40px; border-radius:8px; background:#20b2aa; }
+	</style>
+</head>
+<body>
+	<div id="side">
+		<div id="bar"></div>
+	</div>
+	<script>
+	var side = document.getElementById('side');
+	var bar = document.getElementById('bar');
+
+	var sideneiH = side.clientHeight-bar.offsetHeight;
+
+	mousewheel(document,
+		function(ev){
+			bar.style.top = bar.offsetTop - 10 + 'px';
+			if(bar.offsetTop<0){
+				bar.style.top = '0px';
+				ev.preventDefault();
+			}
+		},
+		function(ev){
+			bar.style.top = bar.offsetTop + 10 + 'px';
+			if(bar.offsetTop>sideneiH){
+				bar.style.top = side.clientHeight - bar.offsetHeight + 'px';
+			}
+			ev.preventDefault();
+		})
+
+	function mousewheel(element,upfun,downfuc){
+		element.onmousewheel = fn;
+		if(element.addEventListener){
+			element.addEventListener("DOMMouseScroll",fn);
+		}
+		
+		function fn(ev){
+			var e = ev || event;
+			direction = true;
+			if(e.wheelDelta){//IE和Chrome
+				direction = e.wheelDelta>0 ? true : false ;
+			}
+			if(e.detail){
+				direction = e.detail<0 ? true : false ;
+			}
+			//统一规定向上向下
+			if(direction){
+				upfun(e);
+			}else{
+				downfuc(e);
+			}		
+		}
+	}
+	var sideBorderW = parseInt(getComputedStyle(side)['borderWidth']);
+	var sideH = side.getBoundingClientRect().top + sideBorderW;
+	
+
+	bar.onmousedown = function(ev){
+		var neiX = ev.clientY - bar.getBoundingClientRect().top;
+		document.onmousemove = function(ev){
+			bar.style.top = ev.clientY - neiX - sideH + 'px';
+			if(bar.offsetTop<0){
+				bar.style.top = '0px';
+			}
+			if(bar.offsetTop>sideneiH){
+				bar.style.top = side.clientHeight - bar.offsetHeight + 'px';
+			}
+		}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		}
+	}
+	</script>
+</body>
+</html>
