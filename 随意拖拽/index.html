@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>随意拖拽</title>
+	<style>
+		body { background:#473891;}
+		#box { width:639px; height:378px; padding:25px 20px 118px; background:url(./images/bg.png) no-repeat; margin:100px auto; }
+		.left { float:left; height:378px; width:159px; }
+		button { width:96px; height:42px; border:2px solid #fff; border-radius:3px; padding:0; font-size:20px; color:#fff; background:rgba(255,255,255,0); margin:163px 0 0 26px;}
+		#list { float:left; width:480px; position:relative; height:378px; margin:0; padding:0; margin-top:20px; }
+		li { list-style:none; width:100px; height:100px; margin:0 20px 20px 0; position:absolute; line-height:100px; text-align:center; font-size:40px; color:#fff; box-shadow:0 10px 15px 0px rgba(0,0,0,0.5); cursor:pointer; }
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div class="left">
+			<button>随机</button>
+		</div>
+		<ul id="list">
+		</ul>
+	</div>
+	<script src="./utils.js"></script>
+	<script>
+	var btn = $('button')[0];
+	var list = $('#list');
+	var arr = [
+		{num:1,background:'#14add2'},
+		{num:2,background:'#fd685d'},
+		{num:3,background:'#4fce86'},
+		{num:4,background:'#eed136'},
+		{num:5,background:'#eea237'},
+		{num:6,background:'#4d51fd'},
+		{num:7,background:'#934afe'},
+		{num:8,background:'#ee6dff'},
+		{num:9,background:'#fc8198'},
+		{num:10,background:'#abe566'},
+		{num:11,background:'#ff7473'},
+		{num:12,background:'#4bdbca'}
+	]
+	inhtml()
+	//生成结构
+	function inhtml(){
+		var str = '';
+		var html = arr.map(function(item,index){
+			return `<li class="liIn" style="left:${index%4*120}px; top:${Math.floor(index/4)*120}px; background:${item['background']};">${item['num']}</li>`
+		}).join('')
+		list.innerHTML = html;
+	}
+	
+	var lis = list.getElementsByTagName('li');
+	//将li的left值和top值存起来{num:1,background:'#14add2'.left:0,top:0},
+	for( var i=0; i<lis.length; i++ ){
+		arr[i]['left'] = lis[i].offsetLeft;
+		arr[i]['top'] = lis[i].offsetTop;
+	}
+	
+	btn.onclick = function(){
+		//变化数组的顺序，根据变化后的数组让li取值
+		arr.sort(function(a,b){
+			return Math.random()-0.5;
+		})
+		for(var i=0; i<lis.length; i++){
+			mTween(lis[i],{left:arr[i]['left'],top:arr[i]['top']},200)
+			/*lis[i].style.left = arr[i]['left'] + 'px';
+			lis[i].style.top = arr[i]['top'] + 'px';*/
+		}
+	}
+	//取消浏览器的默认行为
+	document.onmousedown = function(ev){
+			ev.preventDefault();
+	}
+
+	var lisIn = list.getElementsByClassName('liIn')
+	var doLi = null;
+	var n = null;
+
+	for( var i=0; i<lis.length; i++ ){
+		lis[i].index = i;
+
+		lis[i].onmousedown = function(ev){
+			if(n!==null){
+				return;
+			}
+			
+			var neiX = ev.clientX - this.offsetLeft;
+			var neiY = ev.clientY - this.offsetTop;
+			//获取自身的刚开始的left和top值
+			var ownX = this.offsetLeft;
+			var ownY = this.offsetTop;
+			//排除自身
+			this.classList.remove('liIn')
+			n = this.index;
+			
+			document.onmousemove = function(ev){
+			/*	if(doLi){
+					if(doLi.timer){
+						return;
+					}
+					
+				}*/
+				
+				lis[n].style.left = ev.clientX - neiX + 'px';
+				lis[n].style.top = ev.clientY - neiY + 'px';
+
+				var arr = [];
+				for( var i=0; i<lisIn.length; i++ ){
+					lisIn[i].style.color = '';
+					if( getBound(lis[n],lisIn[i]) ){
+						arr.push(lisIn[i])
+					}
+				}
+				var min = 999999999999;
+
+				//移动元素的中心到ul的距离
+				var moveLiX = lis[n].offsetLeft + lis[n].offsetWidth/2;
+				var moveLiY = lis[n].offsetTop + lis[n].offsetHeight/2;
+				
+				for( var i=0; i<arr.length; i++ ){
+					//被移动元素的中心到ul的距离
+					var changeLiX = arr[i].offsetLeft + arr[i].offsetWidth/2;
+					var changeLiY = arr[i].offsetTop + arr[i].offsetHeight/2;
+
+					//计算x和y方向的差值
+					var difX = moveLiX - changeLiX;
+					var difY = moveLiY - changeLiY
+
+					//计算差值
+					var differ = difX*difX + difY*difY;
+
+					if(differ<min){
+						min = differ;
+						doLi = arr[i];
+					}
+				}
+				ev.preventDefault();				
+			}
+			document.onmouseup = function(){
+				document.onmousemove = null;
+				//鼠标抬起时判断，进行移动
+				if(doLi){
+
+					//准备移动的li的left和top值
+					var doLiOwnX = doLi.offsetLeft;
+					var doLiOwnY = doLi.offsetTop;
+
+					//准备移动的li的中心到ul的距离
+					//var doLiX = doLi.offsetLeft + doLi.offsetWidth/2;
+					//var doLiY = doLi.offsetTop + doLi.offsetHeight/2;
+					
+
+					mTween(doLi,{left:ownX,top:ownY},200)
+					mTween(lis[n],{left:doLiOwnX,top:doLiOwnY},200,'linear',function(){
+						//给该元素添加回class
+						lis[n].classList.add('liIn')
+						//清空n否则点击空白还在记录上次的li
+						n=null;
+						//把移动完的li请空，否则下次点击空白还会进入该判断；
+						doLi=null;
+						return
+					})
+					//没有接触到其他元素就返回原位置
+				}else{
+					if(n!==null){
+						mTween(lis[n],{left:ownX,top:ownY},200,'linear',function(){
+							//给该元素添加回class
+							lis[n].classList.add('liIn');
+							n=null;
+							return
+						})
+					}
+					
+				}
+			}
+		}
+	}
+	//碰撞检测
+	function getBound(moveObj,getObj){
+		var bound2 = moveObj.getBoundingClientRect();//移动元素
+		var bound1 = getObj.getBoundingClientRect();//待碰撞元素
+
+		if(bound2.right>bound1.left && bound2.left<bound1.right && bound2.bottom>bound1.top && bound2.top<bound1.bottom ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	</script>
+</body>
+</html>

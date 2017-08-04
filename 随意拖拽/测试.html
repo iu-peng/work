@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试</title>
+	<style>
+		ul { position:relative; width:500px; height:360px; border:1px solid #000;}
+		li { position:absolute; width:100px; height:100px; margin:0 20px; background:orange; }
+	</style>
+</head>
+<body>
+	<ul id="list">
+		<!-- <li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li> -->
+	</ul>
+	<script>
+		var arr = [
+			{num:1,background:'#14add2'},
+			{num:2,background:'#fd685d'},
+			{num:3,background:'#4fce86'},
+			{num:4,background:'#eed136'},
+			{num:5,background:'#eea237'},
+			{num:6,background:'#4d51fd'},
+			{num:7,background:'#934afe'},
+			{num:8,background:'#ee6dff'},
+			{num:9,background:'#fc8198'},
+			{num:10,background:'#abe566'},
+			{num:11,background:'#ff7473'},
+			{num:12,background:'#4bdbca'}
+		]
+		inhtml()
+		function inhtml(){
+			var str = '';
+			var html = arr.map(function(item,index){
+				return `<li style="left:${index%4*120}px; top:${Math.floor(index/4)*120}px; background:${item['background']};">${item['num']}</li>`
+			}).join('')
+			list.innerHTML = html;
+		}
+		var lis = document.getElementsByTagName('li')
+		for(var i=0; i<lis.length; i++){
+			lis[i].style.left = i%3*120 + 'px';
+			lis[i].style.top = Math.floor(i/3)*120 + 'px';
+		}
+		for( var i=0; i<lis.length; i++ ){
+				lis[i].index = i;
+				lis[i].onmousedown = function(ev){
+					var neiX = ev.clientX - this.offsetLeft;
+					var neiY = ev.clientY - this.offsetTop;
+					var n = this.index;
+					list.onmousemove = function(ev){
+						
+						lis[n].style.left = ev.clientX - neiX + 'px';
+						lis[n].style.top = ev.clientY - neiY + 'px';
+						ev.preventDefault();
+					}
+					list.onmouseup = function(){
+						list.onmousemove = null;
+					}
+				}
+			}
+	</script>
+</body>
+</html>
