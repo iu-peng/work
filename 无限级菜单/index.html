@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    html {
+        width: 100%;
+        height: 100%;
+    }
+    
+    body {
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .main {
+        width: 100%;
+        height: 150%;
+        background: url(./image/bg.png) no-repeat;
+        background-size: 100% 100%;
+        overflow: hidden;
+    }
+    
+    .logo {
+        display: block;
+        width: 200px;
+        height: 55px;
+        background: url(./image/logo.png) no-repeat;
+        margin: 20px auto;
+    }
+    
+    ul {
+        list-style: none;
+        font-size: 22px;
+        color: #8c949c;
+        font-weight: bold;
+    }
+    
+    ul li {
+        position: relative;
+        padding-left: 10px;
+        cursor:pointer;
+    }
+    
+    ul li div {
+        height: 98%;
+        width: 1px;
+        border-left: 1px dotted #ccc;
+        position: absolute;
+        left: 14px;
+        top: 18px;
+    }
+    
+    ul ul {
+        display: none;
+    }
+    
+    ul li span {
+        display: block;
+        line-height: 32px;
+        padding-left: 15px;
+        background: url(./image/icon.png) no-repeat left 500px;
+    }
+    
+    ul li span.add {
+        background-position: 0px -32px;
+    }
+    
+    ul li span.line {
+        background-position: 0px 11px;
+    }
+    
+    .tree {
+        margin-left: 300px;
+    }
+    </style>
+    <script>
+    /*var arr = [{
+        title: "第一级菜单",
+        child: [{
+            title: "第二集菜单"
+        }, {
+            title: "第二集菜单",
+            child: [{
+                title: "第三集菜单"
+            }, {
+                title: "第三集菜单",
+                child: [{
+                    title: "第四集菜单"
+                }, {
+                    title: "第四集菜单"
+                }, {
+                    title: "第四集菜单"
+                }]
+            }, {
+                title: "第三集菜单"
+            }]
+        }, {
+            title: "第二集菜单",
+            child: [{
+                title: "第三集菜单"
+            }, {
+                title: "第三集菜单"
+            }]
+        }]
+    }, {
+        title: "第一级菜单",
+        child: [{
+            title: "第二集菜单"
+        }, {
+            title: "第二集菜单",
+            child: [{
+                title: "第三集菜单"
+            }, {
+                title: "第三集菜单",
+                child: [{
+                    title: "第四集菜单"
+                }, {
+                    title: "第四集菜单"
+                }, {
+                    title: "第四集菜单"
+                }]
+            }, {
+                title: "第三集菜单"
+            }]
+        }, {
+            title: "第二集菜单",
+            child: [{
+                title: "第三集菜单"
+            }, {
+                title: "第三集菜单"
+            }]
+        }]
+    }, {
+        title: "第一集菜单"
+    }];*/
+
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <a href="http://www.miaov.com" class="logo"></a>
+        <div class="tree"  id="list">
+            <!-- <ul>
+                  <li>
+                    <span class="line">第一集菜单</span>
+                    <ul style="disp、、lay: block;">
+                        <li><span>第二集菜单</span></li>
+                        <li><span>第二集菜单</span></li>
+                        <li>
+                            <span class="line">第二集菜单</span>
+                            <ul style="display: block;">
+                                <li><span>第三集菜单</span></li>
+                                <li><span>第三集菜单</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li> 
+            </ul> -->
+        </div>
+    </div>
+    <script>
+        var date = [
+            {
+                title:'第一级',
+                child:[
+                    {
+                        title:'第二级',
+                        child:[
+                            {
+                                title:'第三级',
+                                child:[
+                                    {
+                                        title:'第四级'
+                                    }
+                                ]
+                            },
+                            {
+                                title:'第三级',
+                                child:[
+                                    {
+                                        title:'第四级'
+                                    }
+                                ]
+                            },
+                            {
+                                title:'第三级',
+                                child:[
+                                    {
+                                        title:'第四级'
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title:'第二级',
+                        child:[
+                            {
+                                title:'第三级',
+                                child:[
+                                    {
+                                        title:'第四级'
+                                    }
+                                ]
+                            },
+                            {
+                                title:'第三级',
+                                child:[
+                                    {
+                                        title:'第四级'
+                                    }
+                                ]
+                            },
+                            {
+                                title:'第三级',
+                                child:[
+                                    {
+                                        title:'第四级'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                title:'第一级'
+            },
+            {
+                title:'第一级',
+                child:[
+                    {
+                        title:'第二级',
+                        child:[
+                            {
+                                title:'第三级',
+                                child:[
+                                    {
+                                        title:'第四级'
+                                    },
+                                    {
+                                        title:'第四级'
+                                    },
+                                    {
+                                        title:'第四级'
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title:'第二级',
+                        child:[
+                            {
+                                title:'第三级'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+        var list = document.getElementById('list')
+        function creatHtml(Date){
+            var str = '<ul>';
+            Date.forEach(function(item){
+                //str+=`<li><span class="add">${item.title}</span>`;
+                if(item.child){
+                    str+=`<li><span class="add">${item.title}</span>`;
+                }else{
+                    str+=`<li><span>${item.title}</span>`;
+                }
+                if(item.child){
+                    str += creatHtml(item.child)
+                }
+                str+='</li>'
+            })
+            str+='</ul>';
+            return str;
+        }
+        list.innerHTML = creatHtml(date)
+       
+        var ul = list.children;
+        console.log(ul[0].nodeName)
+        Array.from(ul).forEach(function(item){
+            var lis = item.children;
+            Array.from(lis).forEach(function(item){
+                item.onclick = function(){
+                    if(this.children[1].nodeName === 'UL'){
+                        var uls = this.children;
+                        console.log(uls)
+                    }
+                }
+            })
+        })
+       /* function choose(){
+            var ul = list.getElementsByTagName('ul')
+            var lis = ul.children;
+           console.log(lis)
+            Array.from(lis).forEach(function(item){
+                item.onclick = function(){
+                    var uld = this.children;
+                    Array.from(uld).forEach(function(item){
+                        item.style.display = 'block';//所有ul显示
+                        return choose()
+                    })
+                }
+            })
+       }    */
+    </script>
+</body>
+
+</html>
