@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>加载等待</title>
+	<style type="text/css">
+	body { margin:0; background:#efd1b7; }
+	.box {
+		width:800px;
+		height:100px;
+		border:6px dashed #fff;
+		margin:100px auto;
+		overflow:hidden;
+	}
+	ul,li { margin: 0; padding:0; list-style:none; }
+	.grad li {
+		width:30px;
+		height:30px;
+		background:#20b2aa;
+		border-radius:15px;
+		float:left;
+		margin-top:35px;
+		transform:translate(-200px); 
+		-webkit-animation:'move' 2s cubic-bezier(0.4,0.8,0.8,0.1) infinite;
+	}
+	@-webkit-keyframes 'move' {
+		0% { transform:translate(-200px); }
+		100% { transform:translate(800px); }
+	}
+	.grad li:nth-child(5) {-webkit-animation-delay:0s;}
+	.grad li:nth-child(4) {-webkit-animation-delay:0.1s;}
+	.grad li:nth-child(3) {-webkit-animation-delay:0.2s;}
+	.grad li:nth-child(2) {-webkit-animation-delay:0.3s;}
+	.grad li:nth-child(1) {-webkit-animation-delay:0.4s;}
+
+	.div1 {
+		width:200px;
+		height:300px;
+		margin:10px auto;
+		border:2px dashed #fff;
+	}
+	.change {
+		width:30px;
+		height:30px;
+		background:blue;
+		border-radius:15px; 
+		margin:10px auto;
+		-webkit-animation:'drop' 3s cubic-bezier(0.8,0.5,0.2,0.6) infinite;
+	}
+	@-webkit-keyframes 'drop'{
+		0%{ transform:translateY(0px) rotate(0deg);}
+		25%{ transform:translateY(100px) rotate(300deg); border-radius:0; background:red; }
+		50%{ transform:translateY(0px) rotate(0deg);}
+		75%{ transform:translateY(100px) rotate(-150deg); border-radius:0; background:green; }
+		100%{ transform:translateY(0px) rotate(0deg);}
+	}
+	p {
+		width:250px;
+		height:50px;
+		line-height:50px;
+		text-align:center;
+		font-size:30px;
+		font-weight:bold;
+		color:#212121;
+		border:1px solid #212121;
+		border-radius:15px;
+		margin:10px auto;
+		transition:all 1s ease-in-out;
+		cursor:pointer;
+	}
+	@-webkit-keyframes 'shake' {
+		50%,70% ,90%{ transform:translate(2px);}
+		60%,80%,100%{ transform:translate(-2px);}
+		10%,30%{ transform:translate(8px);}
+		20%,40%{ transform:translate(-8px);}
+	}
+	p:hover {
+		-webkit-animation:'shake' 1s ease-in-out 1;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="grad">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<div class="div1">
+		<div class="change"></div>
+	</div>
+	<p>HOVER SHAKE</p>
+</body>
+</html>
