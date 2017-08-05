@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>六边形</title>
+	<style>
+		ul,li { margin:0; padding:0; list-style:none; }
+		ul {
+			width:300px;
+			height:300px;
+			border:2px solid #000; 
+			margin:100px auto; 
+			position:relative;
+			transform-style:preserve-3d;
+			transition:all 2s;
+		}
+		li {
+			position:absolute;
+			left:100px;
+			top:100px;
+			width:100px;
+			height:86.6px;
+			background:green;
+			transform-origin:bottom center;
+			border:1px solid #fff;
+			transition:all 2s;
+			
+
+		}
+		ul:hover { transform:rotate3d(1,1,1,360deg);}
+		ul:hover li:nth-child(1){
+			transform:rotate(0deg);
+		}
+		ul:hover li:nth-child(2){
+			transform:rotate(60deg);
+		}
+		ul:hover li:nth-child(3){
+			transform:rotate(120deg);
+		}
+		ul:hover li:nth-child(4){
+			transform:rotate(180deg);
+		}
+		ul:hover li:nth-child(5){
+			transform:rotate(240deg);
+		}
+		ul:hover li:nth-child(6){
+			transform:rotate(300deg);
+		}
+		ul:hover li:nth-child(7){
+			transform:translate3d(0,-86.6px,0px) rotateX(90deg);
+		}
+		ul:hover li:nth-child(8){
+			transform:translate3d(0,86.6px,0px) rotateX(90deg);
+		}
+		ul:hover li:nth-child(9){
+			transform:translate3d(75px,-43.3px,0px) rotateX(90deg) rotateY(60deg);
+		}
+		ul:hover li:nth-child(10){
+			transform:translate3d(-75px,-43.3px,0px) rotateX(90deg) rotateY(-60deg);
+		}
+		ul:hover li:nth-child(11){
+			transform:translate3d(75px,43.3px,0px) rotateX(90deg) rotateY(-60deg);
+		}
+		ul:hover li:nth-child(12){
+			transform:translate3d(-75px,43.3px,0px) rotateX(90deg) rotateY(60deg);
+		}
+		ul:hover li:nth-child(13){
+			transform:rotate(0deg) translateZ(-86.6px);
+		}
+		ul:hover li:nth-child(14){
+			transform:rotate(60deg) translateZ(-86.6px);
+		}
+		ul:hover li:nth-child(15){
+			transform:rotate(120deg) translateZ(-86.6px);
+		}
+		ul:hover li:nth-child(16){
+			transform:rotate(180deg) translateZ(-86.6px);
+		}
+		ul:hover li:nth-child(17){
+			transform:rotate(240deg) translateZ(-86.6px);
+		}
+		ul:hover li:nth-child(18){
+			transform:rotate(300deg) translateZ(-86.6px);
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</body>
+</html>
