@@ -7,7 +7,7 @@
 
 <h3 align="center">我会把平时的作品上传于此</h3>
 
-<h2 align="center">JS</h2>
+<h2 align="center" style="color:#2f4f4f;">JS</h2>
 
 ### 数组练习
 * 随机打乱图片
@@ -52,7 +52,7 @@
 * 随意拖拽
 * 自定义滚动条
 
-<h2 align="center">CSS</h2>
+<h2 align="center" style="color:#2f4f4f;">CSS</h2>
 
 ### 3D场景
 * 六方体旋转
