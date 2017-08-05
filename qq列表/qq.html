@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	h2,ul,li { margin:0; padding:0; }
+	li { list-style:none; }
+	body { background:#828ad7; }
+	.phone { width:350px; height:650px; background:#000; border-radius:10px; margin:0 auto; overflow:hidden;  }
+	span { display:block; width:80px; height:5px; background:#fff; border-radius:2px; margin:10px auto; }
+	.screen { width:250px; height:550px; padding:25px; margin:10px auto; background:#20b2aa;  }
+	h2,li { width:200px; height:30px; line-height:30px; padding:0 25px; cursor:pointer; }
+	h2 { background:rgba(255,0,255,0.5); }
+	ul { background:rgba(255,255,0,0.5); display:none; }
+	</style>
+</head>
+<body>
+	<div class="phone">
+		<span></span>
+		<div class="screen">
+			<div class="box">
+				<h2>我的好友</h2>
+				<ul>
+					<li>好友1</li>
+					<li>好友2</li>
+					<li>好友3</li>
+					<li>好友4</li>
+				</ul>
+				<h2>企业好友</h2>
+				<ul>
+					<li>好友1</li>
+					<li>好友2</li>
+					<li>好友3</li>
+					<li>好友4</li>
+				</ul>
+				<h2>陌生人</h2>
+				<ul>
+					<li>好友1</li>
+					<li>好友2</li>
+					<li>好友3</li>
+					<li>好友4</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	var aH2 = document.querySelectorAll('h2');
+	var aUl = document.querySelectorAll('ul');
+	var aLi = document.querySelectorAll('.box li');
+	var n=0;
+	for(var i=0; i<aH2.length; i++ ){
+		aH2[i].index = i;
+		aH2[i].onOff = false;//默认为关闭状态
+		aH2[i].onclick = function(){
+			aLi[m].style.background = ''; //选项卡关闭后点击的li也会清除
+			aLi[m].onOff = false;
+			if(n!=this.index){//点击的是别的选项卡
+				//清除最近点击的操作；
+				aH2[n].style.background = '';
+				aUl[n].style.display = 'none';
+				this.onOff = false;
+			}
+			if(!this.onOff){//关闭时点击展开；
+				this.style.background = 'red';
+				aUl[this.index].style.display = 'block';
+				this.onOff = true;
+			}else{//展开时关闭
+				this.style.background = '';
+				aUl[this.index].style.display = 'none';
+				this.onOff = false;
+			}
+			n=this.index;//为了清理最近操作
+		}
+	}
+	var m = 0; //记录上次点击的li；
+	for( var i=0;i<aLi.length;i++){
+		aLi[i].index = i;
+		aLi[i].onOff = false;//默认为不选中状态
+		aLi[i].onmouseover = function(){
+			if( !this.onOff ){ //不选中时滑动变色；
+				this.style.background = 'orange';
+			}
+		}
+		aLi[i].onclick = function(){
+			aLi[m].style.background = '';//将上次点击的操作清理掉；
+			aLi[m].onOff = false;//将上次点击的li的状态变为初始false；
+			this.style.background = 'pink';//本次的操作改变背景色；
+			this.onOff = true;//将状态变为true；over和out只在false时才有效果；
+			m = this.index;//记录本次的点击下标；
+		}
+		aLi[i].onmouseout = function(){
+			if(!this.onOff){//不选中时滑后恢复原色；
+				this.style.background = '';
+			}
+		}
+	}
+	</script>
+</body>
+</html>
