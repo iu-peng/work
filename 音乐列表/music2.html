@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>音乐列表</title>
+	<style>
+	ul,li { margin:0; padding:0; list-style:none; }
+	.fl { float:left; }
+	.fr { float:right; }
+	.box { width:480px; height:300px; padding:150px 140px; background:url(bg.png) no-repeat; margin:0 auto;}
+	.cont { width:480px; height:300px; background:#fff; border-radius:5px;  overflow:hidden; }
+	.top ul { padding:17px 0;}
+	.top li { height:36px; line-height:36px; padding:0 30px; cursor:pointer;}
+	.top li:nth-child(even) { background:#f7c5ce; }
+	.top input { margin-right:20px; margin-top:10px; }
+	.bot { height:50px; background:#de4a63; }
+	.bot li { width:25%; line-height:50px; color:#fff; float:left; text-align:center; }
+	.bot s { display:inline-block; margin-top:13px; width:24px; height:24px; background:url(1.png); vertical-align:top; }
+	.bot ul li:nth-of-type(2) s { height:20px; background-position:0 0px; }
+	.bot ul li:nth-of-type(3) s { background-position:0 -21px; }
+	.bot ul li:nth-of-type(4) s { background-position:0 -46px; }
+
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="cont">
+			<div class="top">
+				<ul>
+					<li>
+						<input type="checkbox" class="fl" />
+						<span class="fl">泡沫</span>
+						<span class="fr">邓紫棋</span>
+					</li>
+					<li>
+						<input type="checkbox" class="fl" />
+						<span class="fl">说爱你</span>
+						<span class="fr">蔡依林</span>
+					</li>
+
+					<li>
+						<input type="checkbox" class="fl" />
+						<span class="fl">稻香</span>
+						<span class="fr">周杰伦</span>
+					</li>
+
+					<li>
+						<input type="checkbox" class="fl" />
+						<span class="fl">我的梦</span>
+						<span class="fr">张靓颖</span>
+					</li>
+
+					<li>
+						<input type="checkbox" class="fl" />
+						<span class="fl">怎么说我不爱你</span>
+						<span class="fr">萧敬腾</span>
+					</li>
+
+					<li>
+						<input type="checkbox" class="fl" />
+						<span class="fl">无处安放</span>
+						<span class="fr">白若溪</span>
+					</li>
+				</ul>
+			</div>
+			<div class="bot">
+				<ul>
+					<li>
+						<input type="checkbox">
+						<span>全选</span>
+					</li>
+					<li>
+						<s></s>
+						<span>收藏</span>
+					</li>
+					<li>
+						<s></s>
+						<span>添加</span>
+					</li>
+					<li>
+						<s></s>
+						<span>删除</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script>
+	var aLi = document.querySelectorAll('.top li');
+	var aInp = document.querySelectorAll('.top li input');
+	var aInpAll = document.querySelector('.bot li input');
+	console.log(aInpAll);
+	var n=0;
+	for(var i=0; i<aLi.length; i++ ){
+		aLi[i].index=i;
+		aLi[i].onOff=false;
+		aLi[i].onmouseover = function(){
+			if(!this.onOff){
+				this.style.background='#de4a63';
+			}
+		}
+		aLi[i].onclick = function(){
+			if(this.onOff){
+				aInp[this.index].checked='';
+				this.style.background='';
+				this.onOff=false;
+				n--;
+				if(n!==aLi.length){
+					aInpAll.checked = '';
+				}
+			}else{
+				aInp[this.index].checked='checked';
+				this.style.background='#de4a63';
+				this.onOff=true;
+				n++;
+				if(n>=aLi.length){
+					aInpAll.checked = 'checked';
+					n=aLi.length;
+				}
+				console.log(n)
+			}
+		}
+		aInpAll.onclick = function(){
+			if(n!==aLi.length){
+				for( var i=0; i<aLi.length; i++ ){
+					aInp[i].checked='checked';
+					aLi[i].style.background='#de4a63';
+					aLi[i].onOff=true;
+				}
+				n=aLi.length;
+			}else{
+				for( var i=0; i<aLi.length; i++ ){
+					aInp[i].checked='';
+					aLi[i].style.background='';
+					aLi[i].onOff=false;
+				}
+				n=0;
+			}
+		}
+		
+
+		aLi[i].onmouseout = function(){
+			if(this.onOff){
+				this.style.background='#de4a63';
+			}else{
+				this.style.background='';
+			}
+		}
+	}
+	</script>
+</body>
+</html>
+
+
+
