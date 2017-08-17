@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>多重选项卡</title>
+	<style>
+		ul,li { margin:0; padding:0; }
+		body { background:-webkit-linear-gradient(0deg,#1abc9c,#097bed);}
+		.box { width:1000px; height:331px; border:5px solid #e9e6e5; border-radius:5px; margin:100px auto; }
+		.box div { float:left; }
+		.left { width:190px; }
+		.right,.right div { width:810px; position:relative; height:331px; }
+		.left li { width:190px; height:82px; background:#c20215; list-style:none; line-height:82px; text-align:center; color:#fff; font-size:20px; border-bottom:1px solid #fff; }
+		.right .rig1 { display:none; }
+		.right img { position:absolute; left:0; top:0; width:810px; height:331px; }
+		.right section { position:absolute; bottom:0; left:0; width:810px; }
+		.right span { float:left; height:30px; line-height:30px; text-align:center; color:#000; width:25%; background:rgba(255,255,255,0.3);}
+		.rig1:nth-of-type(2) span,.rig1:nth-of-type(4) span { width:50%; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="left">
+			<ul>
+				<li>暖色调</li>
+				<li>金色夕阳</li>
+				<li>灰色格调</li>
+				<li>baby</li>
+			</ul>
+		</div>
+		<div class="right">
+			<div class="rig1 right1">
+				<img src="./images/img1.gif" alt="">
+				<img src="./images/img2.gif" alt="">
+				<img src="./images/img3.gif" alt="">
+				<img src="./images/img4.gif" alt="">
+				<section>
+					<span>暖色键盘</span>
+					<span>惬意时光</span>
+					<span>午后</span>
+					<span>一杯苦咖啡</span>
+				</section>
+			</div>
+			<div class="rig1 right2">
+				<img src="./images/img5.gif" alt="">
+				<img src="./images/img6.gif" alt="">
+				<section>
+					<span>暖色键盘</span>
+					<span>惬意时光</span>
+				</section>
+			</div>
+			<div class="rig1 right3">
+				<img src="./images/img7.gif" alt="">
+				<img src="./images/img8.gif" alt="">
+				<img src="./images/img9.gif" alt="">
+				<img src="./images/img10.gif" alt="">
+				<section>
+					<span>暖色键盘</span>
+					<span>惬意时光</span>
+					<span>午后</span>
+					<span>一杯苦咖啡</span>
+				</section>
+			</div>
+			<div class="rig1 right4">
+				<img src="./images/img11.gif" alt="">
+				<img src="./images/img12.gif" alt="">
+				<section>
+					<span>暖色键盘</span>
+					<span>惬意时光</span>
+				</section>
+			</div>
+		</div>
+	</div>
+	<script>
+	var aLi = document.querySelectorAll('.left li');
+	var aRig = document.querySelectorAll('.right .rig1');
+
+	
+
+	aLi[0].style.background = '#303333';
+	aRig[0].style.display = 'block';
+	for( var i=0; i<aLi.length; i++ ){
+		aLi[i].index = i;
+		aLi[i].onclick = function(){
+			for( var i=0; i<aLi.length; i++ ){
+				aLi[i].style.background = '';
+				aRig[i].style.display = 'none';
+			}
+			this.style.background = '#303333';
+			aRig[this.index].style.display = 'block';
+		}
+	}
+
+	/*fnc('.right1');
+	fnc('.right2');
+	fnc('.right3');
+	fnc('.right4');*/
+	for( var i=1; i<=aRig.length; i++ ){
+		fnc('.right'+i);
+	}
+	function fnc(classname){
+		var aSpan = document.querySelectorAll(classname+' span');
+		var aImg = document.querySelectorAll(classname+' img');
+		aSpan[0].style.background = '#20b2aa';
+		aImg[0].style.display = 'block';
+		for( var i=0; i<aSpan.length; i++ ){
+			aSpan[i].index = i; 
+			aSpan[i].onclick = function(){
+				for( var i=0; i<aSpan.length; i++ ){
+					aSpan[i].style.background = '';
+					aImg[i].style.display = 'none';
+				}
+				this.style.background = '#20b2aa';
+				aImg[this.index].style.display = 'block';
+			}
+		}
+	}
+
+	/*for( var i=0; i<aSpan.length; i++ ){
+		aSpan[i].index = i; 
+		aSpan[i].onclick = function(){
+			for( var i=0; i<aSpan.length; i++ ){
+				aSpan[i].style.background = '';
+				aImg[i].style.display = 'none';
+			}
+			this.style.background = 'red';
+			aImg[this.index].style.display = 'block';
+		}
+	}*/
+	
+	</script>
+</body>
+</html>
