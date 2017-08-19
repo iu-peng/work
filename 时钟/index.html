@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时钟</title>
+	<style>
+		body { background:#40464d;}
+		.box { width:1024px; height:700px; margin:0 auto; background:url(./images/bg.png) no-repeat; overflow:hidden; }
+		.clock { width:625px; height:116px; background:url(./images/clockBg.png) no-repeat; margin:255px auto;   }
+		.logo { float:left; width:59px; height:61px; background:url(./images/sec1.png); margin:28px 20px;}
+		.clock div { float:left; padding:3px; margin-top:12px; width:125px; height:80px; border:2px solid #b5b5b5; border-radius:5px; background:#000; overflow:hidden; }
+		.clock>span { float:left; height:86px; width:48px; margin-top:12px; -background:url(./images/dot.png) no-repeat 15px 22px; }
+		.clock div img { float:left; width:60px; height:80px; background:-webkit-linear-gradient(#f44d38,#e71440); border-radius:5px; margin-bottom:3px; border:none; }
+		.clock div p:nth-child(2){ margin-left:5px; }
+		.clock div p { height:160px; width:60px; float:left; margin:0; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="clock">
+			<a href="javascript:;" class="logo"></a>
+			<div>
+				<p>
+					<img src="./images/0.png"></img>
+					<img src="./images/0.png"></img>
+				</p>
+				<p>
+					<img src="./images/0.png"></img>
+					<img src="./images/0.png"></img>
+				</p>
+			</div>
+			<span></span>
+			<div>
+				<p>
+					<img src="./images/0.png"></img>
+					<img src="./images/0.png"></img>
+				</p>
+				<p>
+					<img src="./images/0.png"></img>
+					<img src="./images/0.png"></img>
+				</p>
+			</div>
+			<span></span>
+			<div>
+				<p>
+					<img src="./images/0.png"></img>
+					<img src="./images/0.png"></img>
+				</p>
+				<p>
+					<img src="./images/0.png"></img>
+					<img src="./images/0.png"></img>
+				</p>
+			</div>
+		</div>
+	</div>
+	<script src="./utils.js"></script>
+	<script>
+
+	var imgs = $('img');
+	var spans = $('.clock span');
+
+	function addZero(n){
+		return n < 10 ? '0'+n : n;
+	}
+
+	var d0 = new Date();
+	var pretime = addZero(d0.getHours())+""+addZero(d0.getMinutes())+""+addZero(d0.getSeconds());
+
+	newtime()
+	function newtime(){
+		var d = new Date();
+		var time = addZero(d.getHours())+""+addZero(d.getMinutes())+""+addZero(d.getSeconds());
+
+		for(var i=0; i<time.length; i++){
+			if(time[i]!==pretime[i]){
+				
+				imgs[2*i+1].src = './images/'+time.charAt(i)+'.png';
+				(function (n){
+					mTween(imgs[2*n],'marginTop',-80,400,'linear',function(){
+						imgs[2*n].style.marginTop = 0;
+						imgs[2*n].src = imgs[2*n+1].src
+					})
+				})(i)
+				
+				/*mTween(imgs[10],'marginTop',-80,400,'linear',function(){
+					imgs[10].style.marginTop = 0;
+					imgs[10].src = imgs[11].src
+				})*/
+			}else{
+				imgs[2*i].src = './images/'+time.charAt(i)+'.png'
+			}
+		}
+		pretime = time;
+	}
+
+	setInterval(function(){
+		newtime()
+		
+	},1000)
+	for(var i=0; i<spans.length; i++){
+		fc(i);
+	}
+	function fc(n){
+		setInterval(function(){
+
+			setTimeout(function(){
+				spans[n].style.background = 'url(./images/dot.png) no-repeat 15px 22px'
+				
+			},500);
+
+				spans[n].style.background = ''
+				
+		},1000)
+	}
+
+	</script>
+</body>
+</html>
