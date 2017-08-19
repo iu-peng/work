@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简易日历</title>
+	<style>
+		.fr{ float:right; }
+		.fl { float:left; }
+		.box { width:490px; height:480px; background:#424240; margin:50px auto; }
+		.top,.weekbar { height:60px; background:#272822; color:#fff; }
+		.top p { width:50%; margin:0; line-height:60px; text-align:center; font-size:30px; }
+		p b { width:50%; height:60px; cursor:pointer;}
+		p b:hover { background:#7f7f7f; }
+		.weekbar { display:flex; justify-content:space-around; }
+		strong { line-height:60px; }
+		.cont { height:360px; }
+		.cont span { float:left; width:66px; height:56px; border:2px solid rgba(0,0,0,0);text-align:center; line-height:56px; font-size:20px; color:#fff; }
+		.cont span:hover { border-color:#fff; background:#8097bd; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="top">
+			<p class="fl">2017年7月</p>
+			<p class="fr"><b class="fl prev"><</b><b class="fl next">></b></p>
+		</div>
+		<div class="weekbar">
+			<strong>一</strong>
+			<strong>二</strong>
+			<strong>三</strong>
+			<strong>四</strong>
+			<strong>五</strong>
+			<strong>六</strong>
+			<strong>七</strong>
+		</div>
+		<div class="cont">
+			<span></span>
+		</div>
+	</div>
+
+	<script src="./utils.js"></script>
+	<script>
+	var cont = $('.cont')[0]
+	var prev = $('.prev')[0]
+	var next = $('.next')[0]
+	var title = $('.top .fl')[0]
+	var b = new Date();
+	var month = b.getMonth();
+	
+	
+	var n = 0;
+	addtime();
+	next.onclick = function(){
+		n++;
+		addtime();
+	}
+	prev.onclick = function(){
+		n--;
+		addtime();
+	}
+	function addtime(){
+		var b2 = new Date();
+		
+		b2.setMonth(b2.getMonth());
+		b2.setDate(0);
+		var lastMonthdays = b2.getDate();//获取上个月的天数
+
+		b2.setMonth(month+n);
+		b2.setDate(1)
+		console.log(b2)
+
+		title.innerHTML = b2.getFullYear()+'年'+(b2.getMonth()+1)+'月';
+
+		b2.setMonth(b2.getMonth()+1);
+		b2.setDate(0);
+		var alldays = b2.getDate();//获取该月天数；
+
+		b2.setDate(1)
+		var lastdays = b2.getDay();//获取1号之前的空白天数
+
+		var str = '';
+		var overdays = lastdays==0||lastdays==1?35-lastdays+1-alldays:42-lastdays+1-alldays;//获取月末之后的天数；
+
+		console.log(lastdays)
+		console.log(b2)
+		if(lastdays==1){
+			for(var i=0; i<7; i++){
+				str += '<span style="background:#564240; color:#ccc;">'+(lastMonthdays-7+i+1)+'</span>';
+				console.log(22);
+			}
+		}else if(lastdays==0){
+			for(var i=0; i<6; i++){
+				str += '<span style="background:#564240; color:#ccc;">'+(lastMonthdays-6+i+1)+'</span>'
+			}
+		}else{
+			for(var i=0; i<lastdays-1; i++){
+				str += '<span style="background:#564240; color:#ccc;">'+(lastMonthdays-lastdays+i+2)+'</span>'
+			}
+		}
+		
+		for(var i=0; i<alldays; i++){
+			str += '<span>'+(i+1)+'</span>'
+		}
+		for(var i=0; i<overdays; i++){
+			str += '<span style="background:#564240; color:#ccc;">'+(i+1)+'</span>'
+		}
+		cont.innerHTML = str;
+	}
+
+	chose.onclick = function(){
+
+	}
+	
+
+	/*var str = '';
+	for(var i=0; i<alldays; i++){
+		str += '<span>'+(i+1)+'</span>'
+	}
+	cont.innerHTML = str;*/
+
+
+	</script>
+</body>
+</html>
