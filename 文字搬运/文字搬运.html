@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文字搬运</title>
+	<style>
+		body { background:#20b2aa; margin:0; }
+		.box { width:790px; height:390px; padding:30px; border-radius:10px; background:#5c32d7; margin:0 auto; }
+		.top { height:100px; background:url(./logo.png) no-repeat center; }
+		.box div { float:left; height:340px; border-radius:5px; }
+		.left , .right { width:278px; background:#fff; box-shadow:1px -1px 0 1px #000; padding:25px;}
+		.mid { width:134px; }
+		textarea { width:278px; height:340px; padding:0; border:none; outline:none; line-height:25px; font-size:15px; resize:none; }
+		.right { line-height:25px; font-size:15px;}
+		.mid button { width:100px; height:80px; border-radius:5px; background:#7ee4fd; padding:0; border:none; font-size:15px; color:#fff; margin:135px 15px 10px;  }
+		.mid span { display:block; height:30px; line-height:30px; text-align:center; }
+	</style>
+</head>
+<body>
+	<div class="top"></div>
+	<div class="box">
+		<div class="left">
+			<textarea>妙味课堂是一支独具特色的IT培训团队，妙味反对传统IT教育枯燥乏味的教学模式，妙味提供一途中全新的快乐学习方法！目前主要针对的是javascript培训，同时还提供了css教程、javascript视频、js特效等，最新推出了外地学员们喜欢的javascript网络课程服务，同时还为处于javascript入门阶段的朋友录制了大量javascript视频，其中涉及了大量javascript基础知识，希望妙味课堂推出的javascript网络培训课程能带给大家更多惊喜。</textarea>
+		</div>
+		<div class="mid">
+			<button><span>→</span><span>把文字右移</span></button>
+			<span class="num">0/0</span>
+		</div>
+		<div class="right"></div>
+	</div>
+	<script src="./utils.js"></script>
+	<script>
+	var btn = $('button')[0];
+	var leftbox = $('textarea')[0]
+	var rightbox = $('.right')[0]
+	var num = $('.num')[0]
+	num.innerHTML = 0+'/'+leftbox.innerHTML.length;
+	var n = 0;
+	
+	btn.onclick = function(){
+		if(leftbox.timer){
+			return;
+		}
+		leftbox.display = true;
+		var preleng = leftbox.value;//获取编辑框的内容，每次点击都重新获取
+		leftbox.timer = setInterval(function(){
+
+			leftbox.value = preleng.substr(n);//左边截取掉前边n个
+
+			rightbox.innerHTML = preleng.slice(0,n)//右边从0开始接截出n个
+
+			num.innerHTML = n+'/'+preleng.length;
+
+			n++;
+			if(n>preleng.length){
+				clearInterval(leftbox.timer)
+				leftbox.timer = null;
+				n=0;
+				leftbox.display = false;
+			}
+		},10)
+	}
+	</script>
+</body>
+</html>
