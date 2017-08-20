@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文字查找</title>
+	<style>
+		body { background:#20b2aa; margin:0;}
+		.fl { float:left; }
+		.fr { float:right; }
+		.clearfix:after { height:0; content:""; clear:both; overflow:hidden; visibility:hidden; display:block; }
+		.top { height:100px; background:url(./logo.png) no-repeat center; }
+		.combox  { width:517px;  padding:28px; background:#fff; border-radius:10px; margin:10px auto;  }
+		.left { width:358px; min-height:228px; border:1px solid #abdde7; border-radius:5px; padding:20px; background:#eef8fa; line-height:23px; }
+		.left span { background:#a9a7f5; }
+		.right div { width:100px; height:80px; background:red; overflow:hidden; border-radius:5px; }
+		.right { overflow:hidden; height:80px;transition:0.5s; }
+		.right div:nth-child(1){ background:#90e2f2;}
+		.right div:nth-child(2){ background:#a8a6f5; margin:15px 0; }
+		.right div:nth-child(3){ background:#9fe7a9;}
+		.right s { display:block; width:30px; height:30px; margin:12px auto 0; background:url(./divbg.png) no-repeat; transition:0.5s;}
+		.right div:nth-child(1) s { background-position:-1px 3px;}
+		.right div:nth-child(2) s { background-position:-1px -25px;}
+		.right div:nth-child(3) s { background-position:-1px -55px;}
+		.right span { display:block; height:30px; line-height:30px; color:#fff; text-align:center; font-size:15px; }
+		.botbox { height:104px; display:none; }
+		.b-top { height:40px; margin-bottom:14px; }
+		.b-top button { height:40px; width:100px; color:#fff; border:none; padding:0; border-radius:5px; margin-right:20px; background:#a8a6f5; font-size:15px; outline:none;}
+		.b-top button:nth-child(2) { background:#9fe7a9; }
+		.b-bot1,.b-bot2 { height:50px; }
+		.b-bot1 input,.b-bot2 input { float:left; width:398px; height:48px; padding:0; border:1px solid #abdde7; border-radius:5px; text-indent:10px; font-size:20px; color:#ccc; }
+		.b-bot1 button,.b-bot2 button {float:right; width:100px; height:50px; background:#a9a7f5; padding:0; border:none; border-radius:5px; }
+		.b-bot1 button s,.b-bot2 button s { width:30px; height:30px; display:block; margin:0 auto; background:url(./divbg.png) no-repeat -1px -25px;  }
+		.b-bot2 input { width:190px; margin-right:15px; }
+		.b-bot2 { display:none; }
+	</style>
+</head>
+<body>
+	<div class="top"></div>
+	<div class="combox topbox clearfix">
+		<div class="left fl">妙味课堂是一支独具特色的IT培训团队，妙味反对传统IT教育枯燥乏味的教学模式，妙味提供一途中全新的快乐学习方法！目前主要针对的是javascript培训，同时还提供了css教程、javascript视频、js特效等，最新推出了外地学员们喜欢的javascript网络课程服务，同时还为处于javascript入门阶段的朋友录制了大量javascript视频，其中涉及了大量javascript基础知识，希望妙味课堂推出的javascript网络培训课程能带给大家更多惊喜。</div>
+		<div class="right fr">
+			<div class="open">
+				<s></s>
+				<span>展开</span>
+			</div>
+			<div class="sear">
+				<s></s>
+				<span>查找</span>
+			</div>
+			<div class="rewri">
+				<s></s>
+				<span>替换</span>
+			</div>
+		</div>
+	</div>
+	<div class="combox botbox">
+		<div class="b-top">
+			<button>查找</button>
+			<button>替换</button>
+		</div>
+		<div class="b-bot1">
+			<input type="text" class="searchbox" placeholder="请输入查找内容">
+			<button><s></s></button>
+		</div>
+		<div class="b-bot2">
+			<input type="text"  placeholder="请输入查找内容" />
+			<input type="text"  placeholder="请输入替换内容" />
+			<button><s></s></button>
+		</div>
+	</div>
+	<script src="./utils.js"></script>
+	<script>
+		var open = $('.open')[0];
+		var sear = $('.sear')[0];
+		var rewri = $('.rewri')[0];
+		var opens = $('.open s')[0];
+		var openspan = $('.open span')[0];
+		var right = $('.right')[0];
+		var left = $('.left')[0];
+
+		var botbox = $('.botbox')[0];
+		var sear2 = $('.botbox button')[0];//查找按钮
+		var rewri2 = $('.botbox button')[1];//替换按钮
+		var sear3 = $('.botbox button')[2];//查找操作
+		var rewri3 = $('.botbox button')[3];//替换操作
+
+		var searbox1 = $('.botbox input')[0];//替换操作
+		var searbox2 = $('.botbox input')[1];//替换操作
+		var rewritebox = $('.botbox input')[2];//替换操作
+
+		var bBot1 = $('.b-bot1')[0];
+		var bBot2 = $('.b-bot2')[0];
+		//展开框
+		open.onOff = true;
+		open.onclick = function(){
+			if(open.onOff){
+				/*right.style.height = '270px';
+				opens.style.transform = 'rotate(-45deg)'
+				openspan.innerHTML = '收起';
+				open.onOff = false;
+				botbox.style.display = 'block';*/
+				openbox(270,-45,'收起',false,'block')
+			}else{
+				/*right.style.height = '80px';
+				opens.style.transform = 'rotate(0deg)'
+				openspan.innerHTML = '展开';
+				open.onOff = true;
+				botbox.style.display = 'none';*/
+				openbox(80,0,'展开',true,'none')
+			}
+		}
+		function openbox(h,d,t,b,dis){
+			right.style.height = h+'px';
+			opens.style.transform = 'rotate('+d+'deg)'
+			openspan.innerHTML = t;
+			open.onOff = b;
+			botbox.style.display = dis;
+			rewritebox.value = '';
+			searbox2.value = '';
+			searbox1.value = '';
+			left.innerHTML= lefttxt.split('<span>').join('').split('</span>').join('');
+		}
+		//展开框搜索框
+		sear.onclick = sear2.onclick = function(){
+			bBot2.style.display = 'none';
+			bBot1.style.display = 'block';
+			searbox2.value = '';
+			rewritebox.value = '';
+		}
+		rewri.onclick = rewri2.onclick = function(){
+			bBot1.style.display = 'none';
+			bBot2.style.display = 'block';
+			searbox1.value = '';
+		}
+		//查找操作
+		var lefttxt = left.innerHTML;
+		//搜索字符
+		var seartxt2 = null;
+		var rewritetxt = null;
+		//var seartxt = null;
+		sear3.onclick = function (){
+			var seartxt = searbox1.value;
+			
+			left.innerHTML = lefttxt.split(seartxt).join('<span>'+seartxt+'</span>');
+			lefttxt = left.innerHTML.split('<span>').join('').split('</span>').join('');
+		}
+		//替换字符
+		rewri3.onclick = function (){
+
+			if(!searbox2.value||!rewritebox.value){
+				alert('请输入内容')
+			}
+			seartxt2 = searbox2.value;
+			rewritetxt = rewritebox.value;
+			console.log(left.innerHTML)
+			
+			left.innerHTML = lefttxt.split(seartxt2).join('<span>'+rewritetxt+'</span>');
+			lefttxt = left.innerHTML.split('<span>').join('').split('</span>').join('');
+		}
+			
+
+		//清除痕迹
+		searbox1.onclick = function(){
+			//left.innerHTML = left.innerHTML.split(seartxt2).join(rewritetxt);
+			left.innerHTML= lefttxt.split('<span>').join('').split('</span>').join('');
+		}
+		searbox2.onclick = rewritebox.onclick = function(){
+			left.innerHTML= lefttxt.split('<span>').join('').split('</span>').join('');
+		}
+	</script>
+</body>
+</html>
