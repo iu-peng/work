@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>新建文件夹</title>
+	<style>
+		body { background:-webkit-linear-gradient(0deg,#588fc9,#e15950);}
+		li { list-style:none; float:left; margin-right:18px; width:116px; height:116px;  border-radius:15px; position:relative; border:2px solid rgba(255,255,255,0);}
+		li.hover { background:rgba(0,0,0,0.3); border:2px solid rgba(255,255,255,0.5);}
+		li:last-child { margin-right:0; }
+		ul,p { padding:0; margin:0; }
+		.top { height:200px; background:url(./images/logo.png) no-repeat center; }
+		.mid,.bot { height:120px; width:396px; margin:0 auto; }
+		li img { display:block; margin:0 auto; padding-top:25px;}
+		li p { line-height:33px; text-align:center; color:#fff; }
+		li input { position:absolute; left:5px; top:5px; }
+		.bot input { display:block; padding:0; background:-webkit-linear-gradient(rgba(255,255,255,0.5),#b15960); border:2px solid #fff; border-radius:6px; font-size:16px; height:31px; color:#fff; width:116px; margin:0 auto; margin-top:43px; box-shadow:2px 3px 5px 1px #b15960; outline:none; }
+		.bot input:last-child { background:-webkit-linear-gradient(90deg,rgba(255,255,255,0.5),#b15960); margin-top:23px; }
+	</style>
+</head>
+<body>
+	<div class="top"></div>
+	<ul class="mid">
+		<!--  <li>
+			<img src="./images/fil.png" />
+			<p>新建文件夹</p>
+			<input type="checkbox">
+		</li>
+		<li>
+			<img src="./images/fil.png" />
+			<p>新建文件夹</p>
+			<input type="checkbox">
+		</li>
+		<li>
+			<img src="./images/fil.png" />
+			<p>新建文件夹</p>
+			<input type="checkbox">
+		</li> -->
+	</ul> 
+	<div class="bot">
+		<input type="button" value="新建文件夹" />
+		<input type="button" value="删除文件夹" />
+	</div>
+	<script>
+	var add = document.querySelector('.bot input:first-child')
+	var del = document.querySelector('.bot input:last-child')
+	var list = document.querySelector('.mid')
+
+	add.onclick = function(){
+		var li = document.createElement('li');
+		li.onOff = false;
+
+		var img = document.createElement('img');
+		img.src = './images/fil.png';
+
+		var p = document.createElement('p')
+		p.innerHTML = '新建文件夹';
+
+		var inp = document.createElement('input')
+		inp.type = 'checkbox'
+
+		
+		li.appendChild(img)
+		li.appendChild(p)
+		li.appendChild(inp)
+
+		li.onmouseover = function(){
+			if(!this.onOff) this.className = 'hover';
+		}
+		li.onmouseout = function(){
+			if(!this.onOff) this.className = '';
+		}
+		li.onclick = function(){
+			//inp.checked = true;
+			inp.setAttribute('checked','true')
+			this.onOff = true;
+		}
+
+
+		list.appendChild(li)
+	}
+
+	del.onclick = function(){
+		var lis = document.getElementsByTagName('li')
+		var inpcheck = list.querySelectorAll('input[checked="true"')
+		console.log(inpcheck.length)
+		for(var i=0;i<inpcheck.length;i++){
+			//console.log(inpcheck.length)
+			if(inpcheck[i].checked){
+				inpcheck[i].parentNode.remove()
+			}
+			
+		}
+		
+	}
+	
+	</script>
+</body>
+</html>
