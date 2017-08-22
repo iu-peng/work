@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>乘法口诀表</title>
+	<style>
+	#box { width:700px; border:1px solid #000; margin:0 auto; }
+	#box div span { display:inline-block; width:60px; height:30px; line-height:30px; text-align:center; font-size:18px; border:1px solid #000;  }
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div><span>1x1=1</span></div>
+	</div>
+	<script>
+	var oBox = document.getElementById('box');
+	var str = '';
+	for( var i=1; i<=9; i++ ){
+		str += '<div>'
+		for( var j=1; j<=i; j++ ){
+			str += '<span>'+j+'x'+i+'='+j*i+'</span>'
+		}
+		str+='</div>'
+	}
+	 oBox.innerHTML = str;
+	</script>
+</body>
+</html>
