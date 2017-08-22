@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	.box { width:1000px; height:800px; background:url(bg.png) no-repeat; margin:0 auto; overflow:hidden; }
+	.cont {width:250px; height:450px; background:url(./bg1.png) no-repeat; margin:50px auto; position:relative; padding:20px; }
+	.cont input { width:100px; height:40px; line-height:40px; outline:none; border:none; background:#62b8fb; color:#fff; font-size:20px; border-radius:5px; position: absolute; left:95px; top:420px; }
+	.cont input:nth-of-type(2){ left:160px;}
+	.cbox { width:250px; height:250px; position:absolute; left:20px; top:70px; }
+	.cbox div { position:absolute; left:0; top:0; width:50px; height:50px; line-height:50px; text-align:center; color:#fff; background:#20b2aa; font-size:30px;}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="cont">
+			<div class="cbox">
+
+			</div>
+			<input type="button" value="点击变换" />
+		</div>
+	</div>
+
+	<script>
+	var aBtn = document.querySelectorAll('.cont input');
+	var oBox = document.querySelector('.cont .cbox');
+	var n=1;
+	fn1()
+
+	aBtn[0].onclick = function(){
+		oBox.innerHTML='';
+		if(n%4==0){
+			fn1();
+		}else if(n%4==1){
+			fn2();
+		}else if(n%4==2){
+			fn3();
+		}else if(n%4==3){
+			fn4();
+		}
+		n++;
+	}
+function fn1(){
+	for( var i=0; i<5; i++ ){
+		if( i<3 ){
+			oBox.innerHTML += '<div style="left:'+i*50+'px; top:'+i*50+'px;">'+(i+1)+'</div>';
+		}else{
+			oBox.innerHTML += '<div style="left:'+i*50+'px; top:'+(4-i)*50+'px;">'+(i+1)+'</div>';
+		}
+	}
+	aBtn[0].value = '正V';
+}
+
+function fn2(){
+	for( var i=0; i<5; i++ ){
+		if( i<3 ){
+			oBox.innerHTML += '<div style="left:'+i*50+'px; top:'+i*50+'px;">'+(i+1)+'</div>';
+		}else{
+			oBox.innerHTML += '<div style="left:'+(4-i)*50+'px; top:'+i*50+'px;">'+(i+1)+'</div>';
+		}
+	}
+	aBtn[0].value = '左V';
+}
+
+function fn3(){
+	for( var i=0; i<5; i++ ){
+		if( i<3 ){
+			oBox.innerHTML += '<div style="left:'+i*50+'px; top:'+(4-i)*50+'px;">'+(i+1)+'</div>';
+		}else{
+			oBox.innerHTML += '<div style="left:'+i*50+'px; top:'+i*50+'px;">'+(i+1)+'</div>';
+		}
+	}
+	aBtn[0].value = '下V';
+}
+
+function fn4(){
+	for( var i=0; i<5; i++ ){
+		if( i<3 ){
+			oBox.innerHTML += '<div style="left:'+(4-i)*50+'px; top:'+i*50+'px;">'+(i+1)+'</div>';
+		}else{
+			oBox.innerHTML += '<div style="left:'+i*50+'px; top:'+i*50+'px;">'+(i+1)+'</div>';
+		}
+	}
+	aBtn[0].value = '右V';
+}
+	</script>
+</body>
+</html>
