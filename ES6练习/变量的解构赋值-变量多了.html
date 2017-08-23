@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		let obj = {
+			a:1,
+			b:2,
+			c:3
+		}
+
+		let {a,b,c,d=30} = obj;
+		console.log(a,b,c,d)//声明变量后，会在obj对象中找key名为变量的key值赋给变量，如果没有，就是undefined，
+		//如果进行了预赋值，d=30;在obj中找不到后，会使用预付值。
+
+		let {floor} = Math;
+		console.log(floor(0.9))
+	</script>
+</body>
+</html>

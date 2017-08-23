@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="button" id="btn" value="点击变色" />
+	<script>
+		document.onclick = () => {
+			setTimeout(function(){
+				console.log(this)
+			},500)
+			setTimeout(() => {
+				console.log(this)
+			},500)
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="button" id="btn" value="点击变色" />
+	<script>
+		btn.onclick = function(){
+
+			setTimeout(()=>{//箭头函数中的this指向定义时所在的作用域
+				console.log(this)
+				this.style.background = 'orange';
+			},1000)
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		'use strict';
+		function fn(){
+			console.log(this)
+		}
+		fn();
+
+		let a = 8;
+		console.log(a)
+
+		fn.call(undefined)
+
+		function f(a,a){
+			console.log(a)
+
+		}
+		f(1,3)
+	</script>
+</body>
+</html>

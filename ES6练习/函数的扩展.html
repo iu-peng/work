@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="button" id="btn" value="点击变色" />
+	<script>
+		btn.onclick = function(){
+			let that = this;//传统方法
+			setTimeout(function(){
+				that.style.background = 'orange';
+			},1000)
+		}
+	</script>
+</body>
+</html>

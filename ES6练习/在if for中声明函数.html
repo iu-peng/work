@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		"use strict";
+		if(true){//正常模式下，函数fn会在if为true时定义，为false时不会定义
+			//严格模式下，会报错
+			function fn(){
+				console.log(22);
+			}
+		}
+		fn();//fn is not defined at 在if for中声明函数.html:14
+  
+	</script>
+</body>
+</html>

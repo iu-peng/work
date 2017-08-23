@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		function fn([a=1,b=1]){//a,b相当于定义的变量，他会从fn的实参中去取，取到的话就用，如果取不到，就用形参规定的默认值1
+			return a*b
+		}
+		console.log( fn([3,5]) )//15
+		console.log( fn([5]) )//5
+	</script>
+</body>
+</html>

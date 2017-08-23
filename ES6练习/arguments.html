@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		"use strict";
+		function fn(a){
+			a = 44;//非严格模式下，i形参是可以改变实参的值
+			//严格模式下，形参不能改变实参的值
+			console.log(arguments)
+		}	
+		fn(1,2,3,4)
+	</script>
+</body>
+</html>

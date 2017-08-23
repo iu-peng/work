@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		let t = (function(){
+			function on(){
+				console.log('on')
+			}
+			function off(){
+				console.log('off')
+			}
+			function down(){
+				console.log('down')
+			}
+			return {
+				on:on,
+				off:off,
+				down:down
+			}
+		})()
+		t.on();//函数return出来的是一个包含三个函数的对象，可以通过调用t.on()来达到调用的目的
+
+		let {on,off,down} = t;//含有对象的时候，变量名必须和对象的key址相同，否则报错。
+		on();
+	</script>
+</body>
+</html>
