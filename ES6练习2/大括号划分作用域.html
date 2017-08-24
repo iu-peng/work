@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script>
+			
+			//函数划分作用域
+			function fn(){
+				var a = 123;//函数内定义的变量只能在函数内访问，函数外访问会报错
+				console.log(a);
+			}
+
+			fn();
+
+			//console.log(a);// is not defined at...
+
+			if(true){
+				let b = 100;//定义的变量只能在大括号包围的作用域内访问
+				console.log(b)//100
+			}
+			//console.log(b)//报错
+
+			{
+				let c = 200;//单独的一个大括号也可以划分一个作用域，
+				console.log(c);
+			}
+			console.log(c);//报错
+
+   
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>

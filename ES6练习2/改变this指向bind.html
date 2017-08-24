@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<input type="button" value="点击" id="btn" />
+	<script>
+		function fn(){
+			console.log(this)
+		}
+
+		fn();//window
+
+		var f = fn.bind({})
+		//bind，会返回一个新的函数f，会把f函数的this改变为小括号中的参数
+		f();//{}
+
+		fn();//window
+
+		btn.onclick = function (){
+			var f1 = fn.bind(this)
+			f1();//input
+		}
+
+		document.onclick = function (){
+			var f1 = fn.bind(this)
+			f1();//document
+		}
+	</script>
+	</body>
+</html>

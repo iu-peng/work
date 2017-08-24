@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<input type="button" value="点击" id="btn" />
+	<script>
+		/*function fn(a){
+			let a = 0;
+			//在函数体内，不能用let再次声明a变量了，
+			console.log(a)
+		}*/
+		function fn(a){
+			var a = 0;
+			//在函数体内，能用var再次声明a变量，
+			console.log(a)
+		}
+		fn();
+	</script>
+	</body>
+</html>

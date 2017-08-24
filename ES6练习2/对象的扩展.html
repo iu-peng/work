@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<input type="button" value="12345" id="btn" />
+		<input type="button" value="12345" id="btn" />
+		<input type="button" value="12345" id="btn" />
+		<input type="button" value="12345" id="btn" />
+		<input type="button" value="12345" id="btn" />
+	<script>
+		let a = '123'
+		let c = () => {
+			console.log(222)
+		}
+
+		let obj = {
+			b:1,
+			a,//对象外有该变量，可以直接用，不用再次书写a:'123'
+			fn:function(){
+				console.log(333)
+			},
+			c
+		}
+
+		console.log(obj)//{b: 1, a: "123", fn: ƒ, c: ƒ}
+	</script>
+	</body>
+</html>

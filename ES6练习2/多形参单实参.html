@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+	<script>
+		
+		function fn({w=100,h=100,bg='red'}){
+			let div = document.createElement('div')
+			div.style.width = w+ 'px'
+			div.style.height = h+ 'px'
+			div.style.background = bg;
+
+			return div;
+		}
+
+		//document.body.appendChild( fn({w:200,h:200,bg:'orange'}) )
+		document.body.appendChild( fn({h:200,bg:'orange'}) )
+
+		//如果传入的实参个数不确定，可以利用对象传入，这样不论写入的实参有几个，都不会覆盖
+	</script>
+	</body>
+</html>

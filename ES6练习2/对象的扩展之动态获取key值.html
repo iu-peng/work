@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+	<script>
+		let a = '123';
+		let b = '456'
+		
+		let obj = {
+			[a]:a,//变量a在对象外必须要定义，否则报错
+			[b]:12,
+			c:3
+		}
+
+		console.log(obj)//{123: "123", 456: 12, c: 3}
+	</script>
+	</body>
+</html>

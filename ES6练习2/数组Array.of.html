@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<input type="button" value="点击" id="btn" />
+	<script>
+		
+		let arr = new Array(3)
+		console.log(arr.length)
+
+		//用new创建的数组，如果参数只有数字，则定义的是数组的长度，大于一个才是定义的数组内容
+
+		//为了解决定义一个参数为长度的问题，需要Array.of()
+
+		let arr2 = Array.of(4);
+		console.log(arr2)//[4]
+	</script>
+	</body>
+</html>

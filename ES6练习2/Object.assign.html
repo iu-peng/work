@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+	<script>
+		
+		let obj1 = {
+			a:1,
+			b:2,
+			ab:12
+		}
+
+		let obj2 = {
+			b:20,
+			c:30,
+			bc:120
+		}
+
+		let obj3 = {
+			c:300,
+			d:4
+		}
+
+		let obj = Object.assign(obj1,obj2,obj3)
+		console.log(obj)//{a: 1, b: 20, ab: 12, c: 300, bc: 120, …}
+
+		//Object.assign(对象1，对象2，对象3...)
+		//主要是做为属性的整合，把括号中所有的对象都整合到对象1中，属性会从后往前合并
+	</script>
+	</body>
+</html>

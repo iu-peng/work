@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<input type="button" value="12345" id="btn" />
+		<input type="button" value="12345" id="btn" />
+		<input type="button" value="12345" id="btn" />
+		<input type="button" value="12345" id="btn" />
+		<input type="button" value="12345" id="btn" />
+	<script>
+		let arr = [3,2,1,5,4]
+
+		let a = arr.find(function(item){
+			return item<2;
+		})
+
+		console.log(a)
+
+		//find类似于数组中的filter方法，不同之处在于：
+		//find是找到满足条件的第一个数，并不是全部找出
+	</script>
+	</body>
+</html>

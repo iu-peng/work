@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script>
+			function fn(){
+				console.log(this)
+			}
+			fn();
+
+			let f = fn.bind('123')
+			f();
+			/*
+				bind函数会改变fn函数的this的指向，但是和call和apply不同，并不会立即执行，只是把原来的函数返回到一个新的函数f中，只有执行f的时候才会掉用，bind括号中的参数就是需要改变的this的值
+
+				相同之处：都能改变this的值，
+				不同之处：
+				
+			*/
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>
