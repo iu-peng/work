@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let str = '123456789'
+
+	let re = /\d{5,5}/g
+	console.log(re.test(str))//true
+	console.log(re.lastIndex)//5
+
+	console.log(re.test(str))//false
+
+	console.log(re.lastIndex)//0
+
+
+	console.log(re.test(str))//false
+	re.lastIndex = 0;
+	console.log(re.test(str))//false
+
+</script>
+</body>
+</html>

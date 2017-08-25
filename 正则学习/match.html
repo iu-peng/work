@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let str = 'w1tw23tw456tw7890tw12345twt';
+
+	let re = /\d/;
+	let re2 = /w\dt/g;//一次
+	let re3 = /w\d+t/g;//最少一次
+	let re4 = /w\d*t/g;//不限
+	let re5 = /w\d?t/g;//最多一次
+
+	console.log( str.match(re) )
+	console.log( str.match(re2) )
+	console.log( str.match(re3) )
+	console.log( str.match(re4) )
+	console.log( str.match(re5) )//["a1f", "a7f", "a2f", "af"]
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let str = '1asd2'
+
+	let re = /(\d)\D+(\d)/g;
+
+	let str2 = str.replace(re,function(...data){
+		console.log(data)
+		return '#'
+	})
+
+	//函数参数1：满足规则的每个字符
+	//函数参数2：满足规则的每个字符所在的位置
+	//函数参数3：被检索的完整字符串
+	console.log(str2)
+
+</script>
+</body>
+</html>

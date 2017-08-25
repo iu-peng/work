@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let re = /123/
+	text.oninput = function(){
+		if(re.test(this.value)){
+			warn.innerHTML = '有123'
+		}else{
+			warn.innerHTML = '没123'
+		}
+	}
+</script>
+</body>
+</html>

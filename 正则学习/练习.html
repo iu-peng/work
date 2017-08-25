@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script>
+	let str = 'i123Hope87world154Peace9';
+
+	function fn(){
+		let arr = [];
+		let arr1 = str.split('');
+		console.log(arr1)
+		for( var val of arr1){
+			if( !isNaN(Number(val)) ){
+				arr.push( Number(val) )
+			}
+		}
+		return arr;
+	}
+
+	function fn2(){
+		let arr = [];
+		//let arr1 = str.split('');
+		let s = '';
+		for( var val of str){
+			if( !isNaN(Number(val)) ){
+				if(!isNaN(Number(ss))){
+					s += Number(val);
+				}
+			}else{
+				if(s) arr.push(s)
+				s = '';
+			}
+			var ss = val;
+		}
+		return arr;
+	}
+
+	console.log( fn() )
+	console.log( fn2() )
+</script>
+</body>
+</html>

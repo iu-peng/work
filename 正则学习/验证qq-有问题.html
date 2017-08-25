@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	text.focus();
+
+	let re = /^[1-9]\d{4,11}$/g
+	let re2 = /^[1-9]/
+
+
+	text.oninput = function(){
+		let str = this.value;
+		warn.innerHTML = '';
+		let zero = !re2.test(str);
+		let num = !re.test(str)
+		re.lastIndex = 0;
+
+		if(str == ''){
+			warn.innerHTML = '请输入QQ号';
+			return;
+		}
+
+		if(zero){
+			warn.innerHTML = '首位是数字1-9';
+			return;
+		}
+		
+		if(num){
+			
+			warn.innerHTML = '请输入5-12位数字';
+		}
+
+
+	}
+	
+</script>
+</body>
+</html>

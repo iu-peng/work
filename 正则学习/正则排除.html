@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let str = 'h1hj33jhjgh3j2323hjh12k'
+
+	let re = /[^3kh]+/g;//匹配排除了3，k,h
+
+	console.log(str.match(re))// ["1", "j", "j", "jg", "j2", "2", "j", "12"]
+
+</script>
+</body>
+</html>

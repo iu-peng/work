@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let str = 'h1hj33jhjgh3j2323hjh12k'
+
+	let re = /[3kh]/g;
+	let re2 = /[1-5]+/g;
+	let re3 = /[a-z]+/g;
+
+	console.log(str.match(/3|k|h/g))
+	console.log(str.match(re))
+	console.log(str.match(re2))//["1", "33", "3", "2323", "12"]
+	console.log(str.match(re3))//["h", "hj", "jhjgh", "j", "hjh", "k"]
+	//效果一致
+
+</script>
+</body>
+</html>
