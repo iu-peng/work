@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let t1 = '    2017--   -8---  --25    '
+	//设置前后没空格
+	let re = /^\s+|\s+$/g;
+
+	//let re = /^\s+/g 需要匹配整个字符串都是空白字符串才行
+
+	console.log( t1.replace(re,'*') )//*2017--   -8---  --25*
+
+
+	//将不是空白字符串的字符转为*
+
+	let re2 = /\S+/g//非空白字符
+
+	console.log( t1.replace(re2,'*'))
+
+	//找出字母数字下划线
+	let t2 = '123abc_=_*&^32%$fv#3 @!囧扽尽快';
+
+	let re3 = /\w+/g;//  \w匹配的是字母数字下划线 没有汉字
+	console.log( t2.match(re3))//["123abc_", "_", "32", "fv", "3"]
+
+	let re4 = /\W+/g;//  \W匹配的是非字母数字下划线
+	console.log( t2.match(re4))//["=", "*&^", "%$", "#", " @!囧扽尽快"]
+
+	//匹配任意字符
+	let t3 = '.f8s8.s*7*79687^.&^.87(&908--39\n-(&*%*^8'
+
+	let re5 = /.+/g//  匹配除了换行符之外的任意字符
+	console.log( t3.match(re5) ) //[".f8s8.s*7*79687^.&^.87(&908--39", "-(&*%*^8"]
+
+	//匹配字符边界
+	let t4 = '124 423 12434 23 12534';
+
+	let re6 = /\b12\d+|4\b/g; //\b**从前往后匹配   **\b从后往前匹配
+	console.log( t4.match(re6))//["124", "12434", "12534"]
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let t1 = 'x12yxsdfysxfsx32yy';
+
+	//找到x开头y结尾的
+
+	let re = /x\w+y/g;//贪婪模式：尽最大可能找到最大范围的字符，从字符串尾部开始向前搜索
+	console.log( t1.match(re)) //["x12yxsdfysxfsx32yy"]
+
+	let re2 = /x\w+?y/g//懒惰模式：从前往后搜索，挨个检索
+	console.log( t1.match(re2)) //["x12y", "xsdfy", "xfsx32y"]
+
+	//语法：在相应的正则规则后加？
+	
+</script>
+</body>
+</html>

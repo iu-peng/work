@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let t1 = '2017---8-----25'
+	let t2 = '2017@@@@@8#####25'
+	let t3 = '2017!!!!8···  ··25'
+
+	let re = /(\d+)(\D+)(\d+)(\D+)(\d+)/g;
+
+	console.log( t3.replace(re,(...data)=>{
+		console.log(data)//["2017!!!!8···  ··25", "2017", "!!!!", "8", "···  ··", "25", 0, "2017!!!!8···  ··25"]
+		return data[1]+'年'+data[3]+'月'+data[5]+'日'
+	}) )
+
+	//参数1：正则re匹配到的字符
+	//参数2：正则re中分组1匹配的字符
+	//参数3：正则re中分组2匹配的字符
+	//。。。
+	//参数4：正则re匹配到的字符的位置
+	
+</script>
+</body>
+</html>

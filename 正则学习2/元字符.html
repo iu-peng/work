@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let str = '1s23456d7g89a'
+
+	let re = /\D/g;
+	console.log( str.replace(re,'*'))
+
+	let re2 = /./g;//匹配除了\n之外的字符
+	console.log( str.replace(re2,'*'))
+
+</script>
+</body>
+</html>

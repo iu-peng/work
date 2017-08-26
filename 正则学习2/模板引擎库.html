@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	<div id="box">
+		
+	</div>
+	<!-- <p id="op"></p>
+	<p id="ap">
+		<div class="hob"></div>
+	</p> -->
+	<script src="./template-web.js"></script>
+<script>
+	
+	let obj = {
+		title:'谦哥的三大爱好',
+		title2:'————郭德纲',
+		list:['抽烟','喝酒','烫头']
+	}
+	
+	let html = `
+		<p id="op">{{title}}</p>
+		<p id="op">{{title2}}</p>
+		{{each list}}
+		<div>{{$value}}</div>
+		{{/each}}
+	`
+
+	box.innerHTML = template.render(html,obj)
+</script>
+</body>
+</html>

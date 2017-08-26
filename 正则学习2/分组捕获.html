@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+<input type="input" id="text" />
+<span id="warn"></span>
+<script>
+	let t1 = '2017---8-----25'
+
+	let re = /(\d+)\D+\d+\D+\d+/g;
+
+	t1.replace(re,(...data)=>{
+		console.log(data)//["2017---8-----25", "2017", 0, "2017---8-----25"]
+		return data[1]+'年'+data[3]+'月'+data[5]+'日'
+	})
+
+	let re1 = /(?:\d+)\D+\d+\D+\d+/g;
+
+	t1.replace(re1,(...data)=>{
+		console.log(data)//["2017---8-----25", 0, "2017---8-----25"]
+		return data[1]+'年'+data[3]+'月'+data[5]+'日'
+	})
+
+	//?:    设置不捕获，分组匹配到的字符不会记录
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	<div id="box">
+		
+	</div>
+	<!-- <p id="op"></p>
+	<p id="ap">
+		<div class="hob"></div>
+	</p> -->
+<script>
+	
+	let html = `
+	<p id="op">@@title@@</p><p id="ap"><div class="hob">@@list1@@</div><div class="hob">@@list2@@</div><div class="hob">@@list3@@</div></p>
+	`
+
+	let obj = {
+		title:'谦哥的三大爱好：',
+		list1:'抽烟',
+		list2:'喝酒',
+		list3:'烫头'
+	}
+
+	let re = /@@(.+?)@@/g;
+
+	function diy(){
+		return html.replace(re,($0,$1,$2)=>{
+			console.log($1)
+			return obj[$1]
+		})
+	}
+	
+	box.innerHTML = diy();
+</script>
+</body>
+</html>
