@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>评分</title>
+	<style>
+	body { background:-webkit-linear-gradient(0deg,#e3c6c8,#554758); }
+	.box { width:460px; height:200px; border-radius:5px; margin:160px auto; background:#fff; overflow:hidden; }
+	.head { height:58px; background:url(./logo.jpg) no-repeat center 20px;}
+	.mid { height:62px; padding-top:22px; padding-left:100px; }
+	.mid input { float:left; width:60px; height:30px; background:#de4a63; border-radius:5px; color:#fff; font-size:20px; border:none; outline:none; margin-left:25px; }
+	.bot { height:58px; background:#de4a63; color:#fff; font-size:17px; text-align:center; line-height:58px; }
+	.mid a { float:left; width:30px; height:30px; background:url(./star1.png) no-repeat; margin-right:10px; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="head"></div>
+		<div class="mid">
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<input type="button" value="评分" />
+		</div>
+		<div class="bot">小提示:点击星星就能打分</div>
+	</div>
+
+	<script>
+	var aA = document.querySelectorAll('.mid a');
+	var oBtn = document.querySelector('.mid input');
+	var arr = ['极差','一般','不错','推荐','力荐']
+
+	for( var i=0; i<aA.length; i++){
+		aA[i].index = i;
+		aA[i].onOff = true;
+		// onmouseover的情况 先进行判断标签上的开关onOff是否为true，是则会改变，否则不能产生效果。
+		aA[i].onmouseover = function(){
+			if(this.onOff){
+				for( var j=0; j<this.index; j++ ){ //将之前的元素的开关onOff转为true状态，可以mouseover
+					aA[j].onOff = true; 
+				}
+				if(this.index<=1){ //前两个紫色
+					for( var j=0; j<=this.index; j++ ){
+						aA[j].style.backgroundImage = 'url(./star.png)';
+					}
+				}else{ //后面的为红色。
+					for( var j=0; j<=this.index; j++ ){
+						aA[j].style.backgroundImage = 'url(./star2.png)';
+					}
+				}
+				oBtn.value = arr[this.index];
+			}
+		}
+		// onmouseout的情况
+		aA[i].onmouseout = function(){
+			if(this.onOff){//只有开关为true的时候才能mouseout(为true前提是已经mouseover了)，
+				for( var j=0; j<=this.index; j++ ){
+					aA[j].style.backgroundImage = 'url(./star1.png)';
+				}
+				oBtn.value = '评分';
+			}
+		}
+		// onclick的情况：将所有的a标签的onOff都转为false，则不能在mouseover和mouseout下产生效果
+		aA[i].onclick = function(){
+			for( var j=0; j<=this.index; j++ ){ //将这个元素和之前的元素开关onOff变为false，不能执行mouseover和mouseout操作，只有该元素后面的元素可以进行
+				aA[j].onOff = false; //关闭mouseover和mouseout。
+			}
+		}
+	}
+
+	</script>
+</body>
+</html>
