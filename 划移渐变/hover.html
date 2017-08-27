@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>划移渐变</title>
+	<style>
+		body { background:#20b2aa;}
+		/* input { background:none; width:100px; height:40px; border-radius:10px; outline:none; border:1px solid #fff; border-bottom:none; border-right:none; box-shadow:2px 2px 2px #000; font-size:20px; color:#fff; } */
+		.box { width:960px; height:540px; margin:0 auto; position: relative; }
+		.box div { width:80px; height:60px; background:url(./timg.jpg) no-repeat; background-size:960px 540px; position: absolute; transition:0.3s;}
+		.box div span { display:block; width:80px; height:60px; background:rgba(255,255,255,0.7);transition:0.5s;}
+		.box div:hover { transform:scale(1.2); }
+	</style>
+</head>
+<body><!-- 
+	<input type="button" value="划后正常">
+	<input type="button" value="反复划"> -->
+	<div class="box">
+		<div>
+			<span></span>
+		</div>
+	</div>
+	<script>
+		var oBox = document.querySelector('.box');
+		var str = '';
+		for( var i=0; i<108; i++){
+			str += '<div style="left:'+i%12*80+'px; top:'+Math.floor(i/12)*60+'px; background-position:'+(-i%12*80)+'px '+(-Math.floor(i/12)*60)+'px; "><span></span></div>'
+		}
+		oBox.innerHTML = str;
+		// 添加元素完毕
+
+		var aSpan = document.querySelectorAll('.box div span');
+		console.log(aSpan.length)
+		for( var i=0; i<108; i++ ){
+			aSpan[i].onOff = true;
+			aSpan[i].onmouseover = function(){
+				if(this.onOff){
+					this.style.background = 'rgba(255,255,255,0)';
+					// this.onOff = false; //两种选择可以用
+				}/*else{
+					this.style.background = 'rgba(255,255,255,0.5)';
+					this.onOff = true;
+				}*/
+			}
+		}
+	</script>
+</body>
