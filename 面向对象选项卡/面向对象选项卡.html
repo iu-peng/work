@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>选项卡</title>
+	<style>
+		#box div,#box2 div {
+			width:200px;
+			height:200px;
+			background:orange;
+			display:none;
+		}
+		.color {
+			background:red;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="button" class="color" value="按钮1" />
+		<input type="button" value="按钮2" />
+		<input type="button" value="按钮3" />
+		<div style="display:block;">按钮1</div>
+		<div>按钮2</div>
+		<div>按钮3</div>
+	</div>
+	<div id="box2">
+		<input type="button" class="color" value="按钮1" />
+		<input type="button" value="按钮2" />
+		<input type="button" value="按钮3" />
+		<div style="display:block;">按钮1</div>
+		<div>按钮2</div>
+		<div>按钮3</div>
+	</div>
+
+	<input type="button" id="btn1" value="让第一个自动播放" />
+	<input type="button" id="btn2" value="停止第二个的自动播放" />
+	<input type="button" id="btn3" value="动的停，停的动" />
+	<script>
+		function Tab(parent){
+			//this指的是调用构造函数返回的对象。
+			this.inputs = parent.querySelectorAll('input');
+			this.divs = parent.querySelectorAll('div');
+			this.timer = null;
+			this.n = 0;
+			this.leng = this.inputs.length;
+			/*
+				tab = {
+					inputs:[input, input, input],
+					divs:[div, div, div],
+					n:0,
+					timer:null,
+					leng:3
+				}
+			*/
+		}
+
+		//tab1的点击切换
+		Tab.prototype.tip = function(){
+			//this指的是tab1,因为是tip1调用的tab1.tip()
+			let that = this;
+			for( var i=0; i<this.leng; i++ ){
+				this.inputs[i].index = i;
+				this.inputs[i].onclick = function(){
+					//此处this指的是点击的button，that传进来的是对象tab1
+					for(var i=0; i<that.leng; i++){
+						that.inputs[i].className = '';
+						that.divs[i].style.display = 'none';
+					}
+					this.className = 'color';
+					that.divs[this.index].style.display = 'block';
+					that.n = this.index;
+				}
+			}
+		}
+
+		//tab2的自动播放
+		Tab.prototype.autoplay = function(){
+			//this指的是tab2,因为是tip2调用的tab2.autoplay()
+			//let n = 0;
+			if(this.timer) return;
+			this.timer = setInterval(() => {//箭头函数中的this指的是调用它的对象tab1或tab2
+				this.n++;
+				if(this.n>this.leng-1){
+					this.n=0;
+				}
+				for(var i=0; i<this.leng; i++){
+					this.inputs[i].className = '';
+					this.divs[i].style.display = 'none';
+				}
+				this.inputs[this.n].className = 'color';
+				this.divs[this.n].style.display = 'block';
+			},1000)
+		}
+
+		//停止tab2的自动播放
+		Tab.prototype.pause = function(){
+			clearInterval(this.timer);
+			this.timer = null;
+		}
+
+		//检测是否在运动
+		Tab.prototype.seeTimer = function(){
+			return !!this.timer;//返回一个布尔值
+		}
+//---------------------------------------------------------------
+		let tab1 = new Tab(box);//返回一个对象
+		tab1.tip();//tab1身上没有tip()，会去Tab的原型上找。
+		console.log(tab1)
+
+		let tab2 = new Tab(box2);//返回一个对象
+		tab2.autoplay();//tab2身上没有autoplay()，会去Tab的原型上找。
+
+		btn1.onclick = function(){//让第一个自动播放
+			tab1.autoplay();
+		}
+
+		btn2.onclick = function(){//停止第二个的自动播放
+			tab2.pause();
+		}
+
+		btn3.onclick = function(){//动的停，停的动
+			if(tab1.seeTimer()){
+				tab1.pause();
+			}else{
+				tab1.autoplay()
+			}
+
+			if(tab2.seeTimer()){
+				tab2.pause();
+			}else{
+				tab2.autoplay()
+			}
+		}
+	</script>
+</body>
+</html>
