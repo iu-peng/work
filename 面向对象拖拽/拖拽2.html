@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		div { width:200px; height:200px; background:orange; position:absolute; left:0; top:0; }
+	</style>
+</head>
+<body>
+<div id="box"></div>
+<div id="box2"></div>
+<script type="text/javascript">
+let box = document.getElementById('box')
+let box2 = document.getElementById('box2')
+//函数封装
+class Drag{
+	constructor(box){
+		this.drag = box;
+		this.disX = null;
+		this.disY = null;
+
+		this.downfn = this.downfn.bind(this)
+		this.movefn = this.movefn.bind(this)
+	}
+
+	init(){
+		this.drag.onmousedown = this.downfn.bind(this);
+	}
+	downfn(ev){
+		this.disX = ev.clientX - this.drag.offsetLeft;
+		this.disY = ev.clientY - this.drag.offsetTop;
+		document.onmousemove = this.movefn.bind(this);
+		document.onmouseup = this.upfn;
+	}
+	movefn(ev){
+		this.drag.style.left = ev.clientX - this.disX + 'px';
+		this.drag.style.top = ev.clientY - this.disY + 'px';
+	}
+	upfn(){
+		document.onmousemove = null;
+	}
+}
+
+let drag = new Drag(box);
+drag.init();
+
+let drag2 = new Drag(box2);
+drag2.init();
+
+</script>
+</body>
+</html>
