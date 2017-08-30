@@ -25,12 +25,12 @@ class Drag{
 	}
 
 	init(){
-		this.drag.onmousedown = this.downfn.bind(this);
+		this.drag.onmousedown = this.downfn;
 	}
 	downfn(ev){
 		this.disX = ev.clientX - this.drag.offsetLeft;
 		this.disY = ev.clientY - this.drag.offsetTop;
-		document.onmousemove = this.movefn.bind(this);
+		document.onmousemove = this.movefn;
 		document.onmouseup = this.upfn;
 	}
 	movefn(ev){
