@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		div{ 
+			width:100px;
+			height:100px;
+			background:orange;
+			position: absolute;
+			left:0; 
+			top:0;
+			border-radius:50%;
+		 }
+	</style>
+	<script>
+		class Drag{
+			constructor(){
+				this.disX = 0;
+				this.disY = 0;
+
+				this.downFn = this.downFn.bind(this);
+				this.moveFn = this.moveFn.bind(this);
+				this.upFn = this.upFn.bind(this);
+			}
+			
+			draginit(dragbox){
+				this.dragbox = dragbox;
+				this.dragbox.onmousedown = this.downFn;
+			}
+
+			downFn(ev){
+				this.disX = ev.clientX - this.dragbox.offsetLeft;
+				this.disY = ev.clientY - this.dragbox.offsetTop;
+				document.onmousemove = this.moveFn;
+				document.onmouseup = this.upFn;
+			}
+
+			moveFn(ev){
+				this.dragbox.style.left = ev.clientX - this.disX + 'px';
+				this.dragbox.style.top = ev.clientY - this.disY + 'px';
+			}
+
+			upFn(){
+				document.onmousemove = document.onmouseup = null;
+			}
+
+		}
+	</script>
+</head>
+<body>
+<input type="button" value="按钮" id="btn" />
+
+
+<script type="text/javascript">
+
+	class tipDiv extends Drag{
+		constructor(css1){
+			super();
+			this.css = {
+				width:100,//都为默认值
+				height:200,
+				background:'red'
+			}
+			Object.assign(this.css,css1)
+			this.init();//this指向这个由构造器创建的对象，直接调用构造器上的初始化函数init，生成一个对应的div。
+		}
+
+		init(){
+			this.newDiv = this.createDiv();
+			this.styleInit();
+			document.body.appendChild(this.newDiv)
+		}
+		createDiv(){
+			let newDiv = document.createElement('div')
+			return newDiv;
+		}
+		styleInit(){
+			this.newDiv.style.cssText = `
+				width:${this.css.width}px;
+				height:${this.css.height}px;
+				background:${this.css.background};
+				position:absolute;
+				left:0;
+				top:0;
+			`
+		}
+	}
+	
+	btn.onclick = function(){
+		let div = new tipDiv({
+			width:200,
+			background:'green'
+		})
+		//div.init();
+
+		console.log(div)
+		div.draginit(div.newDiv)//给生成的每个div添加拖拽事件。
+	}
+
+</script>
+
+</body>
+</html>
