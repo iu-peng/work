@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商品累计</title>
+	<style>
+		body { background:#e15671;}
+		.box { width:479px; height:591px; background:url(./bg.png) no-repeat; margin:0 auto; }
+		ul { padding:140px 44px 17px; margin:0; }
+		li { list-style:none; margin-bottom:20px; }
+		button { float:left; width:44px; height:36px; background:url(span.png) no-repeat; border:none; padding:0; color:#fff; font-size:25px;}
+		.num { float:left; width:44px; height:36px; background:#fff; margin:0 10px;line-height:36px; text-align:center; border-radius:4px; color:#000; }
+		.message { float:left; width:208px; height:36px; background:#171818; margin-left:20px; line-height:36px; color:#fff; padding-left:10px; border-radius:4px;}
+		.clearfix:after { height:0; display:block; clear:both; overflow:hidden; visibility:hidden; content:""; }
+		.bot { padding:0 44px; color:#fff; }
+		.bot .num { float:none; display:inline-block; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul>
+			<li class="clearfix goods1">
+				<button>-</button>
+				<span class="num">0</span>
+				<button>+</button>
+				<div class="message">
+					单价:<span class="one">12.5</span>元，小计:<span>0</span>元
+				</div>
+			</li>
+			<li class="clearfix goods2">
+				<button>-</button>
+				<span class="num">0</span>
+				<button>+</button>
+				<div class="message">
+					单价:<span class="one">10</span>元，小计:<span>0</span>元
+				</div>
+			</li>
+			<li class="clearfix goods3">
+				<button>-</button>
+				<span class="num">0</span>
+				<button>+</button>
+				<div class="message">
+					单价:<span class="one">8.5</span>元，小计:<span>0</span>元
+				</div>
+			</li>
+			<li class="clearfix goods4">
+				<button>-</button>
+				<span class="num">0</span>
+				<button>+</button>
+				<div class="message">
+					单价:<span class="one">8</span>元，小计:<span>0</span>元
+				</div>
+			</li>
+			<li class="clearfix goods5">
+				<button>-</button>
+				<span class="num">0</span>
+				<button>+</button>
+				<div class="message">
+					单价:<span class="one">14.5</span>元，小计:<span>0</span>元
+				</div>
+			</li>
+		</ul>
+		<div class="bot">
+			<p>商品共计<span class="num">0</span>件 共花费了<span class="num">0</span>元</p>
+			<p>其中最贵的商品单价是：<span class="num">0</span>元</p>
+		</div>
+	</div>
+
+	<script>
+		/*var buttons = document.querySelectorAll('.goods1 button');*/
+		var numb = document.querySelectorAll('.clearfix .num');
+		var onePrice = document.querySelectorAll('.message .one');
+
+		var all = document.querySelectorAll('.bot span');
+		var lis = document.querySelectorAll('.clearfix');
+
+		for( var i=1; i<=lis.length; i++ ){
+			compute('.goods'+i);
+		}
+		
+		
+		console.log(numb.length)
+		function compute(parent){
+			
+			var buttons = document.querySelectorAll(parent+' button');
+			var num = document.querySelector(parent+' .num');
+			var allPrice = document.querySelectorAll(parent+' .message span');
+			//点击+
+			buttons[1].onclick = function(){
+				num.innerHTML = parseInt(num.innerHTML) + 1;
+				allPrice[1].innerHTML =  parseFloat(allPrice[1].innerHTML) + parseFloat(allPrice[0].innerHTML)
+				all[0].innerHTML = parseInt(all[0].innerHTML) + 1;
+				all[1].innerHTML = parseFloat(all[1].innerHTML) + parseFloat(allPrice[0].innerHTML);
+				/*if( parseFloat(allPrice[0].innerHTML)>parseFloat(max) ){
+					max1 = parseFloat(max);
+					max = parseFloat(allPrice[0].innerHTML);
+					all[2].innerHTML = max;
+				}*/
+				max();
+				/*console.log( parseInt(num.innerHTML) ) 
+				for( var i=1; i<=lis.length; i++ ){
+					if( parseInt(num.innerHTML) ){
+						if( parseFloat(allPrice[i].innerHTML)>parseFloat(max) ){
+							max = parseFloat(allPrice[i].innerHTML)
+							all[2].innerHTML = max;
+						}
+					}
+				}*/
+				
+			}
+			//点击-
+			buttons[0].onclick = function(){
+				if(parseInt(num.innerHTML)>0){
+					num.innerHTML = parseInt(num.innerHTML) - 1;
+					allPrice[1].innerHTML =  parseFloat(allPrice[1].innerHTML) - parseFloat(allPrice[0].innerHTML)
+					all[0].innerHTML = parseInt(all[0].innerHTML) - 1;
+					all[1].innerHTML = parseFloat(all[1].innerHTML) - parseFloat(allPrice[0].innerHTML);
+				}
+				/*if( parseInt(num.innerHTML)==0 ){
+					if( parseFloat(allPrice[0].innerHTML)==parseFloat(max) ){
+						all[2].innerHTML = max1;
+						max1 = parseFloat(max);
+					}
+				}*/
+				max()
+			}
+		}
+		function max(){
+			var max = 0;
+			for( var i=0; i<numb.length; i++ ){
+				if( parseInt(numb[i].innerHTML) ){
+					if( parseFloat(onePrice[i].innerHTML)>parseFloat(max) ){
+						max = parseFloat(onePrice[i].innerHTML)
+					}
+				}
+				all[2].innerHTML = max;
+			}
+			
+		}
+		/*buttons[1].onclick = function(){
+			num.innerHTML = parseInt(num.innerHTML) + 1;
+			allPrice[1].innerHTML =  parseFloat(allPrice[1].innerHTML) + parseFloat(allPrice[0].innerHTML)
+		}
+		buttons[0].onclick = function(){
+			if(parseInt(num.innerHTML)>0){
+				num.innerHTML = parseInt(num.innerHTML) - 1;
+				allPrice[1].innerHTML =  parseFloat(allPrice[1].innerHTML) - parseFloat(allPrice[0].innerHTML)
+			}
+		}*/
+	</script>
+</body>
+</html>
