@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>输入正确的QQ号</title>
+	<style>
+	body { background:-webkit-linear-gradient(0deg,#aca893,#eda7a9); }
+	.box { width:470px; height:200px; border-radius:10px; background:-webkit-linear-gradient(0deg,#e05672,#8a5dc2); margin:100px auto; box-shadow:5px 5px 10px rgba(0,0,0,0.4); }
+	.top { width:470px; height:80px; background:url(./top.png) no-repeat center center;}
+	.mid span { float:left; width:120px; height:40px; line-height:40px; color:#fff; text-align:center; }
+	.mid input:nth-of-type(1) { width:180px; height:40px; background:#fff; border-radius:6px; padding:0; outline:none; border:none; float:left; font-size:18px; text-indent:10px;}
+	.mid input:nth-of-type(2),.mid input:nth-of-type(3) { width:70px; height:40px; border-radius:6px; background:#000; color:#fff; border:none; outline:none; margin-left:10px; font-size:18px; }
+	.bot { width:150px; height:30px; background:red; border-radius:5px; margin:10px auto; font-size:18px; color:#fff; line-height:30px; text-align:center; display:none; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="top"></div>
+		<div class="mid">
+			<span>请输入QQ号：</span>
+			<input type="text" placeholder="请输入内容">
+			<input type="button" value="登录" class="login"/>
+			<input type="button" value="取消" class="clear"/>
+		</div>
+		<div class="bot">sfsdf</div>
+	</div>
+	<script>
+	var oBtn = document.querySelector('.mid .login');
+	var oBtn2 = document.querySelector('.mid .clear');
+	var oTxt = document.querySelector('input');
+	var oBot = document.querySelector('.bot');
+	
+	function show(){
+		oBot.style.display = 'block';
+	}
+	oBtn2.onclick = function(){
+		oBot.style.display = 'none';
+		oTxt.value = '';
+	}
+	oBtn.onclick = function(){
+		var txt = oTxt.value;
+		oBot.style.background = '';
+		for( var i=0; i<txt.length; i++){//对value的每一位进行判断如果有空格
+			if(txt.charAt(i)==' '){
+				show()
+				oBot.innerHTML = '不能有空格';
+				break;
+			}
+		}
+		if(txt==''){//内容不能为空
+			show()
+			oBot.innerHTML = '不能为空'
+		}else if(isNaN(txt)||isNaN(txt.charAt(0))){//如果为数字则为false，如果不是数字则为true。
+			show()
+			oBot.innerHTML = '请输入数字';
+		}else if(parseInt(txt)!=parseFloat(txt)){//如果是小数，整数和小数不相等，提示
+			show()
+			oBot.innerHTML = '不能是小数';
+		}else if(!Boolean(Number(txt.charAt(0)))){//第一位类型转为number，用Boolean判断是否为false，是则为0；
+			show()
+			oBot.innerHTML = '开头不能为0';
+		}else if(txt.length<5){
+			show()
+			oBot.innerHTML = '最少5位';
+		}else if(txt.length>12){
+			show()
+			oBot.innerHTML = '最多12位';
+		}else{
+			show()
+			oBot.style.background = 'green';
+			oBot.innerHTML = '输入正确';
+		}
+		
+	}
+	</script>
+</body>
+</html>
