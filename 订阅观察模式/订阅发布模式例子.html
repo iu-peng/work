@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+      div { width:100px; height:100px; background:orange; float:left; }
+      div:nth-child(odd){background:red;}
+  </style>
+</head>
+<body>
+<div class="box1"></div>
+<div class="box2"></div>
+<div class="box3"></div>
+<div class="box4"></div>
+<script>
+    let divs = document.getElementsByTagName('div')
+    class Obj{
+        constructor(){
+            this.ku = {}
+        }
+
+        cun(size,people){
+            if(!this.ku[size]){
+                this.ku[size] = [];//利用传来的size创建一个数组
+            }
+            this.ku[size].push(people)//给创建的数组添加内容
+        }
+
+        find(size){
+            let arr = this.ku[size];
+            for(let i=0; i<arr.length; i++){
+                arr[i]();
+            }
+        }
+
+        del(){
+
+        }
+    }
+
+    let one = new Obj();
+    one.cun('width',function(){
+        divs[0].style.width = '200px';//width:[function(){divs[0].style.width = '200px'}]
+    })
+    one.cun('width',function(){
+       divs[2].style.width = '200px';
+       //width:[function(){divs[0].style.width = '200px'},function(){divs[2].style.width = '200px'}]
+    })
+
+    one.cun('height',function(){
+        divs[1].style.height = '200px'
+    })
+    one.cun('height',function(){
+        divs[3].style.height = '200px'
+    })
+
+    document.onmousedown = function(){
+        one.find('width')
+    }
+    document.onmouseup = function(){
+        one.find('height')
+    }
+
+    console.log( '13'>4 )
+    
+</script>
+</body>
+</html>

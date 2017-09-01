@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<script>
+    class Obj{
+        constructor(){
+            this.ku = {}
+        }
+
+        cun(size,people){
+            if(!this.ku[size]){
+                this.ku[size] = [];
+            }
+            this.ku[size].push(people)
+        }
+
+        find(size){
+            let arr = this.ku[size];
+            for(let i=0; i<arr.length; i++){
+                arr[i]();
+            }
+        }
+    }
+
+    let one = new Obj();
+    one.cun('100',function(){
+        console.log('小明')
+    })
+    one.cun('100',function(){
+        console.log('小夏')
+    })
+    one.cun('200',function(){
+        console.log('小里')
+    })
+
+    one.find('100')
+    one.find('200')
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script>
+        class Obj{
+            constructor(){
+                this.ku = {}
+            }
+
+            fork(size,people){//添加对应的对象 size:[people,people,...]
+                if(!this.ku[size]){
+                    this.ku[size] = [];
+                }
+                this.ku[size].push(people)
+            }
+
+            pushOut(size){//调出对应的函数
+                let arr = this.ku[size];
+                if(arr){
+                    for(let i=0; i<arr.length; i++){
+                        arr[i]();
+                    }
+                }
+            }
+
+            del(people){//删除对应数据
+                let bigArr = [];
+                for(let attr in this.ku){
+                    if(this.ku[attr] instanceof Array){//判断为数组类型
+                        bigArr = bigArr.concat(this.ku[attr])//将所有的对象中的数组连接起来
+                    }
+                }
+                
+                for(let i=0; i<bigArr.length; i++){
+                    if(bigArr[i] === people){//遍历数组找到对应的函数
+                        bigArr.splice(i,1)//删除
+                    }
+                }
+                console.log(bigArr)
+            }
+        }
+
+        class Tk extends Obj{//拖拽块继承自父类Obj
+            constructor(box){
+                super()
+                this.box = box;
+            }
+
+            init(){//拖拽初始化
+                this.box.onmousedown = this.downFn.bind(this);
+            }
+            downFn(ev){
+                this.pushOut('down')//对象上找不到会往上找该构造函数的父类Obj.
+                this.disX = ev.clientX - this.box.offsetLeft;
+                this.disY = ev.clientY - this.box.offsetTop;
+                document.onmousemove = this.moveFn.bind(this)
+                document.onmouseup = this.upFn.bind(this)
+                ev.preventDefault();
+            }
+            moveFn(ev){
+                this.x = ev.clientX - this.disX;
+                this.y = ev.clientY - this.disY;
+                this.pushOut('move')
+                this.box.style.left =  this.x + 'px';
+                this.box.style.top = this.y + 'px';
+            }
+            upFn(){
+                this.pushOut('up')//触发了该事件，才会调用父类的原型上的方法；
+                document.onmousedown = document.onmousemove = null;
+            }
+
+        }
+    </script>
+    <style type="text/css">
+        body { background:#320404; }
+        div,span { position:absolute; left:0; top:0;}
+        #bbox { width:1000px; height:100px; border:1px solid #fff; }
+        #box { width:100px; height:100px; background:orange; border-radius:0 0 50px 50px;}
+        #shape { width:100px; height:100px; background:rgba(0, 255, 182,0.5); border-radius:0 0 50px 50px;}
+        #box2 { width:1000px; height:20px; background:#fcacac; top:100px; border:1px solid red; border-radius:10px; }
+        span { width:50px; height:20px; background:#20b2aa; ;border-radius:10px; }
+    </style>
+</head>
+<body>
+<div id="bbox">
+    <div id="box"></div>
+    <div id="shape"></div>
+</div>
+<div id="box2">
+    <span id="bar"></span>
+</div>
+<script>
+    let shapeLeft = Math.round( Math.random()*900 ) ;
+    shape.style.left = shapeLeft+ 'px';
+
+    let widthMax = box2.clientWidth - bar.clientWidth;
+
+    let one = new Tk(bar);
+    one.init()
+
+    let one2 = new Tk(box);
+    one2.init()
+
+    //从对象one的构造函数的父类Obj上找到fork函数，添加旁观者模式
+    one.fork('down',function(){
+        console.log('mousedown了')
+    })
+
+    one.fork('move',function(){
+        one.y = 0;
+        if(one.x<0){
+            one.x = 0;
+        }
+        if(one.x > widthMax){
+            one.x = widthMax;
+        }
+        if(0.948*one.x >= shapeLeft){
+            one.x = shapeLeft/0.948;
+            console.log('get it!')
+        }
+        box.style.left = 0.948*one.x + 'px';
+        console.log('正在move中');
+    })
+
+    one.fork('up',function(){
+        console.log('up了')
+    })
+    console.log(one)
+
+    one2.fork('move',function(){
+        one2.y = 0;
+    })
+
+    function fn(){
+        console.log('ssssssssssss')
+    }
+    one.fork('aaa',fn)
+    one.del(fn)//原来总共有四个函数，删除了函数fn，只剩三个[f,f,f]
+</script>
+</body>
+</html>
