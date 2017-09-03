@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.color { background:green; }
+	</style>
+</head>
+<body>
+
+<script type="text/javascript">
+	
+	let obj = {
+		fn:function(){
+			console.log(this)
+		},
+		'abc':123
+	}
+
+	let f = obj.fn;
+	f();//window
+
+	obj.fn();//{abc: 123, fn: ƒ}
+
+</script>
+
+</body>
+</html>

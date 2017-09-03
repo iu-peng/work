@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.color { background:green; }
+	</style>
+</head>
+<body>
+
+<script type="text/javascript">
+	
+	function People(name,age,sex){
+		this.name = name;
+		this.age = age;
+		this.sex = sex;
+	}
+	People.prototype.say = function(){
+		console.log('人类会说话')
+	}
+	function Coder(name,age,sex,money){
+		People.call(this,name,age,sex);
+		this.money = money;
+	}
+
+	//拷贝继承
+	for(var attr in People.prototype){
+		if(People.prototype.hasOwnProperty(attr)){
+			Coder.prototype[attr] = People.prototype[attr]
+		}
+	}
+
+	let code = new Coder('lisa',20,'man',9999);  
+	console.log(code)//{name: "lisa", age: 20, sex: "man", money: 9999}
+	console.log(code.say)
+
+</script>
+
+</body>
+</html>

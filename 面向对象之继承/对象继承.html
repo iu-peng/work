@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		let obj = {
+			a:1,
+			b:2
+		}
+
+		let obj2 = obj;//{a: 1, b: 2}
+
+		console.log(obj)
+
+		obj2.a = 3;//改的是obj和obj2共同的a;
+		console.log(obj)//{a: 3, b: 2}
+		console.log(obj2)//{a: 3, b: 2}
+	</script>
+</body>
+</html>

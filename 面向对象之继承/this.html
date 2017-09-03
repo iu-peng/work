@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		let obj = {
+			fn:function(){
+				console.log(this)
+			}
+		}
+
+		let f = obj.fn;
+		f();//window
+		obj.fn();//obj
+
+		obj.fn.bind('abc')();//{0: "a", 1: "b", 2: "c", length: 3, [[PrimitiveValue]]: "abc"}
+	</script>
+</body>
+</html>

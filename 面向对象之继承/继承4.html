@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.color { background:green; }
+	</style>
+</head>
+<body>
+
+<script type="text/javascript">
+	
+	class People{
+		constructor(name,age,sex){
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+		}
+
+		say(){
+			console.log('人类会说话')
+		}
+		
+	}
+
+	class Coder extends People{
+		constructor(name,age,sex,money){
+			super(name,age,sex)
+			this.money = money;
+		}
+
+		coding(){
+			console.log('我会编程')
+		}
+	}
+
+
+	let code = new Coder('lisa',20,'man',9999);  
+	console.log(code)//{name: "lisa", age: 20, sex: "man", money: 9999}
+	console.log(code.say)
+			/*
+			ƒ say(){
+				console.log('人类会说话')
+			}*/
+</script>
+
+</body>
+</html>

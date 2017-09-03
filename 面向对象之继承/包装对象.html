@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		let str = 'abc';
+		str.a = 'deg';
+
+		console.log(str.a)//undefined;
+		console.log(str.a = 0)//0
+		//对象属性使用完就销毁了，
+
+		console.log(str.valueOf());  // 拿到原始值
+
+		let str2 = new String('100')//声明的是对象。
+		str2.a = 'deg';//对象的属性不会销毁
+		console.log( typeof str2)//object
+		console.log(str2.a)//deg//并不是undefined
+		console.log(str2.valueOf());  //100 拿到原始值
+	</script>
+</body>
+</html>
