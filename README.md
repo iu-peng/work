@@ -102,6 +102,9 @@
 * 云盘制作2（添加移动去重功能）
 * 云盘制作3（修复移动功能）
 
+<h1 align="center">Ajax</h1>
+* Ajax练习
+
 <h1 align="center">CSS</h1>
 
 ### 3D场景
