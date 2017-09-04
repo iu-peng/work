@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        td {
+            text-align: center;
+        }
+        .red{
+            background: red;
+        }
+        .color{
+            background-image: linear-gradient(135deg, #41c8ff 0, #41c8ff 25%,#46e6fe 75%);
+        }
+    </style>
+    <script>
+
+        //在页面加载完成的时候，把下面这个数据动态添加到表格中
+       
+
+        /*
+            1、根据数据生成表格。
+            2、数据的添加
+            3、全选、单选
+            4、单条删除，选中删除
+            5、排序（按年龄从大到小-从小到大）
+            6、如果是在排序的状态，添加后依然保持排序
+        */
+    </script>
+    <script src="./js/jquery-3.2.1.js"></script>
+    </head>
+
+<body>
+
+<form action="" name="form">
+    <p>
+        姓名:<input type="text" id="userName" name="username"/>
+    </p>
+    <p>
+        年龄:<input type="text" id="age" name="age"/>
+    </p>
+    <p>
+        性别: <select name="sex" id="sex">
+            <option value=" 男 ">男</option>
+            <option value="女">女</option>
+        </select>
+    </p>
+    <p>
+        <input type="button" id="add" value="添加" name="add"/>
+    </p>
+</form>
+    <input type="button" id="delectAll" value="删除选中"  class="btn"> 
+    <input type="button" value="年龄从小到大" id="ageSort"  class="btn"> 
+    <table id="tab1" width="100%" border="1">
+
+        <thead>
+        <tr>
+            <th>
+                <input id="checkAll" type="checkbox" /> 全选
+            </th>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody id="tbody">
+            <!-- <tr>
+                <td>
+                    <input type="checkbox"/>
+                </td>
+                <td>1</td>
+                <td>LEO</td>
+                <td>36</td>
+                <td>男</td>
+                <td>
+                    <a href="javascript:;">删除</a>
+                </td>
+            </tr> -->
+        </tbody>
+
+    </table>
+    <script type="text/javascript">
+      // 一上来发ajax请求
+    var tbody = $('tbody')[0]
+    //var dels;
+    rander()
+
+    //删除
+    function del(){
+        var dels = tbody.getElementsByTagName('a');
+        
+        for(let i=0; i<dels.length; i++){
+            dels[i].onclick = function(){
+                let parentNode = this.parentNode.parentNode;
+                $.ajax({
+                    url:'http://192.168.2.81:8888/api/delectUser',
+                    async:true,//默认为异步执行，不等Ajax执行完，下面的代码就会执行
+                    //false：同步，只有在Ajax执行完后，下面的代码才能执行。
+                    method:'get',
+                    data:{
+                        id:this.dataset.id
+                    },
+                    success(data){
+                        //rander(data);
+                        if(data.status){
+                            alert(data.message)
+                        }else{
+                            parentNode.remove();
+                        }
+                        //rander()
+                        console.log(data)//{code: 0, message: "删除成功"}
+                    }
+                })
+            }
+        }
+    }
+
+    //添加
+    add.onclick = function(){
+        let userNameValue = userName.value;
+        let ageVal = age.value;
+        let sexVal = document.forms[0].sex.value;
+        
+
+        if(!userNameValue || !ageVal){
+            alert('用户名或年龄不能为空')
+        }
+        if( isNaN(ageVal) ){
+            alert('年龄只能为数字')
+        }
+
+        $.ajax({
+            url:'http://192.168.2.81:8888/api/saveUsers',
+            method:'post',
+            data:{
+                userName:userNameValue,
+                age:ageVal,
+                sex:sexVal
+            },
+            success(data){
+                rander();
+                console.log(data)
+            }
+        })
+    }
+
+
+
+
+    //渲染数据
+    function rander(){
+        $.ajax({
+            url:'http://192.168.2.81:8888/api/getAllUsers',
+            success(data){
+                if(data.users.length<=0){
+                    alert('数据为0')
+                }
+                let str = data.users.map(function(item){
+                    return `
+                        <tr>
+                            <td>
+                                <input type="checkbox"/>
+                            </td>
+                            <td>${item._id}</td>
+                            <td>${item.userName}</td>
+                            <td>${item.age}</td>
+                            <td>${item.sex}</td>
+                            <td>
+                                <a href="javascript:;" class="del" data-id="${item._id}">删除</a>
+                            </td>
+                        </tr>
+                    `
+                }).join('')
+                tbody.innerHTML = str;
+                del();//删除
+            }
+
+        })
+        
+    }
+   
+    
+
+    </script>
+</body>
+</html>
