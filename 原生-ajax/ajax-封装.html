@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	用户名：<input type="text" name="user" id="username" /> <span id="tip1"></span> <br/>
+	用户名：<input type="text" name="user" id="username2" /> <span id="tip2"></span> <br/>
+	
+
+	<script>
+	function ajax(options,tip){
+		//指定默认参数method
+		let ajaxOptions = Object.assign({
+			method:'get',
+			url:'',
+			data:''
+		},options);
+
+		//先判断请求接口是否为空。为空抛出错误
+		if(ajaxOptions.url === ''){
+			throw new Error('请求接口不能为空！');
+		}
+
+		let xhr = new XMLHttpRequest();
+
+		//传输为get类型的时候，要在接口url的后面加 ?+数据
+		if(ajaxOptions.method.toLowerCase() === 'get'){
+			ajaxOptions.url = ajaxOptions.url + '?user=' + ajaxOptions.data;
+		}
+
+		//默认异步为true；
+		xhr.open(ajaxOptions.method,ajaxOptions.url,true);
+
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			tip.innerHTML = xhr.responseText;
+		}
+
+		if(ajaxOptions.method.toLowerCase() === 'get'){
+			xhr.send()
+		}else if(ajaxOptions.method.toLowerCase() === 'post'){
+			//设置请求头部
+			xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+			//发送post数据
+			xhr.send('user='+ ajaxOptions.data);
+		}
+		
+
+	}
+		
+	username.onblur = function(){
+		
+		ajax({
+			method:'get',
+			url:'http://localhost/ajax/backend/php/get.php',
+			data:username.value
+		},tip1)
+
+	}
+
+	username2.onblur = function(){
+		ajax({
+			method:'post',
+			url:'http://localhost/ajax/backend/php/post.php',
+			data:username2.value
+		},tip2)
+	}
+	</script>
+</body>
+</html>

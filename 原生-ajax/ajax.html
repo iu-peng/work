@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	用户名：<input type="text" name="user" id="username" /> <span id="tip1"></span> <br/>
+	密码：<input type="password" name="pwd" /><span id="tip2"></span><br/>
+	<button id="btn">提交</button>
+
+	<script>
+		
+	btn.onclick = function(){
+		let xhr = new XMLHttpRequest();
+
+		xhr.open(
+			'GET',
+			//请求的地址要与url的指向对应
+			'http://localhost/ajax/backend/php/get.php?user='+username.value,
+			true
+		)
+
+		xhr.send();
+		//收到响应
+		xhr.onload = function(){
+			console.log(xhr.responseText);
+			tip1.innerHTML = xhr.responseText;
+		}
+
+	}
+	</script>
+</body>
+</html>
