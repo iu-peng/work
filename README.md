@@ -105,6 +105,8 @@
 <h1 align="center">Ajax</h1>
 
 ### Ajax练习
+* iQuery练习
+* 原生ajax练习
 
 <h1 align="center">CSS</h1>
 
