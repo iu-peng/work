@@ -61,7 +61,7 @@
 
 ### 工作步骤
 
-1. 得到Ajax对象
+1. 创建得到Ajax对象
 
     ```js
     let xhr = new XMLHttpRequest();//创建一个Ajax对象
@@ -95,6 +95,15 @@
 |意义|   |     |未返回内容，只返回响应头|返回内容,数据量大,分批返回|数据完全接收完成|
 |**readyState**|**0**|**1**|**2**|**3**|**4**|
 
+## Ajax监控
+```js
+xhr.onreadystatechange = function(){
+    if( readyState === 4 ){//传输完成
+    
+    }
+}
+```
+
 ##get和post传输的不同
 ### get方式
 > get方式是默认的传输方式，可以不用写GET，但是要在open()方法中的url地址后面跟上待验证的数据，手动添加上?和其他name标识，这样才能正确请求到数据，并返回验证结果
@@ -124,6 +133,8 @@ btn.onclick = function(){
 ### post方式
 > post传输方式和get传输的最大不同就是send()方法是否带参数，get不用带参数，数据都跟在open中url链接后面，post则不能直接跟在后面，必须把数据写在send()中，并且要加上name标记。
 
+> post还要**设置请求头**，转为后端识别的编码。
+
 ```js
 username.onblur = function(){
     //创建Ajax对象
@@ -149,3 +160,184 @@ username.onblur = function(){
 	}
 }
 ```
+
+## json--javascript Object Notation
+> 从后端返回的数据，流行的数据格式是json数据格式，是一个字符串。是一种轻量级的数据交换格式。
+
+> json数据结构格式：
+1. “名称/值”对的集合'{"key":value,"key2":value}'
+key值必须写双引号，value值可以是除了函数以外的任意类型。 如：
+
+```js
+'{"name":"abc","age":18}'
+```
+
+### JSON.parse(json)---将json字符串转为对象
+
+```js
+let obj = [
+	{
+		name:'abcd',
+		age:12
+	},
+	{
+		name:'abcd',
+		age:12
+	},
+	{
+		name:'abcd',
+		age:12
+	}
+]
+
+let strjson = JSON.stringify(obj)//转为json字符串
+
+console.log( JSON.parse(strjson) )//将json字符串转为对象
+//[{…}, {…}, {…}]
+```
+
+> JSON是全局函数，此方法是高版本浏览器提供的方法
+> 低版本浏览器在JSON官网有提供的json2.js兼容
+
+> 前端向后端发送数据只能是json字符串，后端发送过来的也是json字符串。
+
+### JSON.stringify(jsonObj,null,5)---将对象转为json字符串
+
+* JSON.stringify(jsonObj,null,5)
+> 将一大堆的json字符串转为格式化后的可直观看的数据。数字5代表每行数据的缩进单位，缩进几个空格。
+
+
+```js
+let obj = [
+	{
+		name:'abcd',
+		age:12
+	},
+	{
+		name:'abcd',
+		age:12
+	},
+	{
+		name:'abcd',
+		age:12
+	}
+]
+
+let a = false;
+let b = 1009;
+let c = null;
+
+let strjson = JSON.stringify(obj)//转为json字符串
+
+console.log( JSON.stringify(obj,null,3) )//将对象转为json字符串，3个空格缩进
+/*'[
+   {
+      "name": "abcd",
+      "age": 12
+   },
+   {
+      "name": "abcd",
+      "age": 12
+   },
+   {
+      "name": "abcd",
+      "age": 12
+   }
+]'*/
+
+console.log( JSON.stringify(a) )//将布尔值转为json字符串
+//'false'
+
+console.log( JSON.stringify(b) )//将数字转为json字符串
+//'1009'
+
+console.log( JSON.stringify(c) )//将数字转为json字符串
+//'null'
+```
+
+## 上传的两种方式
+
+### 通过form表单上传
+```html
+<form 
+	action="http://localhost/ajax/backend/post_file.php"
+	method="post"
+	enctype="multipart/form-data"
+    >
+	<input type="file" name="file" id="fileUp">
+	<input type="submit" id="btn">
+</form>
+```
+> action指向上传到服务器的地址。
+> enctype：指定上传类型为二进制形式
+> method：上传都为post类型
+
+    点击submit会直接进行跳转。
+
+### 通过Ajax进行上传
+```js
+let xhr = new XMLHttpRequest();
+
+xhr.open('post','http://localhost/ajax/backend/post_file.php',true)
+
+console.dir( fileUp )
+
+let fileth = new FormData();//创建一个对象。
+fileth.append('file',fileUp.files[0])//append方法将文件转为二进制。
+
+xhr.send(fileth);//将创建的对象发送出去。
+
+xhr.onload = function(){
+	//console.log(xhr.responseText)
+}
+```
+
+> 利用input中file类型中有个属性files，它会记录选中文件的名称，size等特性。利用通过FormData()新创建的fileth对象对文件进行二进制编码上传。
+
+* 修改apache上传发送文件大小的限制 在目录：**C:\wamp\bin\apache\Apache2.2.21\bin** 中修改
+post_max_size = 999M
+upload_max_filesize = 999M
+
+## 监控上传进度---xhr.upload.onprogress
+
+> 每次上传的过程中都会触发ajax对象的upload.onprogress事件。
+
+  
+```js
+xhr.upload.onprogress = function(ev){
+    console.log(ev.loaded);//上传了多少
+    console.log(ev.total); //上传文件总大小
+}
+```
+
+## 跨域
+> ### **域名**：
+baidu.com --- 一级域名
+baike.baidu.com --- 二级域名
+abc.baike.baidu.com --- 三级域名
+
+-
+> ### **协议**
+有多种协议：
+http
+https
+ftp
+mail
+file
+
+-
+> ### **端口**
+默认端口
+http:80
+http:443
+
+## jsonp
+
+> jsonp = json + padding
+
+* 允许跨域的标签：img，script，a，link，
+
+流程：
+先创建一个script标签，src地址赋值远程地址，
+
+

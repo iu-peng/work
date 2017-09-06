@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<style type="text/css">
+		body {background:#20b2aa;}
+		#box {
+			width:500px;
+			height:20px;
+			border:1px solid #fff;
+			background:#ccc;
+		}
+		#bar {
+			width:0px;
+			height:20px;
+			display:block;
+			background:red;
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	
+	<input type="file" name="file" id="fileUp">
+	<input type="submit" id="btn">
+	<!-- submit递交的目标地址是action地址中，enctype定义类型为上传，转为二进制的 -->
+	<div id="box">
+		<span id="bar"><b></b></span>
+	</div>
+	
+
+	<script>
+		
+		btn.onclick = function(){
+			let xhr = new XMLHttpRequest();
+
+			xhr.open('post','http://localhost/ajax/backend/post_file.php',true)
+
+			xhr.upload.onprogress = function(ev){
+				bar.style.width = ev.loaded/ev.total*500 +'px';
+				bar.innerHTML = Math.round( ev.loaded/ev.total*100 ) + '%'
+			}
+			//console.dir( fileUp )
+
+			let fileth = new FormData();//创建一个对象。
+			fileth.append('file',fileUp.files[0])//append方法将文件转为二进制。
+
+			xhr.send(fileth);//将创建的对象发送出去。
+
+			xhr.onload = function(){
+				//console.log(xhr.responseText)
+			}
+			
+		}
+	</script>
+</body>
+</html>
