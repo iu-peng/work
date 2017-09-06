@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>百度搜索</title>
+	<style type="text/css">
+		body { background:#20b2aa; }
+		#txt {
+			width:300px;
+			height:30px;
+			border:2px solid blue;
+			display:block;
+			margin:50px auto 0;
+			text-indent:7px;
+			font-size:20px;
+		}
+		ul {
+			margin:0 auto;
+			width:300px;
+			padding:0;
+		}
+		li {
+			list-style:none;
+			padding-left:7px;
+			background:#fff;
+			border-bottom:1px solid #666;
+			height:25px;
+			line-height:25px;
+		}
+		li a {
+			text-decoration:none;
+			color:#000;
+		}
+		li:hover { background:#999; }
+	</style>
+</head>
+<body>
+	<input type="text" id="txt" />
+	<ul id="searchList">
+
+	</ul>
+	<script>
+		//返回搜索的数据，调用回调函数
+		function fn(data){
+			let d = data.s;//是一个数组
+			let str = d.map(function(item){
+				return `<li><a href="https://nova.rambler.ru/search?query=${item}" target="_blank">${item}</a></li>`
+			}).join('')
+			searchList.innerHTML = str;
+		}
+
+		txt.focus();
+		txt.oninput = function(){
+			let scr = document.createElement('script');
+			scr.src = `http://suggestion.baidu.com/su?wd=${this.value}&cb=fn`;
+			document.body.appendChild(scr);
+		}
+
+		
+	</script>
+</body>
+</html>
