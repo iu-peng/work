@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<h2>商品列表</h2>
+	<span>电脑</span>
+	<span>鼠标</span>
+	<span>被子</span>
+	<span>窗户</span>
+	<span>手机</span>
+
+	<hr/>
+
+	<ul id="list">
+
+	</ul>
+	<script>
+		window.addEventListener('storage',function(){
+			console.log( localStorage.getItem('car'));
+			console.log( localStorage.getItem('car'));
+			let newLi = `<li>${localStorage.getItem('car')}</li>`;
+			list.innerHTML = newLi;
+		})
+
+		let spans = document.getElementsByTagName('span')
+
+		for (var i = 0; i < spans.length; i++) {
+			spans[i].onclick = function(){
+				let str = `<li>${this.innerHTML}</li>`;
+				list.innerHTML += str;
+				localStorage.setItem('car',this.innerHTML)
+			}
+		}
+	</script>
+</body>
+</html>

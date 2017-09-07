@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script>
+			/*
+				http无状态的,使用cookie来记录登录状态，这个时候你在一个页面登录了，在同源下其他的页面也登陆了
+
+				cookie也是页域名有关系，必须是同源才拿到cookie
+
+				大小有限制 在kb之前
+				
+				存cookie
+					setCookie()
+				删cookie
+					removeCookie
+				改
+					setCookie()
+				查cookie
+					getCookie()
+
+				cookie的生命周期
+					只有会话时间，浏览器会话结束，就删除
+
+				设置cookie的过期时间
+
+				转为UTC 世界标准时间
+
+			*/
+
+			// 已当前的分钟向后推1分钟后过期
+
+			/*let d = new Date();
+
+			d.setMinutes(d.getMinutes()+1)
+
+			document.cookie = 'test=123; expires='+d.toUTCString()*/
+
+			/*document.cookie = 'miaov1=ketang1'
+			document.cookie = 'miaov2=ketang2'
+			document.cookie = 'miaov3=ketang3'
+			console.log(document.cookie);*/
+			// key值 value值，和过期时间 n已天为单位
+			function setCookie(key,value,n){
+				// n为0，已经设置了过期时间，设置cookie的那一刻是过期时间，停留一下就过期了
+
+				if(n){
+					let d = new Date();
+					d.setDate(d.getDate()+n);
+					document.cookie = key+'='+value+"; expires="+d.toUTCString();
+				}else{
+					document.cookie = key+'='+value;
+				}
+			}
+
+			function getCookie(key){
+				let cookies = document.cookie;
+				cookies = cookies.split('; ');
+				for( var i = 0; i < cookies.length; i++ ){
+					let arr = cookies[i].split('=');
+					if(arr[0] === key){
+						return arr[1];
+					}
+				}
+			}
+
+			function removeCookie(key){
+				//删除cookie
+				setCookie(key,null,-1)	
+			}
+
+			removeCookie("miaov2");
+
+
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>
