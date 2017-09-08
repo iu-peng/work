@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>todos</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+    <section class="todoapp">
+        <div>
+            <header class="header" >
+                <h1>todos</h1>
+                <input class="new-todo" placeholder="请输入内容" value="">
+            </header>
+            <section class="main">
+                <input class="toggle-all" type="checkbox">
+                <ul class="todo-list">
+                    <!-- <li class="completed">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" checked="">
+                            <label>多多对对对</label>
+                            <button class="destroy"></button>
+                        </div>
+                        <input class="edit" value="多多对对对">
+                    </li> -->
+                </ul>
+            </section>
+            <footer class="footer">
+	            <span class="todo-count">
+	            	<strong>0</strong>
+	            	<span>条未选中</span>
+	            </span>
+            </footer>
+        </div>
+    </section>
+    <script>
+        let newTodo = document.querySelector('.new-todo');
+        let todoList = document.querySelector('.todo-list');
+        let noCheckedShow = document.querySelector('.footer strong');
+
+        var completeds = todoList.getElementsByClassName('completed');
+        var edits = todoList.getElementsByClassName('edit');
+
+        let toggleAll = document.querySelector('.toggle-all')//全选
+
+        newTodo.focus();
+
+       /**/
+
+        let jsonStr = localStorage.getItem('note')
+        let jsonArr = JSON.parse(jsonStr);
+        let arr;
+        if(jsonStr){
+            arr = jsonArr;
+            rander(arr)
+        }else{
+            arr = [];
+        }
+
+
+        //回车
+        document.onkeydown = function(ev){
+            if(ev.keyCode === 13 && newTodo.value != ''){
+                arr.push(newTodo.value);
+                rander(arr)
+
+                localStorage.setItem('note',JSON.stringify(arr))
+
+                newTodo.value = '';
+                return;
+            }
+            //console.log(ev.keyCode === 27)//esc
+            if(ev.keyCode === 13){
+                for( let i=0; i<edits.length; i++){
+                    if(edits[i].onOff){
+                        arr[i] = (edits[i].value);
+                        rander(arr)
+                        localStorage.setItem('note',JSON.stringify(arr))
+
+                        edits[i].onOff = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        //添加事件
+        dblClickEvent();
+        function dblClickEvent(){
+            
+            //双击
+            for( let i=0; i<completeds.length; i++ ){
+                completeds[i].ondblclick = (ev) => {
+                    let view = completeds[i].querySelector('.view')
+                    let edit = completeds[i].querySelector('.edit')
+
+                    view.style.display = 'none';
+                    view.setAttribute('dis','none')
+
+                    edit.style.display = 'block';
+                    edit.setAttribute('dis','block')
+
+                    edit.onOff = true;
+                    document.dblOnOff = true;
+                    ev.stopPropagation();
+                }
+            }
+        }
+
+        document.onclick = function(ev){
+            if(document.dblOnOff){
+                if(ev.target.nodeName != 'INPUT'){
+                    let view = todoList.querySelector('div[dis=none]')
+                    let edit = todoList.querySelector('input[dis=block]')
+                    
+                    view.style.display = 'block';
+                    view.setAttribute('dis','')
+
+                    edit.style.display = 'none';
+                    edit.setAttribute('dis','')
+
+                    edit.onOff = false;
+                    document.dblOnOff = false;
+                }
+                
+            }
+            
+        }
+
+
+        function rander(arrData){
+            let html = arrData.map(function(item){
+                return `
+                    <li class="completed">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" >
+                            <label>${item}</label>
+                            <button class="destroy"></button>
+                        </div>
+                        <input class="edit" value="${item}">
+                    </li>
+                `
+            }).join('')
+            todoList.innerHTML = html;
+            //noCheckedNum.innerHTML = arrData.length;
+            toggles = document.getElementsByClassName('toggle')//多选
+            destroies = document.getElementsByClassName('destroy')//删除按钮
+            dblClickEvent();//添加双击事件
+            checkEvent();//添加选中事件
+            delEvent()//添加删除事件
+        }
+
+
+        //------------------多选-----------------
+        
+
+        var toggles//多选
+        
+        checkEvent();
+        function checkEvent(){
+            toggleAll.onclick = function(){
+                for(let i=0; i<toggles.length; i++){
+                    toggles[i].checked = this.checked;
+                    toggles[i].setAttribute('check',`${this.checked}`)
+                    noChecked();
+                }
+            }
+
+            for(let i=0; i<toggles.length; i++){
+                toggles[i].onclick = function(){
+                    checkedOr()
+                    noChecked();
+                }
+            }
+            noChecked();
+        }
+        //判断全选按钮是否选中
+        function checkedOr(){
+            for(let i=0; i<toggles.length; i++){
+                if(!toggles[i].checked){
+                    //noCheckedNum.innerHTML = arrData.length;
+                    toggleAll.checked = false;
+                    toggles[i].setAttribute('check','false')
+                   
+                }else{
+                    toggleAll.checked = true;
+                    toggles[i].setAttribute('check','true')
+                }
+            }
+        }
+        
+        //未选中个数
+        function noChecked(){
+            let checkedToggles = document.querySelectorAll('input[check=true]');
+            
+            let noCheckedNum = toggles.length - checkedToggles.length;
+            noCheckedShow.innerHTML = noCheckedNum;
+        }
+
+        //----------------------------删除------------------
+        var destroies;//删除按钮
+        delEvent();
+        function delEvent(){
+            for(let i=0; i<destroies.length; i++){
+                destroies[i].onclick = function(){
+                    completeds[i].remove();
+                    arr.splice(i,1)
+                    localStorage.setItem('note',JSON.stringify(arr))
+                    rander(arr)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
