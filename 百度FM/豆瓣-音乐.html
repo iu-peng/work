@@ -393,22 +393,22 @@
 		let heightMin = -1/2*soundBar.clientHeight;//最小高度
 		let heightMax = sound.clientHeight + heightMin;//最大高度
 		let soundMLeft = -1/2*(soundBar.clientWidth - sound.clientWidth)//向左偏移量
-		//soundBar.onmousedown = function(ev){
-			let soundM = new Tk(soundBar);
-			soundM.init();
+		
+		let soundM = new Tk(soundBar);
+		soundM.init();
 
-			soundM.fork('move',function(){
-			    soundM.x = soundMLeft;
-			    if(soundM.y<heightMin){
-			        soundM.y = heightMin;
-			    }
-			    if(soundM.y > heightMax){
-			        soundM.y = heightMax;
-			    }
-			    let soundScale = 1-(soundM.y - heightMin)/sound.clientHeight;
-			    audio.volume = soundScale;//调节音量
-			})
-		//}
+		soundM.fork('move',function(){
+		    soundM.x = soundMLeft;
+		    if(soundM.y<heightMin){
+		        soundM.y = heightMin;
+		    }
+		    if(soundM.y > heightMax){
+		        soundM.y = heightMax;
+		    }
+		    let soundScale = 1-(soundM.y - heightMin)/sound.clientHeight;
+		    audio.volume = soundScale;//调节音量
+		})
+		
 
 		//进度条滑动事件
 		let progressNowLeftMin = -1/2*progressNow.clientWidth;//最小left值
