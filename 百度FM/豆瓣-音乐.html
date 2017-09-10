@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>音乐FM</title>
+	<style>
+		body{
+			margin:0;
+			font-family:"微软雅黑";
+			background:#20b2aa;
+		}
+		p,h3{
+			margin:0;
+		}
+		ul,li{
+			margin:0;
+			padding:0;
+			list-style:none;
+		}
+		input{
+			border:0;
+			outline:none;
+		}
+		.clearFix:after{
+			display: block;
+			content:"";
+			clear:both;
+		}
+		.box { width:600px; height:400px; margin:100px auto; background:#fff; border-radius:10px; overflow:hidden; }
+		.head { height:250px; background:#37556e url(./lrcbg.png); }
+		.control { width:100%; background:#065c84 url(./lrcbg.png); }
+		.control div { float:left; }
+		.control div:nth-of-type(1) { width:70px; height:70px; border-radius:35px; background:#fff; box-shadow:0px 0px 10px 2px rgba(0,0,0,0.3); margin:40px 40px 0 40px; }
+		.next { width:50px; height:50px; border-radius:25px; background:#fff; box-shadow:0 0 10px 2px rgba(0,0,0,0.3); margin:50px auto; }
+		.playbtn:before { content:""; display:block; width:0; height:0; border-width:15px 20px; border-color:transparent transparent transparent #ccc; border-style:solid; margin:20px 0 0 30px;  }
+		.pausebtn:before,.pausebtn:after { content:""; display:inline-block; width:7px; height:40px; background:#fff; margin-top:15px; box-shadow:0 0 10px 2px rgba(0,0,0,0.3);}
+		.pausebtn:before { margin:15px 10px 0 23px; }
+		.next:before,.next:after { content:""; display:inline-block; width:0; height:0; border-width:8px 0 8px 18px; border-color:transparent transparent transparent #ccc; border-style:solid; margin:16px 0 0 12px; }
+		.next:after { margin:10px 0 0 -5px; }
+		.head p { height:40px; line-height:40px; text-align:center; font-size:30px; color:#ccc; -background:rgba(0,0,0,0.2);text-shadow: -1px -1px #fff, 1px 1px #333; white-space:nowrap;}
+		.head p:nth-of-type(2) { height:30px; line-height:30px; font-size:20px; }
+		.head .lrcbox { height:180px; overflow:hidden; position:relative; }
+		.head li { height:25px; line-height:25px; background:; text-align:center;white-space:nowrap; transition:0.4s }
+		.head li:nth-child(1) { margin-top:80px; }
+		.head li.active { height:30px; line-height:30px; color:#fff; font-size:20px;  }
+		.progressAll { height:5px; position:relative; background:#20b2aa; }
+		.progressBar { position:absolute; height:5px; width:0px; left:0; top:0; background:#ff6d6d; }
+		.progressNow { position:absolute; width:10px; height:5px; background:#fff; border-radius:3px; overflow:hidden; left:0px; top:0; }
+		.progressNow:before { content:""; display:block; width:2px; height:10px; background:#ccc; margin:0px auto; }
+		.progressAll:hover .progressNow { height:10px; width:20px; margin-top:-3px; }
+		.sound { float:right; margin:10px 20px 0 0; width:8px; height:130px; background:#ff6d6d; position:relative;  }
+		.soundBar { position:absolute; width:14px; height:14px; border-radius:50%; background:#fff; left:-3px; }
+
+		.CD { width:160px; height:160px; margin:5px auto 0; border-radius:50%; background:#000; overflow:hidden; }
+		.CDshow { width:130px; height:130px; margin:15px auto; border-radius:50%; background:#fff;overflow:hidden; }
+		.CDshow img { width:130px; height:130px; animation:imgRotate 10s linear infinite; }
+
+		@keyframes imgRotate{
+			from { transform:rotate(0deg);  }
+			to { transform:rotate(360deg); }
+		}
+
+		.channl { float:left; width:50px; height:50px; background:#fff; margin:50px 0px 0 170px; border-radius:50%; overflow:hidden; cursor:pointer;  }
+		.channlImg { width:100%; height:100%; border-radius:50%;  }
+		.musictip { width:15px; height:80px; background: url(./musictip.png) no-repeat; background-size:15px 80px; position:absolute; top:5px; left:356px; transform-origin:center 0; transform:rotate(-9deg); transition:0.3s; }
+		.musicTip { transform:rotate(-25deg); }
+	</style>
+	<script>
+		function ajax(options,tip){
+			//指定默认参数method
+			let ajaxOptions = Object.assign({
+				method:'get',
+				url:'',
+				data:''
+			},options);
+
+			//先判断请求接口是否为空。为空抛出错误
+			if(ajaxOptions.url === ''){
+				throw new Error('请求接口不能为空！');
+			}
+
+			let xhr = new XMLHttpRequest();
+
+			//传输为get类型的时候，要在接口url的后面加 ?+数据
+			if(ajaxOptions.method.toLowerCase() === 'get'){
+				ajaxOptions.url = ajaxOptions.url + '?user=' + ajaxOptions.data;
+			}
+
+			//默认异步为true；
+			xhr.open(ajaxOptions.method,ajaxOptions.url,true);
+
+			xhr.onload = function(){
+				getLyric(xhr.responseText)
+			}
+
+			if(ajaxOptions.method.toLowerCase() === 'get'){
+				xhr.send()
+			}else if(ajaxOptions.method.toLowerCase() === 'post'){
+				//设置请求头部
+				xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+				//发送post数据
+				xhr.send('sid='+ ajaxOptions.data);
+			}
+		}
+		//拖拽按钮事件
+		class Obj{
+            constructor(){
+                this.ku = {}
+            }
+
+            fork(size,people){//添加对应的对象 size:[people,people,...]
+                if(!this.ku[size]){
+                    this.ku[size] = [];
+                }
+                this.ku[size].push(people)
+            }
+
+            pushOut(size){//调出对应的函数
+                let arr = this.ku[size];
+                if(arr){
+                    for(let i=0; i<arr.length; i++){
+                        arr[i]();
+                    }
+                }
+            }
+
+            del(people){//删除对应数据
+                let bigArr = [];
+                for(let attr in this.ku){
+                    if(this.ku[attr] instanceof Array){//判断为数组类型
+                        bigArr = bigArr.concat(this.ku[attr])//将所有的对象中的数组连接起来
+                    }
+                }
+                
+                for(let i=0; i<bigArr.length; i++){
+                    if(bigArr[i] === people){//遍历数组找到对应的函数
+                        bigArr.splice(i,1)//删除
+                    }
+                }
+                console.log(bigArr)
+            }
+        }
+
+        class Tk extends Obj{//拖拽块继承自父类Obj
+            constructor(box){
+                super()
+                this.box = box;
+            }
+
+            init(){//拖拽初始化
+                this.box.onmousedown = this.downFn.bind(this);
+            }
+            downFn(ev){
+                this.pushOut('down')//对象上找不到会往上找该构造函数的父类Obj.
+                this.disX = ev.clientX - this.box.offsetLeft;
+                this.disY = ev.clientY - this.box.offsetTop;
+                document.onmousemove = this.moveFn.bind(this)
+                document.onmouseup = this.upFn.bind(this)
+                ev.preventDefault();
+            }
+            moveFn(ev){
+                this.x = ev.clientX - this.disX;
+                this.y = ev.clientY - this.disY;
+                this.pushOut('move')
+                this.box.style.left =  this.x + 'px';
+                this.box.style.top = this.y + 'px';
+            }
+            upFn(){
+                this.pushOut('up')//触发了该事件，才会调用父类的原型上的方法；
+                document.onmousedown = document.onmousemove = null;
+            }
+
+        }
+	</script>
+</head>
+<body>
+	
+	<div class="box">
+		<section class="head">
+			<p class="singName"></p>
+			<p class="singer">歌手</p>
+			<div class="lrcbox">
+				<ul class="lyricList">
+					<li class="active">1234567890</li>
+				</ul>
+				<div class="CD">
+					<div class="CDshow">
+						<img src="" id="CDimg" />
+					</div>
+				</div>
+				<div class="musictip"></div>
+			</div>
+		</section>
+		<section class="control clearFix">
+			<p class="progressAll">
+				<span class="progressBar"></span>
+				<span class="progressNow"></span>
+			</p>
+			<p class="channl">
+				<img src="./channlImgBg.png" class="channlImg">
+			</p>
+			<div class="play playbtn"></div>
+			<div class="next"></div>
+			<p class="sound">
+				<span class="soundBar"></span>
+			</p>
+		</section>
+		<audio src=""></audio>
+	</div>
+
+	<script>
+		let play = document.getElementsByClassName('play')[0];
+		let audio = document.querySelector('audio')
+		let singName = document.querySelector('.singName')
+		let singer = document.querySelector('.singer')
+		let lyricList = document.querySelector('.lyricList')
+		let lyricLis = lyricList.getElementsByTagName('li')
+		//进度快
+		let progressNow = document.querySelector('.progressNow')
+		let progressAll = document.querySelector('.progressAll')
+		let progressBar = document.querySelector('.progressBar')
+		//下一首
+		let next = document.querySelector('.next')
+		//声音
+		let sound = document.querySelector('.sound')
+		let soundBar = document.querySelector('.soundBar')
+		//封面
+		let channl = document.querySelector('.channl')
+		let channlImg = document.querySelector('.channlImg')
+		//
+		let CD = document.querySelector('.CD');
+		let musictip = document.querySelector('.musictip');
+		let CDimg = document.getElementById('CDimg');
+		//加载歌曲
+
+		lyricList.style.display = 'none';
+		function getMusic(data){
+			
+			let dataLrc = data.song[0].sid;
+			audio.src = data.song[0].url;//加载资源
+			singName.innerHTML = data.song[0].title;//歌曲名
+			singer.innerHTML = data.song[0].artist;//歌手名
+			CDimg.src = data.song[0].picture;//封面
+			//channlImg.src = CDimg.src;
+			//if(audio.readyState === 4){
+			audio.play();//开始播放
+			putLyricRequest(dataLrc)//加载歌词
+			//} 
+		}
+		//发送请求歌词需求
+		function putLyricRequest(dataLrc){
+			ajax({
+				method:'post',
+				url:'http://api.jirengu.com/fm/getLyric.php',
+				data:dataLrc//sid
+			})
+		}
+
+		//加载歌词
+		function getLyric(data){
+			
+			data = JSON.parse(data)
+			let songLrc = data.lyric;
+			let songLrcArr = songLrc.split('\n');//用\n将歌词分为用时间开头的数组
+			let re = /\[\d{2}:\d{2}\.\d{2}\]/g;//匹配正则
+			let lrcArr = [];
+			for( let i=0; i<songLrcArr.length; i++){
+				let strLrc = songLrcArr[i];
+				let timeArr = strLrc.match(re);//获得歌词前的时间字符串
+				if(!timeArr) continue;
+				songLrcArr[i] = songLrcArr[i].replace(re,'')//把时间去掉
+
+				for( let j=0; j<timeArr.length; j++){
+					let timeStage = timeArr[j].slice(1,-1).split(':')
+					let timeSecond = (timeStage[0]|0) * 60 + parseFloat(timeStage[1]);//分段成时间秒s
+					lrcArr.push( [timeSecond,songLrcArr[i]] )//[时间，歌词]
+				}
+			}
+			lrcArr.sort(function(a,b){
+				return a[0] - b[0];//进行歌词时间 的排序
+			})
+			
+			let html = lrcArr.map(function(item){
+				return `<li data-stage="${item[0]}">${item[1]}</li>`
+			}).join('')
+
+			lyricList.innerHTML = html;
+		}
+
+		let preLi;
+		let nowI = 0;
+		//总进度条的长度
+		let progAllLength = progressAll.clientWidth;
+		
+		var timer = setInterval(allTimer,300)
+		function allTimer(){
+			let curT = audio.currentTime;//歌曲播放所在的时间点。
+
+			for(let i=nowI; i<lyricLis.length; i++){
+				let nowT = parseFloat( lyricLis[i].dataset.stage );
+				//let nextT = parseFloat( lyricLis[i+1].dataset.stage );
+				//console.log(nextT)
+				//if( (curT > nowT)&&(curT < nextT) ){
+				if( (curT > nowT) ){//播放点大于歌词的标记时间进行切换
+					if(preLi){
+						preLi.classList.remove('active');
+					}
+
+					lyricList.style.marginTop = -i*25 + 'px';
+					lyricLis[i].classList.add('active')
+					preLi = lyricLis[i];
+					nowI = i;
+				}
+				
+			}
+
+			let progressLeft = curT/audio.duration * progAllLength;//过去的时间长度
+			progressNow.style.left = progressLeft-5 + 'px';//进度块的left值。
+
+			progressBar.style.width = progressLeft + 'px';
+
+			//是否播放完毕
+			if(audio.ended){
+				playOrPause()
+				//audio.ended = false;
+			}
+			console.log(11)
+		}
+		//清除定时器函数包装
+		//带参数：不再次开启  未带参数：清除完接着开始计时；
+		function clearTimer(begin){
+			clearInterval(timer);
+			timer = null
+			nowI = 0;
+			if(!begin) timer = setInterval(allTimer,300)
+		}
+		//播放
+		play.onclick=function(){
+			
+			if(play.onOff === undefined){
+				/*let script=document.createElement('script')
+				script.src=`http://api.jirengu.com/fm/getSong.php?channel=4&callback=getMusic`
+				document.body.appendChild(script);*/
+				nextSong();
+
+				play.classList.remove('playbtn');
+				play.classList.add('pausebtn')
+				play.onOff = true;
+				return;
+			}
+
+			if(audio.readyState === 4){
+				playOrPause()
+			}
+		}
+		function nextSong(){
+			let script=document.createElement('script')
+			script.src=`http://api.jirengu.com/fm/getSong.php?channel=4&callback=getMusic`
+			script.setAttribute('preScript','no')
+			document.body.appendChild(script);
+		}
+		//播放或暂停按钮事件
+		function playOrPause(){
+			if(play.onOff){//进入暂停状态
+				play.classList.remove('pausebtn');
+				play.classList.add('playbtn')
+				musictip.classList.toggle('musicTip')
+				audio.pause();
+
+				play.onOff = false;
+				clearTimer(true);
+			}else{//进入播放状态
+				play.classList.remove('playbtn');
+				play.classList.add('pausebtn')
+				musictip.classList.toggle('musicTip')
+				audio.play();
+
+				play.onOff = true;
+			}
+		}
+
+		
+		//下一首
+		next.onclick = function(){
+			let preScript = document.querySelector('script[prescript="no"]')
+			preScript.remove();//移除现有的script标签
+
+			clearTimer()
+			nextSong()
+		}
+
+		//音量滑动事件
+		let heightMin = -1/2*soundBar.clientHeight;//最小高度
+		let heightMax = sound.clientHeight + heightMin;//最大高度
+		let soundMLeft = -1/2*(soundBar.clientWidth - sound.clientWidth)//向左偏移量
+		//soundBar.onmousedown = function(ev){
+			let soundM = new Tk(soundBar);
+			soundM.init();
+
+			soundM.fork('move',function(){
+			    soundM.x = soundMLeft;
+			    if(soundM.y<heightMin){
+			        soundM.y = heightMin;
+			    }
+			    if(soundM.y > heightMax){
+			        soundM.y = heightMax;
+			    }
+			    let soundScale = 1-(soundM.y - heightMin)/sound.clientHeight;
+			    audio.volume = soundScale;//调节音量
+			})
+		//}
+
+		//进度条滑动事件
+		let progressNowLeftMin = -1/2*progressNow.clientWidth;//最小left值
+		let progressNowLeftMax = progressAll.clientWidt + progressNowLeftMin;//最大left值
+
+		//
+		let progressNowM = new Tk(progressNow);
+		progressNowM.init();
+
+		progressNowM.fork('move',function(){
+		    progressNowM.y = 0;
+		    if(progressNowM.x<0){
+		        progressNowM.x = 0;
+		    }
+		    if(progressNowM.x > progressNowLeftMax){
+		        progressNowM.x = progressNowLeftMax;
+		    }
+		    let progressScale = (progressNowM.x - progressNowLeftMin)/progressAll.clientWidth;
+		    audio.currentTime = progressScale*(audio.duration);
+
+		    clearTimer()
+		    //console.log(audio.currentTime)
+		})
+
+		channl.onclick = function(){
+			if(channl.onOff){
+				channlImg.src = './channlImgBg.png';
+				CD.style.display = 'block';
+				musictip.style.display = 'block';
+				lyricList.style.display = 'none';
+			}else{
+				channlImg.src = CDimg.src;
+				CD.style.display = 'none';
+				musictip.style.display = 'none';
+				lyricList.style.display = 'block';
+			}
+			channl.onOff = !channl.onOff;
+		}
+	</script>
+</body>
+</html>
