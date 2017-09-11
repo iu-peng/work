@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>todos</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <section class="todoapp">
+        <div>
+            <header class="header" >
+                <h1>todos</h1>
+                <input class="new-todo" placeholder="请输入内容" v-model="todo" @keydown.13="addTodo">
+            </header>
+            <!-- section的显示与否由list的长度决定，list有值进行显示。 -->
+            <!-- v-show：显示与隐藏：通过display控制 -->
+            <section class="main" v-show="list.length">
+                <!-- 这个input类型为checkbox，所以v-model指的是它的checked -->
+                <!-- v-model：表单元素上实现双向数据绑定。自动选取value或checked -->
+                <input class="toggle-all" v-model="isAllChecked" type="checkbox">
+                <ul class="todo-list">
+                    <!-- v-for进行渲染，将class属性和实例的checked进行绑定 -->
+                    <li  v-for="item,index in list" :class="{completed: item.checked,editing:edit === item}" />
+                        <div class="view">
+                            <!-- 将input的checked和实例的checked属性进行双向绑定 -->
+                            <input class="toggle" type="checkbox" v-model="item.checked">
+                            <!-- 双击事件：编辑；将该组数据赋给edit，li根据此条件判断label的显示隐藏 -->
+                            <label @dblclick = "editTode(item)">{{item.title}}</label>
+                            <!-- 点击事件 根据下标删除对应数据-->
+                            <button class="destroy" @click="delTodo(index)"></button>
+                        </div>
+                        <!-- 回车和失去焦点事件：对数据进行更新 -->
+                        <input class="edit" v-model="item.title" 
+                        @keydown.13="editDone(item)"
+                        @blur="editDone(item)"
+                        @keydown.esc="editCancel(item)" />
+                    </li>
+                </ul>
+            </section>
+            <footer class="footer" v-show="list.length">
+	            <span class="todo-count">
+	            	<strong>{{unChecked}}</strong>
+	            	<span>条未选中</span>
+	            </span>
+            </footer>
+        </div>
+    </section>
+    <script>
+        let data = localStorage.getItem('note')
+        
+        if(data){
+            data = JSON.parse(data);
+        }else{
+            data = []
+        }
+        new Vue({
+            el:'.todoapp',
+            data:{
+                list:data,//渲染的数据存在这里
+                todo:'',//输入框中的内容是直接从实例的data中获取的，行间设置不起作用
+                edit:'',//控制编辑框的显隐
+                beforeEdit:''//取消操作还原初始值
+            },
+            watch:{//观察者模式
+                list:{
+                    deep:true,
+                    handler(){
+                        localStorage.setItem('note',JSON.stringify(this.list))
+                    }
+                }
+            },
+            //执行的函数放在methods中
+            methods:{
+                addTodo(){
+                    this.list.push({
+                        id:Math.random(),//随机数
+                        title:this.todo,
+                        checked:false//默认为未选中状态
+                    })
+                    this.todo = '';//输入框中的内容用完清空
+                },
+                delTodo(index){
+                    this.list.splice(index,1);//用对应下标删除对应的数据
+                },
+                editTode(item){
+                    this.beforeEdit = item.title;//编辑前先存储下当前值，防止取消编辑
+                    this.edit = item;//！！！！这个条件和上面结构中的li中控制editing显隐相关，不一定非得是=item，只要和上面保持一致就行！！！！！
+                },
+                editDone(item){
+                    if(item.title === ''){
+                        let i = this.list.indexOf(item);//找到对应的下标
+                        this.list.splice(i,1)//为空，删除对应数据
+                    }
+                    this.edit = '';//控制编辑框隐藏，显示框显示
+                },
+                editCancel(item){
+                    item.title = this.beforeEdit;
+                    this.edit = '';//控制编辑框隐藏，显示框显示
+                }
+            },
+            //执行的算法放在computed中
+            computed:{
+                isChecked(){//找到选中的数组
+                    return this.list.filter(function(item){
+                        return item.checked;
+                    })
+                },
+                isAllChecked:{
+                    get(){//选中个数 === 总长度
+                        return this.list.length === this.isChecked.length;
+                    },
+                    set(newValue){//点击全选进行全部选中操作
+                        this.list.forEach(function(item){
+                            item.checked = newValue;
+                        })
+                    }
+                },
+                unChecked(){//为选中个数=数据总个数-选中的个数
+                    return this.list.length - this.isChecked.length;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
