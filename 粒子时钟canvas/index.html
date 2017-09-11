@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body { background:#3b4959; }
+		canvas { display:block; margin:100px auto; }
+	</style>
+	<script src="./digit.js"></script>
+</head>
+<body>
+	<canvas width="800" height="150"></canvas>
+	<script>
+		let colorArr = [ '#20b2aa','#FFA500','#FF4500','#DA70D6','#EEE8AA','#98FB98']
+		let canvas = document.querySelector('canvas');
+		let ctx = canvas.getContext('2d')
+
+		canvas.height = 120;
+		//canvas.width = 800;
+		
+		let R = canvas.height/20-1;
+
+		//渲染点阵
+		function rander(index,num){
+			for(let i=0; i<digit[num].length; i++){//遍历每个数字的每一行
+				for(let j=0; j<digit[num][i].length; j++){//遍历每一行的每一个0 1
+					if(digit[num][i][j] === 1){
+						ctx.beginPath();
+						ctx.arc( 14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI )
+						ctx.closePath();
+						ctx.fillStyle = colorArr[Math.round( Math.random()*5 )]
+						ctx.fill();
+
+					}
+				}
+			}
+		}
+
+		//开启定时器
+		function timeRander(){
+			let nowT = new Date();
+			let re = /(\d)(\d):(\d)(\d):(\d)(\d)/;//带括号会分组，匹配的值第一个是匹配整体的，再往后就是每个分组匹配的值
+			
+			let tArr = (''+nowT).match(re);
+			//["21:36:41", "2", "1", "3", "6", "4", "1", index: 16, input: "Sun Sep 10 2017 21:36:41 GMT+0800 (中国标准时间)"]
+
+			let timeArr = []
+			timeArr.push(tArr[1],tArr[2],10,tArr[3],tArr[4],10,tArr[5],tArr[6])
+			
+			canvas.height = 120;
+
+			for(let i=0; i<timeArr.length; i++){
+				rander(i,timeArr[i])
+			}	
+
+		}
+
+		timeRander();
+		setInterval(timeRander,1000)
+	</script>
+</body>
+</html>
