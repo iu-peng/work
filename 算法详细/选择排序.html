@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">    
+        /*
+            时间复杂度约数O(n^2);
+            冒泡， 快排， 选择， 插入， 希尔
+            堆排序， 桶排序， 基数排序，计数排序
+         */
+		var arr = [2,88,6,8,3,0,34,72];
+        function selectionSort(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                var min = arr[i];//假定比较范围内第一个值为最小的
+                var index = i;//记录最小值的下标
+
+                for (var j = i + 1; j < arr.length; j++) {
+                    //找到比较范围内第一个值为最小的记录下来
+                    if (arr[j] < min) {
+                        min = arr[j];
+                        index = j;
+                    }
+                }
+                //把范围内最小的值交换到范围内第一个
+                if (index != i) {
+                    var temp = arr[i];
+                    arr[i] = arr[index];
+                    arr[index] = temp;
+                }
+                
+                document.write(arr);
+                document.write('<br />')
+            }
+        }
+        selectionSort(arr);
+	</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			
+		 */ 
+		function binarySearch(arr,low, high, key) {
+            if (low > high){
+                return -1;
+            }
+
+            let mid = parseInt((high + low) / 2);
+
+            if(arr[mid] == key){
+                return mid;
+            }else if (arr[mid] > key){
+                high = mid - 1;
+                return binarySearch(arr, low, high, key);
+            }else if (arr[mid] < key){
+                low = mid + 1;
+                return binarySearch(arr, low, high, key);
+            }
+        };
+        
+        let arr = [1, 2, 4, 8, 10, 15, 20];
+        let result = binarySearch(arr, 0, arr.length, 10);  
+        alert(result); // 4 返回目标元素的索引值
+	</script>
+</body>
+</html>

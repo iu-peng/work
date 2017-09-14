@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">    
+        /*
+            时间复杂度O(n^2)
+         */
+		function insertSort(array){   
+            for(var i = 1; i < array.length; i++){   
+                var temp = array[i];  //
+
+                //从后往前查找。
+                for(var j = i - 1; j < i && array[j] > temp; j--){   
+                    array[j+1] = array[j];    
+                }   
+
+                array[j+1] = temp;  
+
+                document.write(array + "<br/>");   
+            }   
+        }   
+        var array = [21, 25, 49, 25, 16, 08];   
+        insertSort(array);
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+                  
+         */  
+        var arr = [2,88,6,8,3,0,34,72];
+        var len = arr.length;
+
+        for (var fraction = Math.floor(len / 2); fraction > 0; fraction = Math.floor(fraction / 2)) {
+            for (var i = fraction; i < len; i++) {
+                for (var j = i - fraction; j >= 0 && arr[j] > arr[fraction + j]; j -= fraction) {
+                    
+                    var temp = arr[j];
+                    arr[j] = arr[fraction + j];
+                    arr[fraction + j] = temp;
+                }
+            }
+
+            document.write(arr);
+            document.write("<br />")
+        }
+        console.log(arr);
+	</script>
+</body>
+</html>
