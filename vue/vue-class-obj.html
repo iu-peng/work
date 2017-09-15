@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>练习</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div class="box">
+		<p :class="tit" v-for="item,index in list">{{item}}{{'这是'+index}}</p>
+	</div>
+	<script>
+		let obj = {
+			cla:true,
+			cla2:false,
+			cla3:'true',
+			cla4:'false'
+		}
+		/*obj.toString = function(){
+			let str = ''
+			for(var attr in obj){
+				if(obj[attr]){
+					str+=obj[attr]+' '
+				}
+			}
+			return str;
+		};*/
+		Object.defineProperty(obj,'toString',{'enumerable':false})
+		new Vue({
+			el:'.box',
+			data:{
+				list:[
+					1,2,3,4,5
+				],
+				tit:obj
+			}
+		})
+	</script>
+</body>
+</html>

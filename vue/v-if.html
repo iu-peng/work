@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>练习</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div class="box">
+		<p :style="[tit2,tit]" v-for="item,index of list">{{item}}
+			<h2 v-if="false">sdfsdfsd</h2>
+			<h3 v-else>dsfsdfdsf</h3>
+		</p>
+	</div>
+	<div class="box"></div>
+	<script>
+		let obj = {
+			background:'orange',
+			color:'#fff'
+		}
+		let obj2 = {
+			background:'red',
+			color:'#000'
+		}
+		/*obj.toString = function(){
+			let str = ''
+			for(var attr in obj){
+				if(obj[attr]){
+					str+=attr +':'+obj[attr]+';'
+				}
+			}
+			return str;
+		};*/
+		new Vue({
+			el:'.box',
+			data:{
+				list:[
+					1,2,3,4,5
+				],
+				tit:obj,
+				tit2:obj2,
+				sta:true
+			}
+		})
+	</script>
+</body>
+</html>

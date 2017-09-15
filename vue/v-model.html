@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>练习</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div class="box">
+		<input type="text" v-model="abc" id="">
+		<p>{{abc}}</p>
+
+		<input type="checkbox" v-model="ab" id="mike" value="mike">
+		<label for="mike">Mike</label>
+
+		<input type="checkbox" v-model="ab" id="sam" value="sam">
+		<label for="sam">sam</label>
+
+		<input type="checkbox" v-model="ab" id="dd" value="dd">
+		<!-- <label for="dd">dd</label> -->
+
+		<hr>
+		{{ab}}
+		<hr>
+		<input type="radio" value="单选1" v-model="abcd" id="r1" name="">
+		<input type="radio" value="单选2" v-model="abcd" id="r2" name="">
+		<hr>
+		{{abcd}}
+	</div>
+	<div class="box"></div>
+	<script>
+		let vm = new Vue({
+			el:'.box',
+			data:{
+				list:[1,2,3],
+				b:'haha',
+				abc:'',
+				ab:[],
+				abcd:[]
+			}
+		})
+	</script>
+</body>
+</html>

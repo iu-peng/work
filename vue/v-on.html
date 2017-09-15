@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>练习</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div class="box">
+		<button  @click="say(list,$event)">say hi</button>
+		<button></button>
+	</div>
+	<div class="box"></div>
+	<script>
+		let vm = new Vue({
+			el:'.box',
+			data:{
+				list:[1,2,3],
+				b:'haha'
+			},
+			methods:{
+				say(a,c){
+					alert(a)//参数1为传入的参数
+					alert(c)//参数2为传入的event事件
+				}
+			}
+		})
+	</script>
+</body>
+</html>

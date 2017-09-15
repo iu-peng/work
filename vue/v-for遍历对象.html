@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>练习</title>
+	<script src="../vue.js"></script>
+</head>
+<body>
+	<div class="box">
+		<p  v-for="item,key,index of list">{{key}}:{{item}}这是第{{index}}个</p>
+		<!-- 遍历的是对象的属性 第二个参数key是属性名，第一个参数是属性值 第三个参数为索引值 -->
+		<h2 v-for="item in 10" v-if="Math.random()*10>5">{{item}}</h2>
+		<!-- v-for的优先级比v-if的优先级高 -->
+	</div>
+	<div class="box"></div>
+	<script>
+		let obj = {
+			background:'orange',
+			color:'#fff'
+		}
+		let obj2 = {
+			background:'red',
+			color:'#000'
+		}
+		/*obj.toString = function(){
+			let str = ''
+			for(var attr in obj){
+				if(obj[attr]){
+					str+=attr +':'+obj[attr]+';'
+				}
+			}
+			return str;
+		};*/
+		let vm = new Vue({
+			el:'.box',
+			data:{
+				list:{
+					one:'tt',
+					two:'dsf',
+					three:'sdf'
+				}
+			}
+		})
+		Vue.set(vm.list,'four','444')//全局添加
+		vm.list.five = 55
+		vm.$set(vm.list,'six','666')
+	</script>
+</body>
+</html>
