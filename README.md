@@ -105,6 +105,9 @@
 * 备忘清单-vue版
 * 百度FM
 
+### VUE
+* vue练习
+
 <h1 align="center">Ajax</h1>
 
 ### Ajax练习
