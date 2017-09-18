@@ -107,6 +107,7 @@
 
 ### VUE
 * vue练习
+* vue-router
 
 <h1 align="center">Ajax</h1>
 
