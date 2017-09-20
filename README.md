@@ -108,6 +108,7 @@
 ### VUE
 * vue练习
 * vue-router
+* vue仿mooc练习
 
 <h1 align="center">Ajax</h1>
 
