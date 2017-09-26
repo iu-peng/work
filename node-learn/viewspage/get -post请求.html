@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>b</title>
+	<script src="/js/jquery-3.2.1.js"></script>
+</head>
+<body>
+	<button id="btn1">get请求</button>
+	<button id="btn2">post请求</button>
+	<form method="post" action="/upload" enctype='multipart/form-data'>
+		<input type="file" name="miaov">
+		<input type="submit"  value="上传" />
+	</form>
+	<script>
+		$('#btn1').click(function(){
+			$.ajax({
+				url:'http://localhost:3000/getdata?'+'userName=lik',
+				method:'get',
+				sucess(data){
+					console.log(data)
+				}
+			})
+		})
+
+		$('#btn2').click(function(){
+			$.ajax({
+				url:'http://localhost:3000/postdata',
+				method:'post',
+				data:{
+					myName:'abc'
+				},
+				sucess(data){
+					console.log(data)
+				}
+			})
+		})
+	</script>
+</body>
+</html>

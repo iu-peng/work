@@ -1,0 +1,46 @@
+nodejs
+是基于chrome v8引擎用来运行js的环境(运行时runtime)
+
+Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境
+
+Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。 
+
+npm 包管理器
+-----
+https://www.npmjs.com/
+
+模块
+----------------------
+一个文件就是一个模块
+
+1. 加载模块
+	a. 加载一个文件模块
+		require("相对路径或绝对路径");  一定要加相对或绝对路径
+	b. 内置模块
+		无需使用npm下载，安装node时候已经安装好了
+	c. 文件夹模块
+		第三方模块 安装之后，会在项目目录下创建node_modules文件夹
+		文件夹模块中都有一个package.json，用来描述这个模块
+
+
+查找模块
+	先找内置模块 -- 再找本项目的node_modules下的模块
+
+
+
+
+模块加载器  -- 用在浏览器端的
+----------------
+
+Seajs 	  国内   依赖就近的原则
+	CMD规范
+requirejs 国外   依赖前置的原则   后来---依赖就近的原则
+	AMD规范
+
+nodejs加载模块
+------------------------
+采用的CommonJS规范，规定了如何定义和加载模块。
+--- http://javascript.ruanyifeng.com/nodejs/module.html#
+
+ec6的moudel
+
