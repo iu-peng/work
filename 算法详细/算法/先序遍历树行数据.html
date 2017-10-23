@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var tree = {
+		  value: 1,
+		  left: {
+		    value: 2,
+		    left: {
+		      value: 4
+		    }
+		  },
+		  right: {
+		    value: 3,
+		    left: {
+		      value: 5,
+		      left: {
+		        value: 7
+		      },
+		      right: {
+		        value: 8
+		      }
+		    },
+		    right: {
+		      value: 6
+		    }
+		  }
+		}
+
+		var preOrder = function (node) {
+		  if (node) {
+		    document.write(node.value + '    ');
+		    preOrder(node.left);
+		    preOrder(node.right);
+		  }
+		}
+
+		preOrder(tree);
+	</script>
+</body>
+</html>

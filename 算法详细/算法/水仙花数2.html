@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var begin = new Date();
+		for (let i = 100; i <= 999; i++) {
+			let first = i % 10;
+			let second = Math.floor(i / 10 %　10);
+			let third = Math.floor(i / 100)
+
+			let first3 = first * first * first;
+			let second3 = second * second * second;
+			let third3 = third * third * third;
+
+			if (first3 + second3 + third3 === i) {
+				document.write(i + '  ')
+			}
+		}
+		var end = new Date();
+		console.log(end - begin)		
+	</script>
+</body>
+</html>

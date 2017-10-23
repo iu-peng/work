@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		 /*
+		 	
+		  */
+		 function resolved (num) {
+		 	var str = `${num} = `;
+		 	for (var i = 2; i <= num; i++) {
+		 		while (num % i === 0) {
+		 			num /= i;
+		 			str += i + '*';
+		 		}
+		 	}
+
+		 	return str;
+		 }
+
+		 document.write(resolved(90));
+	</script>
+</body>
+</html>

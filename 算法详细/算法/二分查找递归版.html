@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		let arr = [8, 11, 33, 92, 666, 4396, 9527];
+
+		function binarySearch (arr, low, high, key) {
+			// 当递增的数字大于递减的数字的时候，停止查找
+			if (low > high) {
+				return -1;   // 出口。
+			}
+			var mid = Math.floor((low + high) / 2)
+			if (key === arr[mid]) {
+				return mid;
+			} else if (key > arr[mid]) {
+				low = mid + 1;
+				return binarySearch (arr, low, high, key)
+			} else if (key < arr[mid]) {
+				high = mid - 1;
+				return binarySearch (arr, low, high, key)
+			}
+		}
+
+		console.log(binarySearch(arr, 0, arr.length - 1, 666))
+	</script>
+</body>
+</html>

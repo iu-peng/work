@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var begin=new Date();
+		var n1 = 1;
+		var n2 = 1;
+		var temp;
+
+		document.write(n1 + '  ' + n2 + '   ');
+		for (var i = 2; i < 40; i++) {
+			temp = n2;
+			n2 = n1 + n2;
+			n1 = temp;
+			document.write(n2 + '   ')
+		}
+
+		 var end = new Date();
+		 console.log(end - begin)
+	</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var begin = new Date();
+		for (let i = 100; i <= 999; i++) {
+			let first = i.toString().charAt(0); //百位数
+			let second = i.toString().charAt(1);  // 十位数
+			let third = i.toString().charAt(2);  //个位数
+				
+			let first3 = first * first * first;
+			let second3 = second * second * second;
+			let third3 = third * third * third;
+
+			if (first3 + second3 + third3 == i) {
+				document.write(i + '   ')
+			}
+		}
+
+		var end = new Date();
+		console.log(end - begin)
+	</script>
+</body>
+</html>

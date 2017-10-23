@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 顺序存储结构的递归先序遍历
+	    var tree = [1, 2, 3, 4, 5, , 6, , , 7];
+
+	    document.write('preOrder:');
+	    void function preOrderTraverse(x, visit) {
+	        visit(tree[x]);
+	        if (tree[2 * x + 1]) preOrderTraverse(2 * x + 1, visit);
+	        if (tree[2 * x + 2]) preOrderTraverse(2 * x + 2, visit);
+	    }(0, function (value) {
+	    	document.write(value + '  ')
+	    });
+	</script>
+</body>
+</html>

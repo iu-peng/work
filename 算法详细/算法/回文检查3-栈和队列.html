@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var str1 = 'abba';
+		var str2 = 'abab';
+
+		function palindromeCheck (str) {
+			var arr = [];
+			for (let i = 0; i < str.length; i++) {
+				arr.push(str[i])
+			}
+			console.log(arr)
+			var newArr = '';
+			while (arr.length > 0) {
+				newArr += arr.pop();
+			}
+
+			return newArr == str ? true : false;
+		}
+
+		console.log(palindromeCheck(str1));
+		console.log(palindromeCheck(str2))
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		let arr = [666, 8, 11, 9827, 4396, 18, 32];
+		
+		function insertSort (arr) {
+			for (var i = 1; i < arr.length; i++) {
+				var temp = arr[i];   // 保存要插入的值
+
+				// i - 1;
+				// 代表已经排好的序。
+				// 从后往前进行查找
+				// 
+				// j >= 0 j < i  
+				for (var j = i - 1; j >= 0 && arr[j] > temp; --j) {
+					arr[j + 1] = arr[j];  // 后移					
+				}
+
+				arr[j + 1] = temp; // 插入序列中
+
+				document.write(arr + '<br />');
+			}
+		}	
+		insertSort(arr)
+	</script>
+</body>
+</html>

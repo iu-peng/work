@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 主串 模式串
+		let s = 'ababcabcacbab';
+		// 子串 （匹配的串）
+		let t = 'abcac';
+
+		function bf (s, t) {
+			var sLen = s.length;
+			var tLen = t.length;
+			var compaireLen = sLen - tLen;
+
+			for (var i = 0; i < compaireLen; i++) {
+				// 如果满足第一位是相等的，则开始进行比较
+				if (s.charAt(i) === t[0]) {
+					// 进行匹配的数据。==》 匹配成功的数据
+					var pos = 0;
+					for (var j = 0; j < tLen; j++) {
+						if (s.charAt(i + j) === t.charAt(j)) {
+							pos++;
+
+							if (pos == tLen) {
+								return pos;
+							}
+						}
+					}
+				}
+			}
+			return -1;
+		}
+
+		console.log(bf(s, t));
+	</script>
+</body>
+</html>

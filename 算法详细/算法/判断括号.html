@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var expression = "{{}}{}{}"
+		var expressionFalse = "{}{{}";
+
+		function isBalanced (str) {
+			var stack = [];
+			// 当空集的时候，默认括号为闭合状态
+			if (str.length <= 0) {
+				return true;
+			}
+
+			for (let i = 0; i < str.length; i++) {
+				// 左括号进栈
+				if (str[i] === '{') {
+ 					stack.push(str[i])
+				} else if (str[i] === '}') {  // 右括号
+					// 数组中存在值，则进行抛出
+					if (stack.length > 0) {
+						stack.pop();
+					} else {  // 数组中不存在值，false
+						return false;
+					}
+				}
+			}
+
+			// 数组中不为空
+			if (stack.length > 0) {
+				return false;
+			}
+
+			return true;
+		}
+
+
+		console.log(isBalanced(expression)); // true
+		console.log(isBalanced(expressionFalse)); // false
+		console.log(isBalanced("")); // true		
+	</script>
+</body>
+</html>

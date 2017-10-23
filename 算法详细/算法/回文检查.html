@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var str1 = 'abba';
+		var str2 = 'abab';
+
+		function palindromeCheck (str) {
+			return str === str.split('').reverse().join('');
+		}
+
+		console.log(palindromeCheck(str1));
+		console.log(palindromeCheck(str2));
+	</script>
+</body>
+</html>

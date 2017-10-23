@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var str1 = 'abcba';
+		var str2 = 'abab';
+
+		function palindromeCheck (str) {
+			var i = 0;   //abba的第一个a
+			var j = str.length - 1;  //abba的最后一个a
+			
+			for (; i < j; i++, j--) {
+				if (str[i] !== str[j]) {
+					return false;
+				}
+			}
+
+			return true;
+		}		
+		console.log(palindromeCheck(str1));
+		console.log(palindromeCheck(str2));
+	</script>
+</body>
+</html>

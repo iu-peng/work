@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		 function numberConvers (number) {
+		 	var stack = [];
+		 	var str = '';
+		 	while (number > 0) {  // 可以做除法运算
+		 		stack.push(number % 2);  // 将余数进栈
+		 		number = Math.floor(number / 2); // 商
+		 	}
+		 	// 当数组中有值的时候，进行抛出（出栈）
+		 	while (stack.length > 0) {
+		 		str += stack.pop();
+		 	}
+
+		 	return str;
+		 }		   	
+		 console.log(numberConvers(10))
+
+		 // 二进制
+		 console.log(parseInt('1010', 2))
+	</script>
+</body>
+</html>

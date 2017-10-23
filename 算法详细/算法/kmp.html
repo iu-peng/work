@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		let s = 'ababcabcacbab';
+		let t = 'abcac';
+		function getnext(N) {
+		    var next = [-1]
+		    ,   n = N.length
+		    ,   j = 1         // 从第二位开始保存
+		    ,   i
+
+		    for (; j < n; j++) {
+		        i = next[j-1]
+		        while (N[i+1] != N[j] && i >= 0) i = next[i]
+		        if (N[i+1] == N[j]) next[j] = i+1     // 情况1、2
+		        else next[j] = -1                     // 情况3
+		    }
+		    return next
+		}
+		function kmp(M, N) {
+		    var next = getnext(N)
+		    ,    match = []
+		    ,    m = M.length
+		    ,    n = N.length
+		    ,    j = 0
+		    ,    i = -1
+
+		    for (; j < m; j++) {
+		        while (N[i+1] != M[j] && i >= 0) i = next[i] // 2. 否则回溯到next点继续匹配
+		        if (N[i+1] == M[j]) i++                      // 1. 如果相等继续匹配
+		        if (i == n-1) {match.push(j-i); i = next[i]} // 如果发现匹配完成输出成功匹配位置
+		        // 否则返回i=-1，继续从头匹配
+		    }
+		    return match
+		}
+
+		document.write(kmp(s, t));
+	</script>
+</body>
+</html>
